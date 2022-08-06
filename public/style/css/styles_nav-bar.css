@@ -1,0 +1,90 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+body {
+    height: 100vh;
+    margin: 0;
+    background-color: hsl(60, 20%, 100%);
+    display: flex;
+    flex-direction: column;
+}
+header{
+    color: #e6eaea;
+    background-color: #427fe0;
+    display: flex;
+    margin-bottom: 0 -3rem 3rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+}
+.main_header_img{
+    display: flex;
+    align-items: center;
+    height: fit-content;
+}
+.main_header_p {
+    font-size: 1.3rem;
+    margin-top: -1rem;
+}
+.main_header {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding: 0%;
+}
+.logo-loyola{
+    width: 250px;
+    height: auto;
+    align-self: center;
+}
+.main_header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.nav-bar {
+    background-color: #1d56b3;
+    width: 100%;
+    height: fit-content;
+    padding: 0;
+    display: flex;
+}
+.menu-bar {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);  
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    }
+.menu-bar li {
+    display: flex;
+    margin-inline-start: 1rem;
+    max-height: 100%;
+    list-style: none;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding: 1rem 1.2rem;
+    margin: 0 1rem;
+    position: relative;
+    cursor: pointer;
+    white-space: wrap;
+}
+    .menu-bar li:hover {
+    transition: .2s;
+    border-radius: 2rem;
+    color: black;
+    background: linear-gradient(to bottom, #e8edec, #cfd1d3);
+    box-shadow: 0px 3px 20px 0px black;
+    transform: scale(1.1);
+    }

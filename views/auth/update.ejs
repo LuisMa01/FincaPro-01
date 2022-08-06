@@ -1,9 +1,26 @@
 <h2>Actualizar Contraseña</h2>
-<form action="/auth/<%= actividad.id %>?_method=PUT" method="post">
-    
-    <input type="password" name="pass1" id="">
-    <input type="password" name="pass1" id="">    
+<h3><%= userName %></h3> 
+
+<form action="/auth/update/<%= userID %>?_method=PUT" method="post">
+    <label for="passOld">Contraseña vieja</label>
+    <br>
+    <input type="password" name="passOld" id="" required>
+    <br>
+
+    <label for="pass1">Contraseña Nueva</label>
+    <br>
+    <input type="password" name="pass1" id="" required>
+    <br>
+    <label for="pass2">Repetir Contraseña</label>
+    <br>
+    <input type="password" name="pass2" id="" required>    
 
     <button type="submit">Update</button>
 </form>
+
+<p>    
+      <% if (typeof message !== 'undefined' ) { %>
+        <p><%= message %></p>
+        <% } %>
+</p> 
 <a href="/">Cancel</a> 

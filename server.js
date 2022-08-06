@@ -90,7 +90,7 @@ app.post('/auth/login', checkNotAuthenticated, passport.authenticate("local", {
 }))
 
 app.get("/auth/logout", (req, res) => {
-  console.log('llego aqui');
+  
   req.logout
   res.render("./auth/login", { message: "Saliste de sesión exitosamente!", layout: './auth/login'});
 })
