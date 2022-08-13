@@ -15,8 +15,7 @@ function initialize(passport) {
           
         if (results.rows.length > 0) {
           const user = results.rows[0];
-          //console.log(user)
-          
+                    
           // una vez encriptada la contraseña en la base de datos, hay que borrar hash 
           // y colocar en hash user.password
           //const hash = bcrypt.hashSync(user.password, 10); 
@@ -29,13 +28,13 @@ function initialize(passport) {
             if (isMatch) {
               return done(null, user);
             } else {               
-              return done(null, false, { message: "Password is incorrect" });
+              return done(null, false, { message: "Contraseña Incorrecta." });
             }
           });  
         } else {
           // No user
           return done(null, false, {
-            message: "No user with that email address"
+            message: "Usuario no existe."
           });
         }
       }

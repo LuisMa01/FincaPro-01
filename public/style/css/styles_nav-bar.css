@@ -1,4 +1,12 @@
-a {
+.main_header_img > a {
+    text-decoration: none;
+    color: white;
+}
+.main_header > a {
+    text-decoration: none;
+    color: white;
+}
+.nav-bar a {
     text-decoration: none;
     color: white;
 }

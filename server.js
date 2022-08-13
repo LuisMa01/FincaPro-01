@@ -1,5 +1,6 @@
 const express = require('express')
 const methodOverride = require('method-override')
+
 const { pool } = require('./models/db-conect')
 const bcrypt = require("bcrypt")
 const session = require("express-session")
@@ -25,7 +26,7 @@ app.use(expressLayouts)
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: false}))
-app.use(cookieParser('secreto'))
+app.use(cookieParser(process.env.SECRETO))
 app.use(flash())
 
 
@@ -75,6 +76,23 @@ const consulta = pool.query('select * from "userSchema"."User" WHERE user_name =
 })
 */
 
+const teta = pool.query('SELECT * FROM "userSchema".user_rol ORDER BY rol_id ASC ',
+(err, results) => {
+    if (err) {
+      throw err;
+    }
+
+  console.log(results.rows.length)
+  console.log('hasta aqui')
+})
+
+pool.end()
+
+
+
+
+
+
 //Proceso de login
 
 app.get('/auth/login', checkNotAuthenticated, (req, res) => {
@@ -90,6 +108,11 @@ app.post('/auth/login', checkNotAuthenticated, passport.authenticate("local", {
 }))
 
 app.get("/auth/logout", (req, res) => {
+  let cookieVal = req.signedCookies;
+  //res.clearCookie();
+  res.clearCookie('connect.sid')
+
+    console.log(cookieVal)
   
   req.logout
   res.render("./auth/login", { message: "Saliste de sesión exitosamente!", layout: './auth/login'});

@@ -24,16 +24,18 @@
     <span> <img class="show-password_button" src="/img/logo/eye.svg" alt="see"  onclick="seePassword()"></span>
     <div class="username-error"><label id="error_text"></label></div>
 
+    <p class="login-text">
+        <% if (messages.error) { %>
+            <%= messages.error %>
+          <% } %>
+          <% if (typeof message !== 'undefined' ) { %>
+            <p><%= message %></p>
+            <% } %>
+    </p>  
+
     <button type="submit" class="login-submit">Iniciar sesión</button>
    
-    <p class="login-text">
-    <% if (messages.error) { %>
-        <%= messages.error %>
-      <% } %>
-      <% if (typeof message !== 'undefined' ) { %>
-        <p><%= message %></p>
-        <% } %>
-    </p>   
+     
  </form>
 </body>
 </html>
