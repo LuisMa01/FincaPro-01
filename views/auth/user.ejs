@@ -1,3 +1,7 @@
 <h1>Perfil de Usario</h1>
 <h3><%= userName %></h3> 
 <a href="/auth/update" type="button"><h4>Cambiar contraseña</h4></a>
+
+<% if (userRole === 1) { %>
+    <a href="/allUser">Lista de usuarios</a>
+<% } %>

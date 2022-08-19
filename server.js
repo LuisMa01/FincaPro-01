@@ -25,7 +25,7 @@ app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
-app.use(express.urlencoded({ extended: false}))
+app.use(express.urlencoded({ extended: true}))
 app.use(cookieParser(process.env.SECRETO))
 app.use(flash())
 
@@ -75,7 +75,7 @@ const consulta = pool.query('select * from "userSchema"."User" WHERE user_name =
     
 })
 */
-
+/*
 const teta = pool.query('SELECT * FROM "userSchema".user_rol ORDER BY rol_id ASC ',
 (err, results) => {
     if (err) {
@@ -86,8 +86,7 @@ const teta = pool.query('SELECT * FROM "userSchema".user_rol ORDER BY rol_id ASC
   console.log('hasta aqui')
 })
 
-pool.end()
-
+*/
 
 
 
@@ -108,11 +107,11 @@ app.post('/auth/login', checkNotAuthenticated, passport.authenticate("local", {
 }))
 
 app.get("/auth/logout", (req, res) => {
-  let cookieVal = req.signedCookies;
+  
   //res.clearCookie();
   res.clearCookie('connect.sid')
 
-    console.log(cookieVal)
+    
   
   req.logout
   res.render("./auth/login", { message: "Saliste de sesión exitosamente!", layout: './auth/login'});

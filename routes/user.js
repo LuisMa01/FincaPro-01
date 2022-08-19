@@ -3,12 +3,13 @@ const router = express.Router()
 const { pool } = require('../models/db-conect')
 const bcrypt = require("bcrypt")
 const { authRole, ROLE } = require('../models/role')
+const { render } = require('ejs')
 
 
 router.get('/auth/user', (req, res) => {
     
 
-    res.render('auth/user', { userName : req.user.user_name})
+    res.render('auth/user', { userName : req.user.user_name, userRole : req.user.rol_user})
 })
 
 router.get('/auth/update', (req, res) => {
@@ -52,7 +53,7 @@ router.put('/auth/update/:id', async (req, res) => {
                   if(err){
                     throw err
                   }
-                  console.log(resl)
+                  
                   req.logout
                   res.clearCookie('connect.sid')
                   res.render("./auth/login", { message: "Cambiaste la contraseña exitosamente!", layout: './auth/login'});
@@ -83,19 +84,60 @@ router.put('/auth/update/:id', async (req, res) => {
 })
 
 router.get('/allUser', authRole(ROLE.ADMIN), async (req, res) => {
-try {
-  await pool.query('SELECT * FROM "userSchema"."User" ORDER BY user_name ASC', (err, result) =>{
+  try {
+    await pool.query('SELECT user_name, rol	FROM "userSchema"."User" INNER JOIN "userSchema"."user_rol" ON rol_user = rol_id ORDER BY user_name;', (err, result) =>{
+      if (err) {
+        throw err;
+      }
+
+      pool.query('SELECT *	FROM "userSchema"."user_rol" ORDER BY rol', (err2, resultRol) => {
+        if (err2) {
+          throw err2;
+        }
+        
+        res.render('./auth/allUser', {users : result.rows , rolValue : resultRol.rows})
+      })
+
+    })
+    
+  } catch (error) {
+    res.render('auth/update', {userID : req.user.user_id, userName : req.user.user_name})
+    
+  }
+})
+
+router.post('/allUser/newUser', authRole(ROLE.ADMIN), (req, res) =>{
+  
+  const userName = req.body.userNameIn
+  const pass = bcrypt.hashSync('1234', 10); 
+  
+  console.log(req.body.rolVal)
+
+  const value = [userName, pass, req.body.rolVal]
+ 
+   pool.query('SELECT user_name FROM "userSchema"."User" WHERE user_name = $1', [userName], (err, result) =>{
     if (err) {
       throw err;
     }
-    res.render('./auth/allUser', {user : result.rows})
-
+    
+    if(result.rows[0]){
+      console.log('usuario existe')
+      res.redirect('/allUser')
+    } else {
+      console.log('usuario no existe');
+      pool.query('INSERT INTO "userSchema"."User"(user_name, password, rol_user) VALUES ($1, $2, $3);', value,
+      (err, result) =>{
+        if (err) {
+          throw err;
+        }
+        console.log(result.rows)
+        res.redirect('/allUser')
+      })
+    }
   })
   
-} catch (error) {
-  res.render('auth/update', {userID : req.user.user_id, userName : req.user.user_name})
-  
-}
+
 })
+
 
 module.exports = router

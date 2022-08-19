@@ -1,0 +1,33 @@
+<h1>Usuarios</h1>
+
+<Form action="/allUser/newUser" method="post">
+<div>
+    <input type="text" name="userNameIn">  
+</div>
+
+<select name="rolVal">
+    <% rolValue.forEach(rol => { %>                
+        <option selected label="<%= rol.rol %>" value="<%= rol.rol_id %>"></option>           
+    <% }) %> 
+</select>
+
+<button type="submit">Guardar</button>
+</Form>
+
+<div>
+    <table>
+        <tr>
+            <th>Usuario</th>
+            <th>Rol de usuario</th>            
+        </tr>
+        
+        <% users.forEach(user => { %>            
+            <tr> 
+                <th><%= user.user_name %></th>                
+                <th>                                
+                    <div><%= user.rol %></div>
+                </th>                         
+            </tr>            
+        <% }) %> 
+    </table>
+</div>
