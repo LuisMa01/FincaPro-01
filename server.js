@@ -1,52 +1,23 @@
+require("dotenv").config();
 const express = require("express");
-//const methodOverride = require("method-override");
 const cors = require("cors");
 const { sign } = require("jsonwebtoken");
-const { serialize } = require("cookie");
-
-const { pool } = require("./models/db-conect");
+const path = require('path')
+const { pool } = require("./config/db-conect");
 const bcrypt = require("bcrypt");
-//const session = require("express-session");
-//const passport = require("passport");
-
 const cookieParser = require("cookie-parser");
-require("dotenv").config();
 const app = express();
+const { logger, logEvents } = require('./middleware/logger')
+const errorHandler = require('./middleware/errorHandler')
 
 app.use(express.json());
-
-//app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-/*
-app.use(
-  session({
-    secret: process.env.SECRETO,
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-*/
-//app.use(passport.initialize());
-//app.use(passport.session());
 
-//const initializePassport = require("./config/passport-config");
+console.log(process.env.NODE_ENV)
 
-//initializePassport(passport);
-
-const allowedOrigins = ["http://localhost:3000", "http://localhost:5000","*"];
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  method: ['GET', 'PUT', 'POST'],
-  Credentials: true,
-  optionsSuccessStatus: 200,
-};
+const corsOptions = require('./config/corsOptions')
+app.use(logger)
 
 app.use(cors(corsOptions));
 
@@ -192,62 +163,20 @@ app.get("/logout", (req, res) => {
 
 app.get("/user", (req, res) => {
  
-  pool.query(
-    'SELECT * FROM "userSchema"."User" ORDER BY user_id ASC',
-    (err, results) => {
-      if (err) {
-        throw err;
-      }
-      const token = sign(
-        {
-          exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 1, // 1 days
-          username: 'loco',
-        },
-        secreto
-      );
-      
-
-      const serialised = serialize("OursiteJWT", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== "development",
-        sameSite: "Lax",
-        maxAge: 60 * 60 * 24 * 1,
-        path: "/",
-      });
-      
-      res.setHeader('Access-Control-Allow-Origin', '*')
-      res.setHeader('Access-Control-Allow-Credentials', 'true')
-      res.setHeader("Set-Cookie", serialised);
-      
-
-      res.send(results.rows);
-    }
-  );
-});
+  pool.query('SELECT user_id, user_name, rol_user, nombres, apellidos, activo, email, cell FROM "userSchema"."User" ORDER BY user_id ASC')
+  .then(results =>{
+    res.send(results.rows)
+    pool.end()
+  })
+  .catch(err => {    
+    setImmediate(async () => {
+      await logEvents(`${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,'postgresql.log');
+      throw err
+    })
+  })
+})
 
 /*
-app.get('/auth/login', checkNotAuthenticated, (req, res) => {
-
-    res.render()
-    
-})
-
-app.post('/auth/login', checkNotAuthenticated, passport.authenticate("local", {
-    successRedirect: '/',
-    failureRedirect: '/auth/login',
-    failureFlash: true
-}))
-app.post('/auth/login', checkNotAuthenticated, passport.authenticate('local', { failureRedirect: '/login' }), function(req, res) {
-    res.redirect('/');
-  });
-
-
-app.get("/auth/logout", (req, res) => {  
-  res.clearCookie('connect.sid') 
-  
-  req.logout
-  res.render("./auth/login", { message: "Saliste de sesión exitosamente!", layout: './auth/login'});
-})
 
 
 //Acceso a la app con autenticacion
@@ -262,23 +191,26 @@ const userRouter = require('./routes/user')
 app.use('/', checkAuthenticated, userRouter)
 
 
-
-
-//funcion para verificar autenticacion
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next()
-    }  
-    res.redirect('/auth/login')
-}
-  
-function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        
-      return res.redirect('/')
-    }
-    next()
-}
 */
+
+app.use('/', express.static(path.join(__dirname, 'public')))
+
+app.use('/', require('./routes/root'))
+//app.use('/auth', require('./routes/authRoutes'))
+app.use('/users', require('./routes/userRoutes'))
+//app.use('/notes', require('./routes/noteRoutes'))
+
+app.all('*', (req, res) => {
+    res.status(404)
+    if (req.accepts('html')) {
+        res.sendFile(path.join(__dirname, 'views', '404.html'))
+    } else if (req.accepts('json')) {
+        res.json({ message: '404 Not Found' })
+    } else {
+        res.type('txt').send('404 Not Found')
+    }
+})
+
+app.use(errorHandler)
 
 app.listen(process.env.PORT || 5000);
