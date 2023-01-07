@@ -18,7 +18,7 @@ function authRole(role) {
                 throw err;
             }       
             
-            const r = results.rows[0].rol_id;
+            const r = [results.rows[0].rol_id];
             
             if (req.user.rol_user !== r) {
                 res.status(401)

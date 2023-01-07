@@ -1,0 +1,20 @@
+20220905	21:14:36	18cb4c58-b808-4ab0-8ff5-b1afff85ef16	SyntaxError: Unexpected token } in JSON at position 60	POST	/users	undefined
+20220905	21:14:58	40c50438-a38c-4955-8d50-5ec7d56157c7	SyntaxError: Unexpected token } in JSON at position 49	POST	/users	undefined
+20220905	21:15:14	1bf57ff0-4d34-4488-b6f1-8dfbfdcd2e95	SyntaxError: Unexpected token } in JSON at position 49	POST	/users	undefined
+20220907	22:56:19	b21e3809-5cbc-444e-81e2-0d76e894587f	TypeError: datos.respon is not a function	PATCH	/users	undefined
+20220907	22:56:51	8805291b-1566-44dc-9f33-3b386714bda8	TypeError: datos is not a function	PATCH	/users	undefined
+20220909	12:19:53	27fb341c-8114-4c05-bb17-76e2add68b67	ReferenceError: User is not defined	DELETE	/users	undefined
+20220909	12:22:50	686a064e-91ab-4646-b7c8-5da8453f219c	ReferenceError: User is not defined	DELETE	/users	undefined
+20221216	11:14:22	6fa5976c-be2d-416f-b5e1-e40359a686a2	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:14:29	3236eff1-8023-4c12-9428-6b1e1795baf2	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:14:30	330b8ae1-a577-4666-8128-7c7cb3f13b26	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:14:31	88f87fc0-6325-4488-b5af-3a2207e38a88	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:14:40	5ee0ef1b-1eef-4761-a56c-d03d55bec8a9	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:15:05	8dca7abb-c4cc-4506-ba80-b0ba043d1f64	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:15:15	009dcdda-eb42-4099-be76-72f5d48b40f1	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:15:26	433435b0-a6fd-4dc2-b970-0545fd517e93	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:15:30	11948a34-c8c6-4e94-a48d-a356e959f40d	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:16:40	6062cbb0-209b-4249-b6bf-d29494698e5d	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:21:47	6895f2a2-5d34-4c1f-aef6-1e1c652fc301	Error: Not allowed by CORS	GET	/auth/refresh	http://127.0.0.1:5173
+20221216	11:22:12	c67f6a3b-8239-41cc-9d25-4c9285325522	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20221216	11:23:30	a75bd050-b0af-4622-8a4e-91fd4714bda8	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
