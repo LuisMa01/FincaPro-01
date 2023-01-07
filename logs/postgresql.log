@@ -40,3 +40,499 @@
     at readableAddChunk (node:internal/streams/readable:289:9)
     at Socket.Readable.push (node:internal/streams/readable:228:10)
     at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	19:23:44	01eed0b0-ab96-47f7-ac55-e683f7870e32	22P02	 pg_strtoint32	numutils.c	error: la sintaxis de entrada no es válida para tipo integer: «Daniel»
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	19:23:44	f53bace9-f007-419a-84dc-adebd259cc86	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 1 parámetros, pero la sentencia preparada «» requiere 3
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	19:25:48	fe68cd23-5d11-4918-99e3-762280d1f1a3	22P02	 pg_strtoint32	numutils.c	error: la sintaxis de entrada no es válida para tipo integer: «Daniel»
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	19:28:08	57fa771b-e831-4e63-ad41-d940e93d95ba	22P02	 pg_strtoint32	numutils.c	error: la sintaxis de entrada no es válida para tipo integer: «Daniel»
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	19:29:18	0a3aeeb5-92a3-44ba-98af-8ddb99b2792e	22P02	 pg_strtoint32	numutils.c	error: la sintaxis de entrada no es válida para tipo integer: «Daniel»
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	19:29:18	5964903b-cbd3-4592-8d98-983849521fef	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 1 parámetros, pero la sentencia preparada «» requiere 3
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	19:31:05	96520c8d-2239-4150-bc43-8441a5533b4d	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 1 parámetros, pero la sentencia preparada «» requiere 3
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	19:34:37	a9a67cda-d941-4f11-b22b-6d8f148bbf28	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 1 parámetros, pero la sentencia preparada «» requiere 3
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	19:35:38	11a8bcd1-e22e-45af-8491-25bf63f8b285	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 1 parámetros, pero la sentencia preparada «» requiere 3
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	20:50:51	66876cf4-e676-4dfb-b3ce-c1bce4f39d3d	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 1 parámetros, pero la sentencia preparada «» requiere 3
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	20:52:39	d06b5f2c-ee49-4f4c-b424-bf6fe6d64bbf	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 1 parámetros, pero la sentencia preparada «» requiere 3
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	20:54:04	9b837272-6672-4836-b013-75557d53362f	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 1 parámetros, pero la sentencia preparada «» requiere 3
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	20:55:36	d65a6b64-f20f-462e-b3a7-0a3f65f35128	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 1 parámetros, pero la sentencia preparada «» requiere 3
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	20:57:17	8e7108fd-1542-47fc-87cd-4353b38aea6a	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 1 parámetros, pero la sentencia preparada «» requiere 3
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220905	20:59:09	84a24316-1ade-4288-b22b-c2843b607e95	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:97:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	21:00:09	c07bc536-4846-4991-83f1-5a700d8dfaf6	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:98:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	21:06:33	392d53bc-4d5f-4aa0-b992-f66f306c2347	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:98:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	21:10:31	bb989a1b-b5ac-4c34-a8ee-f803fc2e87b5	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:99:13
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	21:15:46	b18dd79e-9b14-457d-b8a0-9f87fc00d9c9	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	21:18:17	4af2794f-b298-4703-bc78-966839e739dc	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	21:19:59	39a31d64-5d17-42c1-8b1a-4bf525f4c380	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:98:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	21:21:24	71661096-4188-410a-b448-a7ddaf52844f	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	21:22:07	f927cad9-b0bb-409d-9183-7977c591d46f	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	21:22:52	bad9886a-fb07-4cff-a2e2-bc0c50949dd5	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:101:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:91:3
+20220905	21:25:01	0dcb399a-dd57-4bac-bd31-7a87503b9b4a	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:101:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:91:3
+20220905	21:27:36	67d1ef71-e367-444d-b0fc-6b2ac863c4a8	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:101:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:91:3
+20220905	21:31:27	af48f867-37ac-4ea3-945f-2094b16a9d5e	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:101:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:91:3
+20220905	21:35:33	ee5ec019-e3a7-4446-9d5d-1d71567cb099	undefined	 undefined	undefined	Error: Cannot use a pool after calling end on the pool
+    at BoundPool.connect (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-pool\index.js:168:19)
+    at BoundPool.query (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-pool\index.js:389:10)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:14:6
+    at asyncUtilWrap (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\router\index.js:346:12)
+20220905	21:43:01	d749e27d-13b0-45cf-adfc-8ad9c8ba3e00	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	22:00:01	0a37529f-aca0-4dca-beb9-1c9597e4901d	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	22:03:34	8436d22f-a6df-4e13-9e43-59144c89bb01	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	22:04:17	e6c3b4b1-07ea-4964-8654-b87def982615	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	22:15:02	08a2150c-57f7-4d8f-a8eb-5a45098f3fb8	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	22:18:18	8b383e60-9f77-4c6a-9014-4615d4e0b9ea	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	22:30:16	011bed80-a82e-4fc8-8643-4b9fc995afda	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	22:31:25	d4902079-3d07-490f-9f82-711934deed46	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:100:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:90:3
+20220905	22:43:17	4b1e6a37-f1fb-4e13-92fe-6af7ac460c5e	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:103:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:92:3
+20220905	22:45:03	ff71dbe6-a1cd-49e0-84da-08e0e41b316d	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:103:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	22:46:54	cfced325-8295-4ae5-ac07-0481576541b3	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:101:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	22:48:32	c942cf98-463c-490e-8b38-3544f053399f	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:101:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	22:51:24	2971de71-c4e3-4451-936a-ab370cee623c	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:101:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	23:01:15	599f7734-ad9b-4961-aeb6-28a31c6a72c7	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:101:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	23:02:36	a4f309cc-cd47-4744-b9e3-967eb71e1690	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:98:25
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	23:08:15	efb17506-6e14-47b1-9f0a-6906a59a89c4	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:101:32
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220905	23:09:34	6d7b316d-d8d0-46cf-a961-0a78db8ad7ab	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:99:32
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220908	21:17:31	3f92f3c3-fb89-43a8-97c4-486b222e0806	undefined	 undefined	undefined	ReferenceError: users is not defined
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:147:16
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220908	21:18:06	db63dd73-70c9-4078-95a3-175011c8bb6d	undefined	 undefined	undefined	ReferenceError: users is not defined
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:147:16
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220908	21:19:50	40dd5af6-cd60-4546-8ac4-9d0a3bfa4dd7	undefined	 undefined	undefined	ReferenceError: users is not defined
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:147:16
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220908	21:20:06	ab481455-1d8b-4e3c-84fb-e0458038c6a8	undefined	 undefined	undefined	ReferenceError: users is not defined
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:147:23
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220908	21:20:43	be7016b1-8a3e-47b7-a691-07685e922bf0	undefined	 undefined	undefined	ReferenceError: users is not defined
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:147:23
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220909	11:14:37	cdf3928e-dff5-4a7b-8fa1-d4efc6470705	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'user_name')
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:146:48
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220909	11:16:15	c78e060a-7617-45c4-a765-2c18a4ae7196	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'password')
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:161:47
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20220909	11:20:17	6aaf1b60-c83b-4ce4-84ea-48fb33768b57	42703	 errorMissingColumn	parse_relation.c	error: no existe la columna «id»
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220909	11:22:21	6d144c5b-7c38-4e9c-88e0-0731e3a7ba51	08P01	 exec_bind_message	postgres.c	error: el mensaje de enlace (bind) entrega 7 parámetros, pero la sentencia preparada «» requiere 8
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220909	11:25:01	bd333a6d-02da-4084-9c2b-7c73d273bafc	23502	 ExecConstraints	execmain.c	error: el valor nulo en la columna «password» de la relación «User» viola la restricción de no nulo
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220909	11:35:16	c72524ae-3a9c-4148-9428-88fac4cf552f	23502	 ExecConstraints	execmain.c	error: el valor nulo en la columna «password» de la relación «User» viola la restricción de no nulo
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220909	12:19:53	a5173f62-6236-48f1-b656-565154200438	42P02	 transformParamRef	parse_expr.c	error: no hay parámetro $1
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20220909	12:22:50	6d30d131-5710-465c-8f59-76b7c8434862	ERR_HTTP_HEADERS_SENT	 undefined	undefined	Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:371:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:174:12)
+    at ServerResponse.json (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\express\lib\response.js:278:15)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:243:26
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+20230105	10:25:07	7e4c03e6-96d2-4a0c-beac-e9ba9cab4b21	22P02	 pg_strtoint32	numutils.c	error: la sintaxis de entrada no es válida para tipo integer: «{"3"}»
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:526:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)

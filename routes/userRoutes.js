@@ -4,12 +4,12 @@ const usersController = require('../controllers/usersController')
 const verifyJWT = require('../middleware/verifyJWT')
 
 //uso del token JWT
-//router.use(verifyJWT)
+router.use(verifyJWT)
 
 router.route('/')
     .get(usersController.getAllUsers)
-    //.post(usersController.createNewUser)
-    //.patch(usersController.updateUser)
-    //.delete(usersController.deleteUser)
+    .post(usersController.createNewUser)
+    .patch(usersController.updateUser)
+    .delete(usersController.deleteUser)
 
 module.exports = router

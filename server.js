@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const { sign } = require("jsonwebtoken");
+
 const path = require('path')
 const { pool } = require("./config/db-conect");
 const bcrypt = require("bcrypt");
@@ -26,10 +26,11 @@ app.use((req, res, next) => {
   next();
 });
 
+
 const secreto = process.env.SECRETO;
 
 //Proceso de login
-
+/*
 app.post("/login/user", (req, res) => {
   // check if user that match req.email and req.password return user user_id, user_name, user_rol
 
@@ -175,30 +176,16 @@ app.get("/user", (req, res) => {
     })
   })
 })
-
-/*
-
-
-//Acceso a la app con autenticacion
-
-const indexRouter = require('./routes/index')
-app.use('/', checkAuthenticated, indexRouter)
-
-
-//Acceso update password
-
-const userRouter = require('./routes/user')
-app.use('/', checkAuthenticated, userRouter)
-
-
 */
+
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.use('/', require('./routes/root'))
-//app.use('/auth', require('./routes/authRoutes'))
+app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 //app.use('/notes', require('./routes/noteRoutes'))
+
 
 app.all('*', (req, res) => {
     res.status(404)
