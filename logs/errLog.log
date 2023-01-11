@@ -18,3 +18,12 @@
 20221216	11:21:47	6895f2a2-5d34-4c1f-aef6-1e1c652fc301	Error: Not allowed by CORS	GET	/auth/refresh	http://127.0.0.1:5173
 20221216	11:22:12	c67f6a3b-8239-41cc-9d25-4c9285325522	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
 20221216	11:23:30	a75bd050-b0af-4622-8a4e-91fd4714bda8	Error: Not allowed by CORS	OPTIONS	/auth	http://127.0.0.1:5173
+20230109	18:18:19	931a098f-3783-4481-9bc0-fcbc590a4aa1	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
+20230109	18:18:23	c1fb2e8d-5338-47c1-9b4d-ae8d84df7016	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
+20230109	18:18:25	458371bd-2ab2-4efb-a7bf-afd2cf2d2c8f	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
+20230109	18:18:29	68a77b3f-eb9d-4232-a018-f2cefc260896	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
+20230109	18:18:38	349224b3-29a8-47d1-bdd2-47813469f7c1	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
+20230109	18:18:44	b030bfe4-6265-410d-87b3-af370815eb67	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
+20230109	18:18:59	8068f7d4-d358-46a1-bd6c-105427b95abd	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
+20230109	18:19:03	584fab79-eca7-4257-8de5-d36df94a48f6	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
+20230109	18:19:24	0c563aa5-330e-4fd4-8374-df14a10e5f98	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
