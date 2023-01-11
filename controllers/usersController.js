@@ -1,4 +1,3 @@
-
 const { logEvents } = require("../middleware/logger");
 const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
@@ -156,7 +155,7 @@ const updateUser = asyncHandler(async (req, res) => {
             roles ? roles : result.rows[0].rol_user,
             names ? names : result.rows[0].nombres,
             surname ? surname : result.rows[0].apellidos,
-            active ? active : result.rows[0].activo,
+            active,
             email ? email : result.rows[0].email,
             cell ? cell : result.rows[0].cell,
           ];
@@ -223,9 +222,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   pool
     .query(`SELECT user_id FROM "userSchema"."User" WHERE user_id = ${id}`)
     .then((exist) => {
-      
-
-      // usuario 
+      // usuario
       if (!exist.rows[0]) {
         return res.status(400).json({ message: "User not found" });
       }
@@ -233,10 +230,8 @@ const deleteUser = asyncHandler(async (req, res) => {
         .query(`DELETE FROM "userSchema"."User" WHERE user_id = ${id}`)
         .then(() => {
           // usuario borrado
-          
+
           return res.json({ message: "Usurio borrado" });
-          
-          
         })
         .catch((err) => {
           setImmediate(async () => {
