@@ -22,7 +22,7 @@ function authRole(role) {
             
             if (req.user.rol_user !== r) {
                 res.status(401)
-                return res.send('Not allowed')
+                return res.send('No permitido')
             }
         
             next()  

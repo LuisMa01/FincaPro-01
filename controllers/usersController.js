@@ -17,7 +17,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
       const users = results.rows;
       // If no users
       if (!users?.length) {
-        return res.status(400).json({ message: "No users found" });
+        return res.status(400).json({ message: "No se encontraron usuarios" });
       }
 
       res.json(users);
@@ -46,7 +46,7 @@ const createNewUser = asyncHandler(async (req, res) => {
   }
   */
   if (!username || !password || !roles) {
-    return res.status(400).json({ message: "All fields are required" });
+    return res.status(400).json({ message: "Todos los campos son requeridos" });
   }
 
   // Check for duplicate username`
@@ -58,7 +58,7 @@ const createNewUser = asyncHandler(async (req, res) => {
       const duplicate = results.rows[0];
       // If no users
       if (duplicate) {
-        return res.status(409).json({ message: "Duplicate username" });
+        return res.status(409).json({ message: "Nombre de usuario ya existente" });
       }
       // Hash password
       const hashedPwd = await bcrypt.hash(password, 10); // salt rounds
@@ -75,11 +75,11 @@ const createNewUser = asyncHandler(async (req, res) => {
         .then((results2) => {
           if (results2) {
             //created
-            return res.status(201).json({ message: `New user created` });
+            return res.status(201).json({ message: `Nuevo usuario creado` });
           } else {
             return res
               .status(400)
-              .json({ message: "Invalid user data received" });
+              .json({ message: "Datos de usuario inválido recibidos" });
           }
         })
         .catch((err) => {
@@ -114,7 +114,7 @@ const updateUser = asyncHandler(async (req, res) => {
   if (!id || !username || !roles || typeof active !== "boolean") {
     return res
       .status(400)
-      .json({ message: "All fields except password are required" });
+      .json({ message: "Todos los campos excepto contraseña son requeridos" });
   }
 
   //if (!id || !username || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
@@ -132,7 +132,7 @@ const updateUser = asyncHandler(async (req, res) => {
       // If no users
       const user = result.rows[0].user_name;
       if (!user?.length) {
-        return res.status(400).json({ message: "No users found" });
+        return res.status(400).json({ message: "No se encontraron" });
       }
 
       pool
@@ -215,7 +215,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
   // Confirm data
   if (!id) {
-    return res.status(400).json({ message: "User ID Required" });
+    return res.status(400).json({ message: "ID de usuario requerido" });
   }
 
   // Does the user still have assi gned notes?
@@ -224,14 +224,14 @@ const deleteUser = asyncHandler(async (req, res) => {
     .then((exist) => {
       // usuario
       if (!exist.rows[0]) {
-        return res.status(400).json({ message: "User not found" });
+        return res.status(400).json({ message: "Usuario no encontrado" });
       }
       pool
         .query(`DELETE FROM "userSchema"."User" WHERE user_id = ${id}`)
         .then(() => {
           // usuario borrado
 
-          return res.json({ message: "Usurio borrado" });
+          return res.json({ message: "Usuario eliminado" });
         })
         .catch((err) => {
           setImmediate(async () => {

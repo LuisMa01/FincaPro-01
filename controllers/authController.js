@@ -10,7 +10,7 @@ const login = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).json({ message: "All fields are required" });
+    return res.status(400).json({ message: "Completar todos los campos" });
   }
 
   pool
@@ -19,18 +19,23 @@ const login = asyncHandler(async (req, res) => {
       const foundUser = results.rows[0];
 
       if (!foundUser.user_name || !foundUser.activo) {
-        return res.status(401).json({ message: "Unauthorized" });
+        return res.status(401).json({ message: "No autorizado" });
       }
 
       const match = await bcrypt.compare(password, foundUser.password);
 
-      if (!match) return res.status(401).json({ message: "Unauthorized" });
+      if (!match) return res.status(401).json({ message: "No autorizado" });
 
       const accessToken = jwt.sign(
         {
           UserInfo: {
+            userId: foundUser.user_id,
             username: foundUser.user_name,
             roles: [foundUser.rol_user],
+            nombres: foundUser.nombres,
+            apellidos: foundUser.apellidos,
+            email: foundUser.email,
+            phone: foundUser.cell,
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -40,7 +45,7 @@ const login = asyncHandler(async (req, res) => {
       const refreshToken = jwt.sign(
         { username: foundUser.user_name },
         process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: "7d" }
+        { expiresIn: "30m" }
       );
 
       // Create secure cookie with refresh token
@@ -71,7 +76,7 @@ const login = asyncHandler(async (req, res) => {
 const refresh = (req, res) => {
   const cookies = req.cookies;
 
-  if (!cookies?.jwt) return res.status(401).json({ message: "Unauthorized" });
+  if (!cookies?.jwt) return res.status(401).json({ message: "No autorizado" });
 
   const refreshToken = cookies.jwt;
 
@@ -79,7 +84,7 @@ const refresh = (req, res) => {
     refreshToken,
     process.env.REFRESH_TOKEN_SECRET,
     asyncHandler(async (err, decoded) => {
-      if (err) return res.status(403).json({ message: "Forbidden" });
+      if (err) return res.status(403).json({ message: "Prohibido" });
 
       pool
         .query('SELECT * FROM "userSchema"."User" WHERE user_name = $1', [
@@ -89,13 +94,18 @@ const refresh = (req, res) => {
           const foundUser = results.rows[0];
 
           if (!foundUser.user_name)
-            return res.status(401).json({ message: "Unauthorized" });
+            return res.status(401).json({ message: "No autorizado" });
 
           const accessToken = jwt.sign(
             {
               UserInfo: {
+                userId: foundUser.user_id,
                 username: foundUser.user_name,
                 roles: [foundUser.rol_user],
+                nombres: foundUser.nombres,
+                apellidos: foundUser.apellidos,
+                email: foundUser.email,
+                phone: foundUser.cell,
               },
             },
             process.env.ACCESS_TOKEN_SECRET,
