@@ -3,24 +3,24 @@ const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
-// @desc Get all users
-// @route GET /users
+// @desc Get all act
+// @route GET /act
 // @access Private
-const getAllUsers = asyncHandler(async (req, res) => {
+const getAllActs = asyncHandler(async (req, res) => {
   // Get all users from MongoDB
   pool
     .query(
-      'SELECT user_id, user_name, rol_user, nombres, apellidos, activo, email, cell FROM "userSchema"."User" ORDER BY user_id ASC'
+      'SELECT act_id, act_name, act_desc, create_act, act_create_by, act_status FROM public.table_activity ORDER BY act_id ASC'
     )
     .then((results) => {
       //res.send(results.rows)
-      const users = results.rows;
+      const act = results.rows;
       // If no users
-      if (!users?.length) {
-        return res.status(400).json({ message: "No se encontraron usuarios" });
+      if (!act?.length) {
+        return res.status(400).json({ message: "No se encontraron actividades" });
       }
 
-      res.json(users);
+      res.json(act);
     })
     .catch((err) => {
       setImmediate(async () => {
@@ -33,11 +33,13 @@ const getAllUsers = asyncHandler(async (req, res) => {
     });
 });
 
-// @desc Create new user
-// @route POST /users
+// @desc Create new act
+// @route POST /act
 // @access Private
-const createNewUser = asyncHandler(async (req, res) => {
-  const { username, password, roles } = req.body;
+const createNewAct = asyncHandler(async (req, res) => {
+  const { username, activity, desc, status } = req.body;
+
+  //act_id, act_name, act_desc, create_act, act_create_by, act_status
 
   // Confirm data
   /*
@@ -45,13 +47,13 @@ const createNewUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
   */
-  if (!username || !password || !roles) {
+  if (!username || !activity) {
     return res.status(400).json({ message: "Todos los campos son requeridos" });
   }
 
   // Check for duplicate username`
   await pool
-    .query('SELECT user_name FROM "userSchema"."User" WHERE user_name = $1', [
+    .query('SELECT user_name,  FROM "userSchema"."User" WHERE user_name = $1', [
       username,
     ])
     .then(async (results) => {
@@ -106,7 +108,7 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @desc Update a user
 // @route PATCH /users
 // @access Private
-const updateUser = asyncHandler(async (req, res) => {
+const updateAct = asyncHandler(async (req, res) => {
   const { id, username, roles, active, password, names, surname, email, cell } =
     req.body;
 
@@ -210,7 +212,7 @@ const updateUser = asyncHandler(async (req, res) => {
 // @desc Delete a user
 // @route DELETE /users
 // @access Private
-const deleteUser = asyncHandler(async (req, res) => {
+const deleteAct = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
   // Confirm data
@@ -255,8 +257,8 @@ const deleteUser = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getAllUsers,
-  createNewUser,
-  updateUser,
-  deleteUser,
+  getAllActs,
+  createNewAct,
+  updateAct,
+  deleteAct,
 };
