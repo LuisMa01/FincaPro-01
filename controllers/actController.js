@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 // @desc Get all users
 // @route GET /users
 // @access Private
-const getAllAct = asyncHandler(async (req, res) => {
+const getAllUsers = asyncHandler(async (req, res) => {
   // Get all users from MongoDB
   pool
     .query(
@@ -36,7 +36,7 @@ const getAllAct = asyncHandler(async (req, res) => {
 // @desc Create new user
 // @route POST /users
 // @access Private
-const createNewAct = asyncHandler(async (req, res) => {
+const createNewUser = asyncHandler(async (req, res) => {
   const { username, password, roles } = req.body;
 
   // Confirm data
@@ -106,7 +106,7 @@ const createNewAct = asyncHandler(async (req, res) => {
 // @desc Update a user
 // @route PATCH /users
 // @access Private
-const updateAct = asyncHandler(async (req, res) => {
+const updateUser = asyncHandler(async (req, res) => {
   const { id, username, roles, active, password, names, surname, email, cell } =
     req.body;
 
@@ -210,7 +210,7 @@ const updateAct = asyncHandler(async (req, res) => {
 // @desc Delete a user
 // @route DELETE /users
 // @access Private
-const deleteAct = asyncHandler(async (req, res) => {
+const deleteUser = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
   // Confirm data
@@ -255,8 +255,8 @@ const deleteAct = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getAllAct,
-  createNewAct,
-  updateAct,
-  deleteAct,
+  getAllUsers,
+  createNewUser,
+  updateUser,
+  deleteUser,
 };
