@@ -7,17 +7,18 @@ const bcrypt = require("bcrypt");
 // @route GET /act
 // @access Private
 const getAllActs = asyncHandler(async (req, res) => {
-  // Get all users from MongoDB
   pool
     .query(
-      'SELECT act_id, act_name, act_desc, create_act, act_create_by, act_status FROM public.table_activity ORDER BY act_id ASC'
+      "SELECT act_id, act_name, act_desc, act_create_at, act_create_by, act_status FROM public.table_activity ORDER BY act_id ASC"
     )
     .then((results) => {
       //res.send(results.rows)
       const act = results.rows;
       // If no users
       if (!act?.length) {
-        return res.status(400).json({ message: "No se encontraron actividades" });
+        return res
+          .status(400)
+          .json({ message: "No se encontraron actividades" });
       }
 
       res.json(act);
@@ -37,52 +38,77 @@ const getAllActs = asyncHandler(async (req, res) => {
 // @route POST /act
 // @access Private
 const createNewAct = asyncHandler(async (req, res) => {
-  const { username, activity, desc, status } = req.body;
+  const { username, activity, desc } = req.body;
 
   //act_id, act_name, act_desc, create_act, act_create_by, act_status
 
-  // Confirm data
-  /*
-  if (!username || !password || !Array.isArray(roles) || !roles.length) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-  */
   if (!username || !activity) {
-    return res.status(400).json({ message: "Todos los campos son requeridos" });
+    return res.status(400).json({ message: "Ingresar nombre de la actividad" });
   }
 
   // Check for duplicate username`
   await pool
-    .query('SELECT user_name,  FROM "userSchema"."User" WHERE user_name = $1', [
-      username,
-    ])
+    .query(
+      "SELECT user_id, user_status, user_rol  FROM public.table_user WHERE user_name = $1",
+      [username]
+    )
     .then(async (results) => {
-      const duplicate = results.rows[0];
-      // If no users
-      if (duplicate) {
-        return res.status(409).json({ message: "Nombre de usuario ya existente" });
+      const userAdmin = results.rows[0];
+      if (!userAdmin) {
+        return res.status(403).json({ message: "Usuario no existe" });
       }
-      // Hash password
-      const hashedPwd = await bcrypt.hash(password, 10); // salt rounds
 
-      const value = [username, hashedPwd, roles];
-
-      // Create and store new user
+      if (!userAdmin.user_status) {
+        return res.status(403).json({ message: "Usuario inactivo" });
+      }
+      if (userAdmin.user_rol !== 1) {
+        return res
+          .status(403)
+          .json({ message: "El usuario no está autorizado" });
+      }
 
       pool
         .query(
-          'INSERT INTO "userSchema"."User"(user_name, password, rol_user) VALUES ($1, $2, $3);',
-          value
+          "SELECT act_name FROM public.table_activity WHERE act_name = $1",
+          [activity]
         )
-        .then((results2) => {
-          if (results2) {
-            //created
-            return res.status(201).json({ message: `Nuevo usuario creado` });
-          } else {
-            return res
-              .status(400)
-              .json({ message: "Datos de usuario inválido recibidos" });
+        .then((results) => {
+          const duplAct = results.rows[0];
+          if (duplAct) {
+            return res.status(409).json({ message: "Actividad Duplicada" });
           }
+
+          const dateN = new Date();
+          const value = [activity, desc ? desc : "", dateN, userAdmin.user_id];
+          pool
+            .query(
+              "INSERT INTO public.table_activity( act_name, act_desc, act_create_at, act_create_by) VALUES ($1, $2, $3, $4);",
+              value
+            )
+            .then((results2) => {
+              console.log("aqui");
+              if (results2) {
+                //created
+                return res
+                  .status(201)
+                  .json({ message: `Nuevo actividad creada` });
+              } else {
+                return res
+                  .status(400)
+                  .json({
+                    message: "Datos de la actividad inválido recibidos",
+                  });
+              }
+            })
+            .catch((err) => {
+              setImmediate(async () => {
+                await logEvents(
+                  `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
+                  "postgresql.log"
+                );
+                throw err;
+              });
+            });
         })
         .catch((err) => {
           setImmediate(async () => {
@@ -90,7 +116,7 @@ const createNewAct = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            //throw err;
           });
         });
     })
@@ -217,23 +243,20 @@ const deleteAct = asyncHandler(async (req, res) => {
 
   // Confirm data
   if (!id) {
-    return res.status(400).json({ message: "ID de usuario requerido" });
+    return res.status(400).json({ message: "ID de la actividad requerida" });
   }
 
   // Does the user still have assi gned notes?
   pool
-    .query(`SELECT user_id FROM "userSchema"."User" WHERE user_id = ${id}`)
+    .query(`SELECT act_id FROM public.table_activity WHERE act_id = ${id}`)
     .then((exist) => {
-      // usuario
       if (!exist.rows[0]) {
-        return res.status(400).json({ message: "Usuario no encontrado" });
+        return res.status(400).json({ message: "Actividad no encontrada" });
       }
       pool
-        .query(`DELETE FROM "userSchema"."User" WHERE user_id = ${id}`)
+        .query(`DELETE FROM public.table_activity WHERE act_id = ${id}`)
         .then(() => {
-          // usuario borrado
-
-          return res.json({ message: "Usuario eliminado" });
+          return res.json({ message: "Actividad eliminada" });
         })
         .catch((err) => {
           setImmediate(async () => {

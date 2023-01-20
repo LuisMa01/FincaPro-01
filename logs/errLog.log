@@ -27,3 +27,11 @@
 20230109	18:18:59	8068f7d4-d358-46a1-bd6c-105427b95abd	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
 20230109	18:19:03	584fab79-eca7-4257-8de5-d36df94a48f6	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
 20230109	18:19:24	0c563aa5-330e-4fd4-8374-df14a10e5f98	Error: Not allowed by CORS	OPTIONS	/auth	http://localhost:5173
+20230120	10:52:19	6f0dca16-0c46-447b-82bd-02f0c5ef5ca8	ReferenceError: toISOString is not defined	GET	/act	undefined
+20230120	11:30:41	a480fee0-59a9-46d2-9e98-e8f8c41db663	SyntaxError: Unexpected token u in JSON at position 2	POST	/act	undefined
+20230120	11:32:06	7ce3144e-e6de-46cf-a4bf-ae78391786e0	SyntaxError: Unexpected token u in JSON at position 4	POST	/act	undefined
+20230120	11:32:17	f84b44ca-fc64-4008-b41a-cdac6350c062	SyntaxError: Unexpected token b in JSON at position 0	POST	/act	undefined
+20230120	11:33:03	98ef4750-d229-4cd8-ab6d-e3a493302747	SyntaxError: Unexpected token u in JSON at position 4	POST	/act	undefined
+20230120	11:33:39	f2e95992-2373-4806-912b-db78469b01af	SyntaxError: Unexpected token u in JSON at position 3	POST	/act	undefined
+20230120	11:35:00	aec60f92-e0d3-4f11-8111-797bb76407ae	SyntaxError: Unexpected token ' in JSON at position 3	POST	/act	undefined
+20230120	11:35:10	8bf87b89-694d-472e-a0ae-89e9a209ca99	SyntaxError: Unexpected token u in JSON at position 3	POST	/act	undefined
