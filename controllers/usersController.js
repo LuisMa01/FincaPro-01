@@ -211,15 +211,15 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route DELETE /users
 // @access Private
 const deleteUser = asyncHandler(async (req, res) => {
-  const { id, idUser } = req.body;
+  const { id, id_User } = req.body;
 
-  console.log(`${id} ${idUser}`);
+  console.log(`${id} ${id_User}`);
 
   // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID de usuario requerido" });
   }
-  if (id == idUser) {
+  if (id == id_User) {
     return res.status(400).json({ message: "Usuario debe ser eliminado por el administrador" });
   }
 
