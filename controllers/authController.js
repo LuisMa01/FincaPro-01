@@ -2,7 +2,7 @@ const { pool } = require("../config/db-conect");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
-
+const { logEvents } = require("../middleware/logger");
 // @desc Login
 // @route POST /auth
 // @access Public
@@ -14,11 +14,11 @@ const login = asyncHandler(async (req, res) => {
   }
 
   pool
-    .query('SELECT * FROM "userSchema"."User" WHERE user_name = $1', [username])
+    .query("SELECT * FROM public.table_user WHERE user_name = $1", [username])
     .then(async (results) => {
       const foundUser = results.rows[0];
 
-      if (!foundUser.user_name || !foundUser.activo) {
+      if (!foundUser.user_name || !foundUser.user_status) {
         return res.status(401).json({ message: "No autorizado" });
       }
 
@@ -31,11 +31,11 @@ const login = asyncHandler(async (req, res) => {
           UserInfo: {
             userId: foundUser.user_id,
             username: foundUser.user_name,
-            roles: [foundUser.rol_user],
-            nombres: foundUser.nombres,
-            apellidos: foundUser.apellidos,
+            roles: [foundUser.user_rol],
+            nombres: foundUser.user_nombre,
+            apellidos: foundUser.user_apellido,
             email: foundUser.email,
-            phone: foundUser.cell,
+            phone: foundUser.user_phone,
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -87,11 +87,12 @@ const refresh = (req, res) => {
       if (err) return res.status(403).json({ message: "Prohibido" });
 
       pool
-        .query('SELECT * FROM "userSchema"."User" WHERE user_name = $1', [
+        .query('SELECT * FROM public.table_user WHERE user_name = $1', [
           decoded.username,
         ])
         .then(async (results) => {
           const foundUser = results.rows[0];
+          
 
           if (!foundUser.user_name)
             return res.status(401).json({ message: "No autorizado" });
@@ -101,11 +102,11 @@ const refresh = (req, res) => {
               UserInfo: {
                 userId: foundUser.user_id,
                 username: foundUser.user_name,
-                roles: [foundUser.rol_user],
-                nombres: foundUser.nombres,
-                apellidos: foundUser.apellidos,
+                roles: [foundUser.user_rol],
+                nombres: foundUser.user_nombre,
+                apellidos: foundUser.user_apellido,
                 email: foundUser.email,
-                phone: foundUser.cell,
+                phone: foundUser.user_phone,
               },
             },
             process.env.ACCESS_TOKEN_SECRET,

@@ -10,7 +10,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
   // Get all users from MongoDB
   pool
     .query(
-      'SELECT user_id, user_name, rol_user, nombres, apellidos, activo, email, cell FROM "userSchema"."User" ORDER BY user_id ASC'
+      'SELECT user_id, user_name, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_create_by, user_rol FROM public.table_user ORDER BY user_id'
     )
     .then((results) => {
       //res.send(results.rows)
@@ -51,7 +51,7 @@ const createNewUser = asyncHandler(async (req, res) => {
 
   // Check for duplicate username`
   await pool
-    .query('SELECT user_name FROM "userSchema"."User" WHERE user_name = $1', [
+    .query('SELECT user_name FROM public.table_user WHERE user_name = $1', [
       username,
     ])
     .then(async (results) => {
@@ -69,7 +69,7 @@ const createNewUser = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          'INSERT INTO "userSchema"."User"(user_name, password, rol_user) VALUES ($1, $2, $3);',
+          'INSERT INTO public.table_user (user_name, password, user_rol) VALUES ($1, $2, $3);',
           value
         )
         .then((results2) => {
@@ -107,11 +107,11 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-  const { id, username, roles, active, password, names, surname, email, cell } =
+  const { id, username, roles, status, password, names, surname, email, phone } =
     req.body;
 
   // Confirm data
-  if (!id || !username || !roles || typeof active !== "boolean") {
+  if (!id || !username || !roles || typeof status !== "boolean") {
     return res
       .status(400)
       .json({ message: "Todos los campos excepto contraseña son requeridos" });
@@ -125,7 +125,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
   pool
     .query(
-      'SELECT user_id, user_name, password, rol_user, nombres, apellidos, activo, email, cell FROM "userSchema"."User" WHERE user_id = $1',
+      'SELECT user_id, user_name, password, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_create_by, user_rol FROM public.table_user WHERE user_id = $1',
       [id]
     )
     .then((result) => {
@@ -137,7 +137,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          'SELECT user_name FROM "userSchema"."User" WHERE user_name = $1',
+          'SELECT user_name FROM public.table_user WHERE user_name = $1',
           [username]
         )
         .then(async (resultName) => {
@@ -152,17 +152,17 @@ const updateUser = asyncHandler(async (req, res) => {
           const valueInto = [
             duplicate ? result.rows[0].user_name : username,
             password ? hashP : result.rows[0].password,
-            roles ? roles : result.rows[0].rol_user,
-            names ? names : result.rows[0].nombres,
-            surname ? surname : result.rows[0].apellidos,
-            active,
+            roles ? roles : result.rows[0].user_rol,
+            names ? names : result.rows[0].user_nombre,
+            surname ? surname : result.rows[0].user_apellido,
+            status,
             email ? email : result.rows[0].email,
-            cell ? cell : result.rows[0].cell,
+            phone ? phone : result.rows[0].user_phone,
           ];
 
           pool
             .query(
-              `UPDATE "userSchema"."User"	SET user_name=$1, password=$2, rol_user=$3, nombres=$4, apellidos=$5, activo=$6, email=$7, cell=$8	WHERE user_id= ${id}`,
+              `UPDATE public.table_user	SET user_name=$1, password=$2, user_rol=$3, user_nombre=$4, user_apellido=$5, user_status=$6, email=$7, user_phone=$8	WHERE user_id= ${id}`,
               valueInto
             )
             .then((valueUpdate) => {
@@ -211,23 +211,28 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route DELETE /users
 // @access Private
 const deleteUser = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  const { id, idUser } = req.body;
+
+  console.log(`${id} ${idUser}`);
 
   // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID de usuario requerido" });
   }
+  if (id == idUser) {
+    return res.status(400).json({ message: "Usuario debe ser eliminado por el administrador" });
+  }
 
   // Does the user still have assi gned notes?
   pool
-    .query(`SELECT user_id FROM "userSchema"."User" WHERE user_id = ${id}`)
+    .query(`SELECT user_id FROM public.table_user WHERE user_id = ${id}`)
     .then((exist) => {
       // usuario
       if (!exist.rows[0]) {
         return res.status(400).json({ message: "Usuario no encontrado" });
       }
       pool
-        .query(`DELETE FROM "userSchema"."User" WHERE user_id = ${id}`)
+        .query(`DELETE FROM public.table_user WHERE user_id = ${id}`)
         .then(() => {
           // usuario borrado
 
