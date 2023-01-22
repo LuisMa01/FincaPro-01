@@ -213,7 +213,7 @@ const updateUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
   const { id, id_User } = req.body;
 
-  console.log(`${id} ${id_User}`);
+  
 
   // Confirm data
   if (!id) {
@@ -221,6 +221,9 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
   if (id == id_User) {
     return res.status(400).json({ message: "Usuario debe ser eliminado por el administrador" });
+  }
+  if (id == 1 || id == 2 || id == 3) {
+    return res.status(400).json({ message: "Usuario no puede ser eliminado." });
   }
 
   // Does the user still have assi gned notes?
