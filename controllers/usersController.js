@@ -213,8 +213,6 @@ const updateUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
   const { id, id_User } = req.body;
 
-  
-
   // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID de usuario requerido" });

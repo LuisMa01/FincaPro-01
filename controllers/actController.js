@@ -131,66 +131,50 @@ const createNewAct = asyncHandler(async (req, res) => {
     });
 });
 
-// @desc Update a user
-// @route PATCH /users
+// @desc Update a act
+// @route PATCH /act
 // @access Private
 const updateAct = asyncHandler(async (req, res) => {
-  const { id, username, roles, active, password, names, surname, email, cell } =
+  const { id, actName, desc, active } =
     req.body;
 
   // Confirm data
-  if (!id || !username || !roles || typeof active !== "boolean") {
+  if (!id || !actName || typeof active !== "boolean") {
     return res
       .status(400)
-      .json({ message: "Todos los campos excepto contraseña son requeridos" });
+      .json({ message: "Los Campos id y actName son requeridos." });
   }
-
-  //if (!id || !username || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
-  //    return res.status(400).json({ message: 'All fields except password are required' })
-  //}
-
-  // Does the user exist to update?
 
   pool
     .query(
-      'SELECT user_id, user_name, password, rol_user, nombres, apellidos, activo, email, cell FROM "userSchema"."User" WHERE user_id = $1',
+      'SELECT act_id, act_name, act_desc, act_status FROM public.table_activity  WHERE act_id = $1',
       [id]
     )
     .then((result) => {
       // If no users
-      const user = result.rows[0].user_name;
-      if (!user?.length) {
-        return res.status(400).json({ message: "No se encontraron" });
+      const act = result.rows[0].act_name;
+      if (!act?.length) {
+        return res.status(400).json({ message: "No se encontró la actividad" });
       }
 
       pool
         .query(
-          'SELECT user_name FROM "userSchema"."User" WHERE user_name = $1',
-          [username]
+          'SELECT act_name FROM public.table_activity  WHERE act_name = $1',
+          [actName]
         )
         .then(async (resultName) => {
           // If no users
           const duplicate = resultName.rows[0];
 
-          if (password) {
-            // Hash password
-            hashP = await bcrypt.hash(password, 10); // salt rounds
-          }
-
           const valueInto = [
-            duplicate ? result.rows[0].user_name : username,
-            password ? hashP : result.rows[0].password,
-            roles ? roles : result.rows[0].rol_user,
-            names ? names : result.rows[0].nombres,
-            surname ? surname : result.rows[0].apellidos,
+            duplicate ? result.rows[0].act_name : actName,
+            desc  ? desc : result.rows[0].act_desc,
             active,
-            email ? email : result.rows[0].email,
-            cell ? cell : result.rows[0].cell,
           ];
 
           pool
             .query(
-              `UPDATE "userSchema"."User"	SET user_name=$1, password=$2, rol_user=$3, nombres=$4, apellidos=$5, activo=$6, email=$7, cell=$8	WHERE user_id= ${id}`,
+              `UPDATE public.table_activity SET act_name=$1, act_desc=$2, act_status=$3	WHERE act_id= ${id};`,
               valueInto
             )
             .then((valueUpdate) => {
@@ -198,8 +182,8 @@ const updateAct = asyncHandler(async (req, res) => {
 
               if (valueUpdate) {
                 return res.json({
-                  message: `usuario Actualizado.${
-                    duplicate ? " Nombre de usuario duplicado" : ""
+                  message: `Actividad actualizada.${
+                    duplicate ? " Actividad duplicada" : ""
                   }`,
                 });
               }
@@ -235,8 +219,8 @@ const updateAct = asyncHandler(async (req, res) => {
     });
 });
 
-// @desc Delete a user
-// @route DELETE /users
+// @desc Delete a act
+// @route DELETE /act
 // @access Private
 const deleteAct = asyncHandler(async (req, res) => {
   const { id } = req.body;
@@ -246,7 +230,7 @@ const deleteAct = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "ID de la actividad requerida" });
   }
 
-  // Does the user still have assi gned notes?
+  
   pool
     .query(`SELECT act_id FROM public.table_activity WHERE act_id = ${id}`)
     .then((exist) => {
