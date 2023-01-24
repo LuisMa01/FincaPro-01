@@ -186,6 +186,7 @@ app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/act', require('./routes/actRoute'))
 app.use('/plant', require('./routes/plantRoute'))
+app.use('/camp', require('./routes/campRoute'))
 
 
 

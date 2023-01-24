@@ -6,20 +6,20 @@ const asyncHandler = require("express-async-handler");
 // @desc Get all act
 // @route GET /act
 // @access Private
-const getAllPlants = asyncHandler(async (req, res) => {
+const getAllCamps = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT plant_id, plant_name, plant_desc, plant_status, plant_create_at, plant_variety, plant_create_by FROM public.table_plant ORDER BY plant_id ASC"
+      "SELECT camp_id, camp_name, camp_area, camp_status, camp_create_at, camp_create_by	FROM public.table_camp ORDER BY camp_id ASC;"
     )
     .then((results) => {
       //res.send(results.rows)
-      const plant = results.rows;
+      const camp = results.rows;
       // If no users
-      if (!plant?.length) {
-        return res.status(400).json({ message: "No se encontraron planta" });
+      if (!camp?.length) {
+        return res.status(400).json({ message: "No se encontraron campos" });
       }
 
-      res.json(plant);
+      res.json(camp);
     })
     .catch((err) => {
       setImmediate(async () => {
@@ -35,13 +35,13 @@ const getAllPlants = asyncHandler(async (req, res) => {
 // @desc Create new act
 // @route POST /act
 // @access Private
-const createNewPlant = asyncHandler(async (req, res) => {
-  const { username, plantName, desc, variety } = req.body;
+const createNewCamp = asyncHandler(async (req, res) => {
+  const { username, campName, area } = req.body;
 
   //act_id, act_name, act_desc, create_act, act_create_by, act_status
 
-  if (!username || !plantName) {
-    return res.status(400).json({ message: "Ingresar nombre de la planta" });
+  if (!username || !campName) {
+    return res.status(400).json({ message: "Ingresar nombre del campo." });
   }
 
   // Check for duplicate username`
@@ -67,37 +67,36 @@ const createNewPlant = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          "SELECT plant_name FROM public.table_plant WHERE plant_name = $1",
-          [plantName]
+          "SELECT camp_name FROM public.table_camp WHERE camp_name = $1",
+          [campName]
         )
         .then((results) => {
-          const duplPlant = results.rows[0];
-          if (duplPlant) {
-            return res.status(409).json({ message: "Planta Duplicada" });
+          const duplCamp = results.rows[0];
+          if (duplCamp) {
+            return res.status(409).json({ message: "Campo duplicado" });
           }
 
           const dateN = new Date();
           
           const value = [
-            plantName,
-            desc ? desc : "",
+            campName,
+            area ? area : 0,
             dateN,
-            variety ? variety : "",
             userAdmin.user_id,
           ];
           pool
             .query(
-              "INSERT INTO public.table_plant( plant_name, plant_desc, plant_create_at, plant_variety, plant_create_by) VALUES ($1, $2, $3, $4, $5);",
+              "INSERT INTO public.table_camp( camp_name, camp_area, camp_create_at, camp_create_by) VALUES ($1, $2, $3, $4);",
               value
             )
             .then((results2) => {
               
               if (results2) {
                 //created
-                return res.status(201).json({ message: `Nuevo planta creada` });
+                return res.status(201).json({ message: `Nuevo campo creado.` });
               } else {
                 return res.status(400).json({
-                  message: "Datos de la planta inválido recibido",
+                  message: "Datos del campo inválido recibido",
                 });
               }
             })
@@ -132,57 +131,56 @@ const createNewPlant = asyncHandler(async (req, res) => {
     });
 });
 
-// @desc Update a act
-// @route PATCH /act
+// @desc Update a camp
+// @route PATCH /camp
 // @access Private
-const updatePlant = asyncHandler(async (req, res) => {
-  const { id, plantName, desc, variety, active } = req.body;
+const updateCamp = asyncHandler(async (req, res) => {
+  const { id, campName, area, active } = req.body;
 
   // Confirm data
-  if (!id || !plantName || typeof active !== "boolean") {
-    return res.status(400).json({ message: "Los Campos son requeridos." });
+  if (!id || !campName || typeof active !== "boolean") {
+    return res.status(400).json({ message: "Los campos son requeridos." });
   }
 
   pool
     .query(
-      "SELECT plant_id, plant_name, plant_desc, plant_variety, plant_status FROM public.table_plant  WHERE plant_id = $1",
+      "SELECT camp_id, camp_name, camp_area, camp_status FROM public.table_camp  WHERE camp_id = $1",
       [id]
     )
     .then((result) => {
       // If no users
-      const plant = result.rows[0].plant_name;
-      if (!plant?.length) {
-        return res.status(400).json({ message: "No se encontró la planta" });
+      const camp = result.rows[0].camp_name;
+      if (!camp?.length) {
+        return res.status(400).json({ message: "No se encontró el campo." });
       }
 
       pool
         .query(
-          "SELECT plant_name FROM public.table_plant  WHERE plant_name = $1",
-          [plantName]
+          "SELECT camp_name FROM public.table_camp  WHERE camp_name = $1",
+          [campName]
         )
         .then(async (resultName) => {
           // If no users
           const duplicate = resultName.rows[0];
 
           const valueInto = [
-            duplicate ? result.rows[0].plant_name : plantName,
-            desc ? desc : result.rows[0].plant_desc,
+            duplicate ? result.rows[0].camp_name : campName,
+            area ? area : result.rows[0].camp_area,
             active,
-            variety ? variety : result.rows[0].plant_variety,
           ];
 
           pool
             .query(
-              `UPDATE public.table_plant SET plant_name=$1, plant_desc=$2, plant_status=$3, plant_variety=$4	WHERE act_id= ${id};`,
+              `UPDATE public.table_camp SET camp_name=$1, camp_area=$2, camp_status=$3	WHERE camp_id= ${id};`,
               valueInto
             )
             .then((valueUpdate) => {
-              // usuario actualizado
+              
 
               if (valueUpdate) {
                 return res.json({
-                  message: `Planta actualizada. ${
-                    duplicate ? " Planta duplicada" : ""
+                  message: `Campo actualizado. ${
+                    duplicate ? " Campo duplicado" : ""
                   }`,
                 });
               }
@@ -221,24 +219,24 @@ const updatePlant = asyncHandler(async (req, res) => {
 // @desc Delete a act
 // @route DELETE /act
 // @access Private
-const deletePlant = asyncHandler(async (req, res) => {
+const deleteCamp = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
   // Confirm data
   if (!id) {
-    return res.status(400).json({ message: "ID de la planta requerida" });
+    return res.status(400).json({ message: "ID del campo requerido" });
   }
 
   pool
-    .query(`SELECT plant_id FROM public.table_plant WHERE plant_id = ${id}`)
+    .query(`SELECT camp_id FROM public.table_camp WHERE camp_id = ${id}`)
     .then((exist) => {
       if (!exist.rows[0]) {
-        return res.status(400).json({ message: "Planta no encontrada" });
+        return res.status(400).json({ message: "Campo no encontrado" });
       }
       pool
-        .query(`DELETE FROM public.table_plant WHERE plant_id = ${id}`)
+        .query(`DELETE FROM public.table_camp WHERE camp_id = ${id}`)
         .then(() => {
-          return res.json({ message: "Planta eliminada" });
+          return res.json({ message: "Campo eliminado." });
         })
         .catch((err) => {
           setImmediate(async () => {
@@ -262,8 +260,8 @@ const deletePlant = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getAllPlants,
-  createNewPlant,
-  updatePlant,
-  deletePlant,
+  getAllCamps,
+  createNewCamp,
+  updateCamp,
+  deleteCamp,
 };
