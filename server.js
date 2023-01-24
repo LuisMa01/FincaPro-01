@@ -185,7 +185,8 @@ app.use('/', require('./routes/root'))
 app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/act', require('./routes/actRoute'))
-//app.use('/notes', require('./routes/noteRoutes'))
+app.use('/plant', require('./routes/plantRoute'))
+
 
 
 app.all('*', (req, res) => {

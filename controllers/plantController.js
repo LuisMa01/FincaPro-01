@@ -1,27 +1,25 @@
 const { logEvents } = require("../middleware/logger");
 const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcrypt");
+
 
 // @desc Get all act
 // @route GET /act
 // @access Private
-const getAllActs = asyncHandler(async (req, res) => {
+const getAllPlants = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT act_id, act_name, act_desc, act_create_at, act_create_by, act_status FROM public.table_activity ORDER BY act_id ASC"
+      "SELECT plant_id, plant_name, plant_desc, plant_status, plant_create_at, plant_variety, plant_create_by FROM public.table_plant ORDER BY plant_id ASC"
     )
     .then((results) => {
       //res.send(results.rows)
-      const act = results.rows;
+      const plant = results.rows;
       // If no users
-      if (!act?.length) {
-        return res
-          .status(400)
-          .json({ message: "No se encontraron actividades" });
+      if (!plant?.length) {
+        return res.status(400).json({ message: "No se encontraron planta" });
       }
 
-      res.json(act);
+      res.json(plant);
     })
     .catch((err) => {
       setImmediate(async () => {
@@ -37,13 +35,13 @@ const getAllActs = asyncHandler(async (req, res) => {
 // @desc Create new act
 // @route POST /act
 // @access Private
-const createNewAct = asyncHandler(async (req, res) => {
-  const { username, actName, desc } = req.body;
+const createNewPlant = asyncHandler(async (req, res) => {
+  const { username, plantName, desc, variety } = req.body;
 
   //act_id, act_name, act_desc, create_act, act_create_by, act_status
 
-  if (!username || !actName) {
-    return res.status(400).json({ message: "Ingresar nombre de la actividad" });
+  if (!username || !plantName) {
+    return res.status(400).json({ message: "Ingresar nombre de la planta" });
   }
 
   // Check for duplicate username`
@@ -69,35 +67,38 @@ const createNewAct = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          "SELECT act_name FROM public.table_activity WHERE act_name = $1",
-          [actName]
+          "SELECT plant_name FROM public.table_plant WHERE plant_name = $1",
+          [plantName]
         )
         .then((results) => {
-          const duplAct = results.rows[0];
-          if (duplAct) {
-            return res.status(409).json({ message: "Actividad Duplicada" });
+          const duplPlant = results.rows[0];
+          if (duplPlant) {
+            return res.status(409).json({ message: "Planta Duplicada" });
           }
 
           const dateN = new Date();
-          const value = [actName, desc ? desc : "", dateN, userAdmin.user_id];
+          
+          const value = [
+            plantName,
+            desc ? desc : "",
+            dateN,
+            variety ? variety : "",
+            userAdmin.user_id,
+          ];
           pool
             .query(
-              "INSERT INTO public.table_activity( act_name, act_desc, act_create_at, act_create_by) VALUES ($1, $2, $3, $4);",
+              "INSERT INTO public.table_plant( plant_name, plant_desc, plant_create_at, plant_variety, plant_create_by) VALUES ($1, $2, $3, $4, $5);",
               value
             )
             .then((results2) => {
-              console.log("aqui");
+              
               if (results2) {
                 //created
-                return res
-                  .status(201)
-                  .json({ message: `Nuevo actividad creada` });
+                return res.status(201).json({ message: `Nuevo planta creada` });
               } else {
-                return res
-                  .status(400)
-                  .json({
-                    message: "Datos de la actividad inválido recibidos",
-                  });
+                return res.status(400).json({
+                  message: "Datos de la planta inválido recibido",
+                });
               }
             })
             .catch((err) => {
@@ -134,42 +135,40 @@ const createNewAct = asyncHandler(async (req, res) => {
 // @desc Update a act
 // @route PATCH /act
 // @access Private
-const updateAct = asyncHandler(async (req, res) => {
-  const { id, actName, desc, active } =
-    req.body;
+const updatePlant = asyncHandler(async (req, res) => {
+  const { id, plantName, desc, variety, active } = req.body;
 
   // Confirm data
-  if (!id || !actName || typeof active !== "boolean") {
-    return res
-      .status(400)
-      .json({ message: "Los Campos id y actName son requeridos." });
+  if (!id || !plantName || typeof active !== "boolean") {
+    return res.status(400).json({ message: "Los Campos son requeridos." });
   }
 
   pool
     .query(
-      'SELECT act_id, act_name, act_desc, act_status FROM public.table_activity  WHERE act_id = $1',
+      "SELECT plant_id, plant_name, plant_desc, plant_variety, plant_status FROM public.table_plant  WHERE plant_id = $1",
       [id]
     )
     .then((result) => {
       // If no users
-      const act = result.rows[0].act_name;
-      if (!act?.length) {
+      const plant = result.rows[0].act_name;
+      if (!plant?.length) {
         return res.status(400).json({ message: "No se encontró la actividad" });
       }
 
       pool
         .query(
-          'SELECT act_name FROM public.table_activity  WHERE act_name = $1',
-          [actName]
+          "SELECT plant_name FROM public.table_plant  WHERE plant_name = $1",
+          [plantName]
         )
         .then(async (resultName) => {
           // If no users
           const duplicate = resultName.rows[0];
 
           const valueInto = [
-            duplicate ? result.rows[0].act_name : actName,
-            desc  ? desc : result.rows[0].act_desc,
+            duplicate ? result.rows[0].plant_name : plantName,
+            desc ? desc : result.rows[0].plant_desc,
             active,
+            variety ? variety : result.rows[0].plant_variety,
           ];
 
           pool
@@ -182,8 +181,8 @@ const updateAct = asyncHandler(async (req, res) => {
 
               if (valueUpdate) {
                 return res.json({
-                  message: `Actividad actualizada.${
-                    duplicate ? " Actividad duplicada" : ""
+                  message: `Planta actualizada. ${
+                    duplicate ? " Planta duplicada" : ""
                   }`,
                 });
               }
@@ -222,25 +221,24 @@ const updateAct = asyncHandler(async (req, res) => {
 // @desc Delete a act
 // @route DELETE /act
 // @access Private
-const deleteAct = asyncHandler(async (req, res) => {
+const deletePlant = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
   // Confirm data
   if (!id) {
-    return res.status(400).json({ message: "ID de la actividad requerida" });
+    return res.status(400).json({ message: "ID de la planta requerida" });
   }
 
-  
   pool
-    .query(`SELECT act_id FROM public.table_activity WHERE act_id = ${id}`)
+    .query(`SELECT plant_id FROM public.table_plant WHERE plant_id = ${id}`)
     .then((exist) => {
       if (!exist.rows[0]) {
-        return res.status(400).json({ message: "Actividad no encontrada" });
+        return res.status(400).json({ message: "Planta no encontrada" });
       }
       pool
-        .query(`DELETE FROM public.table_activity WHERE act_id = ${id}`)
+        .query(`DELETE FROM public.table_plant WHERE plant_id = ${id}`)
         .then(() => {
-          return res.json({ message: "Actividad eliminada" });
+          return res.json({ message: "Planta eliminada" });
         })
         .catch((err) => {
           setImmediate(async () => {
@@ -264,8 +262,8 @@ const deleteAct = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getAllActs,
-  createNewAct,
-  updateAct,
-  deleteAct,
+  getAllPlants,
+  createNewPlant,
+  updatePlant,
+  deletePlant,
 };
