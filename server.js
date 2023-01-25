@@ -188,6 +188,7 @@ app.use('/act', require('./routes/actRoute'))
 app.use('/plant', require('./routes/plantRoute'))
 app.use('/camp', require('./routes/campRoute'))
 app.use('/dose', require('./routes/doseRoute'))
+app.use('/form', require('./routes/formRoute'))
 
 
 
