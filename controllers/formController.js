@@ -2,24 +2,25 @@ const { logEvents } = require("../middleware/logger");
 const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
 
-
 // @desc Get all
 // @route GET /dose
 // @access Private
 const getAllForms = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT dose_id, dose_name, dose_status, dose_create_at, dose_create_by, dose_unit, dose_desc FROM public.table_dose ORDER BY dose_id ASC;"
+      "SELECT acts_id, act_key, plant_key, acts_user_key, acts_create_at FROM public.table_acts_plant;"
     )
     .then((results) => {
       //res.send(results.rows)
-      const dose = results.rows;
+      const form = results.rows;
       // If no users
-      if (!dose?.length) {
-        return res.status(400).json({ message: "No se encontraron campos" });
+      if (!form?.length) {
+        return res
+          .status(400)
+          .json({ message: "No se encontraron actividdades en el formulario" });
       }
 
-      res.json(dose);
+      res.json(form);
     })
     .catch((err) => {
       setImmediate(async () => {
@@ -36,12 +37,14 @@ const getAllForms = asyncHandler(async (req, res) => {
 // @route POST /dose
 // @access Private
 const createNewForm = asyncHandler(async (req, res) => {
-  const { username, doseName, desc, doseUnit } = req.body;
+  const { username, idAct, idPlant } = req.body;
 
   //act_id, act_name, act_desc, create_act, act_create_by, act_status
 
-  if (!username || !campName) {
-    return res.status(400).json({ message: "Ingresar nombre de los campos requeridos." });
+  if (!username || !idAct || !idPlant) {
+    return res
+      .status(400)
+      .json({ message: "Completar los campos requeridos." });
   }
 
   // Check for duplicate username`
@@ -67,37 +70,33 @@ const createNewForm = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          "SELECT dose_name FROM public.table_dose WHERE dose_name = $1",
-          [doseName]
+          "SELECT act_key, plant_key FROM public.table_acts_plant WHERE act_key = $1 AND plant_key = $2;",
+          [idAct, idPlant]
         )
         .then((results) => {
-          const duplDose = results.rows[0];
-          if (duplDose) {
-            return res.status(409).json({ message: "Dosis duplicada" });
+          const duplAct = results.rows[0].act_key;
+          const duplPlant = results.rows[0].plant_key;
+          if (duplAct && duplPlant) {
+            return res.status(409).json({ message: "Acción duplicada" });
           }
 
           const dateN = new Date();
-          
-          const value = [
-            doseName,
-            desc ? desc : "",
-            dateN,
-            doseUnit ? doseUnit : "",
-            userAdmin.user_id,
-          ];
+
+          const value = [idAct, idPlant, userAdmin.user_id, dateN];
           pool
             .query(
-              "INSERT INTO public.table_dose( dose_name, dose_desc, dose_create_at, dose_unit, dose_create_by) VALUES ($1, $2, $3, $4, $5);",
+              "INSERT INTO public.table_acts_plant( act_key, plant_key, acts_user_key, acts_create_at) VALUES ($1, $2, $3, $4);",
               value
             )
             .then((results2) => {
-              
               if (results2) {
                 //created
-                return res.status(201).json({ message: `Nuevo dosis creado.` });
+                return res
+                  .status(201)
+                  .json({ message: `Nueva actividad agregada.` });
               } else {
                 return res.status(400).json({
-                  message: "Datos de la dosis inválido recibido",
+                  message: "Datos de la actividad inválidos recibido",
                 });
               }
             })
@@ -136,54 +135,50 @@ const createNewForm = asyncHandler(async (req, res) => {
 // @route PATCH /dose
 // @access Private
 const updateForm = asyncHandler(async (req, res) => {
-  const { id, doseName, desc, active, doseUnit } = req.body;
+  const { id, idAct, idPlant } = req.body;
 
   // Confirm data
-  if (!id || typeof active !== "boolean") {
+  if (!id || !idAct || !idPlant) {
     return res.status(400).json({ message: "Los campos son requeridos." });
   }
 
   pool
     .query(
-      "SELECT dose_id, dose_name, dose_desc, dose_status, dose_unit FROM public.table_dose  WHERE dose_id = $1",
+      "SELECT acts_id, act_key, plant_key FROM public.table_acts_plant WHERE acts_id = $1",
       [id]
     )
     .then((result) => {
       // If no users
-      const dose = result.rows[0].dose_name;
-      if (!dose?.length) {
-        return res.status(400).json({ message: "No se encontró la dosis." });
+      const acts = result.rows[0].acts_id;
+      if (!acts?.length) {
+        return res
+          .status(400)
+          .json({ message: "No se encontró la actividad." });
       }
 
       pool
         .query(
-          "SELECT dose_name FROM public.table_dose  WHERE dose_name = $1",
-          [doseName]
+          "SELECT act_key, plant_key FROM public.table_acts_plant WHERE act_key = $1 AND plant_key = $2;",
+          [idAct, idPlant]
         )
         .then(async (resultName) => {
-          // If no users
-          const duplicate = resultName.rows[0];
+          const duplAct = resultName.rows[0].act_key;
+          const duplPlant = resultName.rows[0].plant_key;
+          if (duplAct && duplPlant) {
+            return res.status(409).json({ message: "Acción duplicada" });
+          }
 
-          const valueInto = [
-            duplicate ? result.rows[0].dose_name : campName,
-            desc ? desc : result.rows[0].dose_desc,
-            doseUnit ? doseUnit : result.rows[0].dose_unit,
-            active,
-          ];
+          const valueInto = [idAct, idPlant];
 
           pool
             .query(
-              `UPDATE public.table_dose SET dose_name=$1, dose_desc=$2, dose_unit=$3, dose_status=$4	WHERE camp_id= ${id};`,
+              `UPDATE public.table_acts_plant SET plant_key=$1, plant_key=$2 WHERE acts_id=${id};`,
               valueInto
             )
             .then((valueUpdate) => {
-              
-
               if (valueUpdate) {
                 return res.json({
-                  message: `Dosis actualizada. ${
-                    duplicate ? " Dosis duplicada" : ""
-                  }`,
+                  message: `Actividad actualizada.`,
                 });
               }
             })
@@ -226,19 +221,19 @@ const deleteForm = asyncHandler(async (req, res) => {
 
   // Confirm data
   if (!id) {
-    return res.status(400).json({ message: "ID de la dosis requerida" });
+    return res.status(400).json({ message: "ID requerida" });
   }
 
   pool
-    .query(`SELECT dose_id FROM public.table_dose WHERE dose_id = ${id}`)
+    .query(`SELECT acts_id FROM public.table_acts_plant WHERE acts_id = ${id}`)
     .then((exist) => {
       if (!exist.rows[0]) {
-        return res.status(400).json({ message: "Dosis no encontrado" });
+        return res.status(400).json({ message: "Actividad no encontrada" });
       }
       pool
-        .query(`DELETE FROM public.table_dose WHERE dose_id = ${id}`)
+        .query(`DELETE FROM public.table_acts_plant WHERE acts_id = ${id}`)
         .then(() => {
-          return res.json({ message: "Dosis eliminado." });
+          return res.json({ message: "Actividad eliminada." });
         })
         .catch((err) => {
           setImmediate(async () => {
