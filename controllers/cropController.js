@@ -4,22 +4,22 @@ const asyncHandler = require("express-async-handler");
 
 
 // @desc Get all
-// @route GET /dose
+// @route GET /crop
 // @access Private
-const getAllDoses = asyncHandler(async (req, res) => {
+const getAllCrops = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT dose_id, dose_name, dose_status, dose_create_at, dose_create_by, dose_unit, dose_desc FROM public.table_dose ORDER BY dose_id ASC;"
+      "SELECT crop_id, crop_name, crop_plant, crop_harvest, crop_status, crop_final_prod, crop_user_key, crop_camp_key FROM public.table_crop ORDER BY crop_id ASC;"
     )
     .then((results) => {
       //res.send(results.rows)
-      const dose = results.rows;
+      const crop = results.rows;
       // If no users
-      if (!dose?.length) {
+      if (!crop?.length) {
         return res.status(400).json({ message: "No se encontraron campos" });
       }
 
-      res.json(dose);
+      res.json(crop);
     })
     .catch((err) => {
       setImmediate(async () => {
@@ -33,15 +33,15 @@ const getAllDoses = asyncHandler(async (req, res) => {
 });
 
 // @desc Create new
-// @route POST /dose
+// @route POST /crop
 // @access Private
-const createNewDose = asyncHandler(async (req, res) => {
-  const { username, doseName, desc, doseUnit } = req.body;
+const createNewCrop = asyncHandler(async (req, res) => {
+  const { username, cropName, datePlant, dateHarvest, cropStatus, finalProd, cropUserKey, cropCampKey } = req.body;
 
-  //act_id, act_name, act_desc, create_act, act_create_by, act_status
+  
 
-  if (!username || !doseName) {
-    return res.status(400).json({ message: "Ingresar nombre de los campos requeridos." });
+  if (!username || !cropCampKey) {
+    return res.status(400).json({ message: "Llenar los campos requeridos." });
   }
 
   // Check for duplicate username`
@@ -67,8 +67,8 @@ const createNewDose = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          "SELECT dose_name FROM public.table_dose WHERE dose_name = $1",
-          [doseName]
+          "SELECT crop_name FROM public.table_crop WHERE crop_name = $1",
+          [cropName]
         )
         .then((results) => {
           const duplDose = results.rows[0];
@@ -79,7 +79,7 @@ const createNewDose = asyncHandler(async (req, res) => {
           const dateN = new Date();
           
           const value = [
-            doseName,
+            cropName,
             desc ? desc : "",
             dateN,
             doseUnit ? doseUnit : "",
@@ -133,9 +133,9 @@ const createNewDose = asyncHandler(async (req, res) => {
 });
 
 // @desc Update
-// @route PATCH /dose
+// @route PATCH /crop
 // @access Private
-const updateDose = asyncHandler(async (req, res) => {
+const updateCrop = asyncHandler(async (req, res) => {
   const { id, doseName, desc, active, doseUnit } = req.body;
 
   // Confirm data
@@ -150,8 +150,8 @@ const updateDose = asyncHandler(async (req, res) => {
     )
     .then((result) => {
       // If no users
-      const dose = result.rows[0].dose_name;
-      if (!dose?.length) {
+      const crop = result.rows[0].dose_name;
+      if (!crop?.length) {
         return res.status(400).json({ message: "No se encontró la dosis." });
       }
 
@@ -219,9 +219,9 @@ const updateDose = asyncHandler(async (req, res) => {
 });
 
 // @desc Delete
-// @route DELETE /dose
+// @route DELETE /crop
 // @access Private
-const deleteDose = asyncHandler(async (req, res) => {
+const deleteCrop = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
   // Confirm data
@@ -262,8 +262,8 @@ const deleteDose = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getAllDoses,
-  createNewDose,
-  updateDose,
-  deleteDose,
+  getAllCrops,
+  createNewCrop,
+  updateCrop,
+  deleteCrop,
 };
