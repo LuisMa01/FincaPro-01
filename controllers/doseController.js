@@ -165,7 +165,7 @@ const updateDose = asyncHandler(async (req, res) => {
           const duplicate = resultName.rows[0];
 
           const valueInto = [
-            duplicate ? result.rows[0].dose_name : campName,
+            duplicate ? result.rows[0].dose_name : doseName,
             desc ? desc : result.rows[0].dose_desc,
             doseUnit ? doseUnit : result.rows[0].dose_unit,
             active,
@@ -173,7 +173,7 @@ const updateDose = asyncHandler(async (req, res) => {
 
           pool
             .query(
-              `UPDATE public.table_dose SET dose_name=$1, dose_desc=$2, dose_unit=$3, dose_status=$4	WHERE camp_id= ${id};`,
+              `UPDATE public.table_dose SET dose_name=$1, dose_desc=$2, dose_unit=$3, dose_status=$4	WHERE dose_id= ${id};`,
               valueInto
             )
             .then((valueUpdate) => {

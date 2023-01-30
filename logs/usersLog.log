@@ -1,0 +1,5 @@
+20230130	18:57:32	9e05e1f9-c6c9-4f35-9185-3e679761be70	admin	create	alberto	3
+20230130	19:10:16	150f73a3-0125-40b6-9988-767c8c3eb4fe	admin	Delete	alberto
+20230130	19:11:18	80542a3a-312f-47d2-bc71-1d8f79b304f2	admin	Delete	daniel
+20230130	19:11:26	83fb83e4-8d80-4f95-a9cb-7dad50ec1583	admin	Update	julio	julio,$2b$10$Ru5Pcp3CQiKBvZqZ2SMSUenv6fIsgbaZ/atjsoyRWE2BolemQ95Cm,3,,,false,,
+20230130	19:11:51	dc5a1b84-0310-4fa1-9afb-3a78d3f0f1f0	admin	Update	julio	julio,$2b$10$Ru5Pcp3CQiKBvZqZ2SMSUenv6fIsgbaZ/atjsoyRWE2BolemQ95Cm,3,,,true,,

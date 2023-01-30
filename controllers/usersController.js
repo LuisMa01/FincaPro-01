@@ -8,9 +8,10 @@ const bcrypt = require("bcrypt");
 // @access Private
 const getAllUsers = asyncHandler(async (req, res) => {
   // Get all users from MongoDB
+  console.log(` importante ${req.user} ${req.roles}`);
   pool
     .query(
-      'SELECT user_id, user_name, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_create_by, user_rol FROM public.table_user ORDER BY user_id'
+      "SELECT user_id, user_name, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_create_by, user_rol FROM public.table_user ORDER BY user_id"
     )
     .then((results) => {
       //res.send(results.rows)
@@ -51,14 +52,16 @@ const createNewUser = asyncHandler(async (req, res) => {
 
   // Check for duplicate username`
   await pool
-    .query('SELECT user_name FROM public.table_user WHERE user_name = $1', [
+    .query("SELECT user_name FROM public.table_user WHERE user_name = $1", [
       username,
     ])
     .then(async (results) => {
       const duplicate = results.rows[0];
       // If no users
       if (duplicate) {
-        return res.status(409).json({ message: "Nombre de usuario ya existente" });
+        return res
+          .status(409)
+          .json({ message: "Nombre de usuario ya existente" });
       }
       // Hash password
       const hashedPwd = await bcrypt.hash(password, 10); // salt rounds
@@ -69,12 +72,18 @@ const createNewUser = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          'INSERT INTO public.table_user (user_name, password, user_rol) VALUES ($1, $2, $3);',
+          "INSERT INTO public.table_user (user_name, password, user_rol) VALUES ($1, $2, $3);",
           value
         )
         .then((results2) => {
           if (results2) {
             //created
+            setImmediate(async () => {
+              await logEvents(
+                `${req.user}\tcreate\t${value}`,
+                "usersLog.log"
+              );
+            });
             return res.status(201).json({ message: `Nuevo usuario creado` });
           } else {
             return res
@@ -107,8 +116,17 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-  const { id, username, roles, status, password, names, surname, email, phone } =
-    req.body;
+  const {
+    id,
+    username,
+    roles,
+    status,
+    password,
+    names,
+    surname,
+    email,
+    phone,
+  } = req.body;
 
   // Confirm data
   if (!id || !username || !roles || typeof status !== "boolean") {
@@ -125,7 +143,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
   pool
     .query(
-      'SELECT user_id, user_name, password, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_create_by, user_rol FROM public.table_user WHERE user_id = $1',
+      "SELECT user_id, user_name, password, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_create_by, user_rol FROM public.table_user WHERE user_id = $1",
       [id]
     )
     .then((result) => {
@@ -136,10 +154,9 @@ const updateUser = asyncHandler(async (req, res) => {
       }
 
       pool
-        .query(
-          'SELECT user_name FROM public.table_user WHERE user_name = $1',
-          [username]
-        )
+        .query("SELECT user_name FROM public.table_user WHERE user_name = $1", [
+          username,
+        ])
         .then(async (resultName) => {
           // If no users
           const duplicate = resultName.rows[0];
@@ -169,6 +186,12 @@ const updateUser = asyncHandler(async (req, res) => {
               // usuario actualizado
 
               if (valueUpdate) {
+                setImmediate(async () => {
+                  await logEvents(
+                    `${req.user}\tUpdate\t${user}\t${valueInto}`,
+                    "usersLog.log"
+                  );
+                });
                 return res.json({
                   message: `usuario Actualizado.${
                     duplicate ? " Nombre de usuario duplicado" : ""
@@ -218,7 +241,9 @@ const deleteUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "ID de usuario requerido" });
   }
   if (id == id_User) {
-    return res.status(400).json({ message: "Usuario debe ser eliminado por el administrador" });
+    return res
+      .status(400)
+      .json({ message: "Usuario debe ser eliminado por el administrador" });
   }
   if (id == 1 || id == 2 || id == 3) {
     return res.status(400).json({ message: "Usuario no puede ser eliminado." });
@@ -226,16 +251,22 @@ const deleteUser = asyncHandler(async (req, res) => {
 
   // Does the user still have assi gned notes?
   pool
-    .query(`SELECT user_id FROM public.table_user WHERE user_id = ${id}`)
+    .query(`SELECT user_id, user_name FROM public.table_user WHERE user_id = ${id}`)
     .then((exist) => {
       // usuario
-      if (!exist.rows[0]) {
+      if (!exist.rows[0].user_id) {
         return res.status(400).json({ message: "Usuario no encontrado" });
       }
       pool
         .query(`DELETE FROM public.table_user WHERE user_id = ${id}`)
         .then(() => {
           // usuario borrado
+          setImmediate(async () => {
+            await logEvents(
+              `${req.user}\tDelete\t${exist.rows[0].user_name}`,
+              "usersLog.log"
+            );
+          });
 
           return res.json({ message: "Usuario eliminado" });
         })

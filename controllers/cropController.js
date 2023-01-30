@@ -36,11 +36,11 @@ const getAllCrops = asyncHandler(async (req, res) => {
 // @route POST /crop
 // @access Private
 const createNewCrop = asyncHandler(async (req, res) => {
-  const { username, cropName, datePlant, dateHarvest, cropStatus, finalProd, cropUserKey, cropCampKey } = req.body;
+  const { username, cropName, datePlant, dateHarvest, finalProd, cropCampKey } = req.body;
 
   
 
-  if (!username || !cropCampKey) {
+  if (!username || !cropCampKey || !cropName) {
     return res.status(400).json({ message: "Llenar los campos requeridos." });
   }
 
@@ -71,33 +71,34 @@ const createNewCrop = asyncHandler(async (req, res) => {
           [cropName]
         )
         .then((results) => {
-          const duplDose = results.rows[0];
-          if (duplDose) {
-            return res.status(409).json({ message: "Dosis duplicada" });
+          const duplCrop = results.rows[0];
+          if (duplCrop) {
+            return res.status(409).json({ message: "Crops duplicada" });
           }
 
-          const dateN = new Date();
+          //const dateN = new Date();
           
           const value = [
             cropName,
-            desc ? desc : "",
-            dateN,
-            doseUnit ? doseUnit : "",
+            datePlant ? datePlant : null,
+            dateHarvest ? dateHarvest : null,
+            finalProd ? finalProd : "",
+            cropCampKey,
             userAdmin.user_id,
           ];
           pool
             .query(
-              "INSERT INTO public.table_dose( dose_name, dose_desc, dose_create_at, dose_unit, dose_create_by) VALUES ($1, $2, $3, $4, $5);",
+              "INSERT INTO public.table_crop( crop_name, crop_plant, crop_harvest, crop_final_prod, crop_camp_key, crop_user_key) VALUES ($1, $2, $3, $4, $5, $6);",
               value
             )
             .then((results2) => {
               
               if (results2) {
                 //created
-                return res.status(201).json({ message: `Nuevo dosis creado.` });
+                return res.status(201).json({ message: `Nuevo cultivo creado.` });
               } else {
                 return res.status(400).json({
-                  message: "Datos de la dosis inválido recibido",
+                  message: "Datos del cultivo inválido recibido",
                 });
               }
             })
@@ -136,7 +137,7 @@ const createNewCrop = asyncHandler(async (req, res) => {
 // @route PATCH /crop
 // @access Private
 const updateCrop = asyncHandler(async (req, res) => {
-  const { id, doseName, desc, active, doseUnit } = req.body;
+  const { id, cropName, datePlant, dateHarvest, finalProd, cropCampKey, active } = req.body;
 
   // Confirm data
   if (!id || typeof active !== "boolean") {
@@ -145,35 +146,37 @@ const updateCrop = asyncHandler(async (req, res) => {
 
   pool
     .query(
-      "SELECT dose_id, dose_name, dose_desc, dose_status, dose_unit FROM public.table_dose  WHERE dose_id = $1",
+      "SELECT crop_id, crop_name, crop_plant, crop_harvest, crop_status, crop_final_prod, crop_user_key, crop_camp_key FROM public.table_crop  WHERE crop_id = $1",
       [id]
     )
     .then((result) => {
       // If no users
-      const crop = result.rows[0].dose_name;
+      const crop = result.rows[0].crop_name;
       if (!crop?.length) {
-        return res.status(400).json({ message: "No se encontró la dosis." });
+        return res.status(400).json({ message: "No se encontró el cultivo." });
       }
 
       pool
         .query(
-          "SELECT dose_name FROM public.table_dose  WHERE dose_name = $1",
-          [doseName]
+          "SELECT crop_name FROM public.table_crop  WHERE crop_name = $1",
+          [cropName]
         )
         .then(async (resultName) => {
           // If no users
           const duplicate = resultName.rows[0];
 
           const valueInto = [
-            duplicate ? result.rows[0].dose_name : campName,
-            desc ? desc : result.rows[0].dose_desc,
-            doseUnit ? doseUnit : result.rows[0].dose_unit,
+            duplicate ? result.rows[0].crop_name : cropName,
+            datePlant ? datePlant : result.rows[0].crop_plant,
+            dateHarvest ? dateHarvest : result.rows[0].crop_harvest,
+            finalProd ? finalProd : result.rows[0].crop_final_prod,
+            cropCampKey ? cropCampKey : result.rows[0].crop_camp_key,
             active,
           ];
 
           pool
             .query(
-              `UPDATE public.table_dose SET dose_name=$1, dose_desc=$2, dose_unit=$3, dose_status=$4	WHERE camp_id= ${id};`,
+              `UPDATE public.table_crop SET crop_name=$1, crop_plant=$2, crop_harvest=$3, crop_final_prod=$4, crop_camp_key=$5, crop_status=$6	WHERE crop_id= ${id};`,
               valueInto
             )
             .then((valueUpdate) => {
@@ -181,8 +184,8 @@ const updateCrop = asyncHandler(async (req, res) => {
 
               if (valueUpdate) {
                 return res.json({
-                  message: `Dosis actualizada. ${
-                    duplicate ? " Dosis duplicada" : ""
+                  message: `Cultivo actualizado. ${
+                    duplicate ? " Cultivo duplicada" : ""
                   }`,
                 });
               }
@@ -226,19 +229,19 @@ const deleteCrop = asyncHandler(async (req, res) => {
 
   // Confirm data
   if (!id) {
-    return res.status(400).json({ message: "ID de la dosis requerida" });
+    return res.status(400).json({ message: "ID del cultivo requerido" });
   }
 
   pool
-    .query(`SELECT dose_id FROM public.table_dose WHERE dose_id = ${id}`)
+    .query(`SELECT crop_id FROM public.table_crop WHERE crop_id = ${id}`)
     .then((exist) => {
       if (!exist.rows[0]) {
-        return res.status(400).json({ message: "Dosis no encontrado" });
+        return res.status(400).json({ message: "Cultivo no encontrado" });
       }
       pool
-        .query(`DELETE FROM public.table_dose WHERE dose_id = ${id}`)
+        .query(`DELETE FROM public.table_crop WHERE crop_id = ${id}`)
         .then(() => {
-          return res.json({ message: "Dosis eliminado." });
+          return res.json({ message: "Cultivo eliminado." });
         })
         .catch((err) => {
           setImmediate(async () => {

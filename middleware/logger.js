@@ -3,6 +3,7 @@ const { v4: uuid } = require('uuid')
 const fs = require('fs')
 const fsPromises = require('fs').promises
 const path = require('path')
+const jwt = require('jsonwebtoken')
 
 const logEvents = async (message, logFileName) => {
     const dateTime = format(new Date(), 'yyyyMMdd\tHH:mm:ss')
@@ -24,4 +25,4 @@ const logger = async (req, res, next) => {
     next()
 }
 
-module.exports = { logEvents, logger }
+module.exports = { logEvents, logger } 

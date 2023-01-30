@@ -11,4 +11,4 @@ router.route('/')
     .patch(actController.updateAct)
     .delete(actController.deleteAct)
 
-module.exports = router
+module.exports = router 
