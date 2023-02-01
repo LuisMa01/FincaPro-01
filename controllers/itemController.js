@@ -2,24 +2,23 @@ const { logEvents } = require("../middleware/logger");
 const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
 
-
 // @desc Get all
-// @route GET /app
+// @route GET /item
 // @access Private
-const getAllApps = asyncHandler(async (req, res) => {
+const getAllItems = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT date_id, date_init, date_end, date_acts_key, date_crop_key  FROM public.table_app_date ORDER BY date_id ASC "
+      "SELECT item_id, item_name, item_desc, item_price, item_create_at, item_create_by, item_status, item_dose_key FROM public.table_item ORDER BY item_id ASC "
     )
     .then((results) => {
       //res.send(results.rows)
-      const appDate = results.rows;
+      const item = results.rows;
       // If no users
-      if (!appDate?.length) {
-        return res.status(400).json({ message: "No se encontraron campos" });
+      if (!item?.length) {
+        return res.status(400).json({ message: "No se encontraron Items" });
       }
 
-      res.json(appDate);
+      res.json(item);
     })
     .catch((err) => {
       setImmediate(async () => {
@@ -33,28 +32,15 @@ const getAllApps = asyncHandler(async (req, res) => {
 });
 
 // @desc Create new
-// @route POST /app
+// @route POST /item
 // @access Private
-/*
-SELECT date_init,
-		date_end, 
-		acts_id,
-		date_acts_key,
-		plant_key, 
-		crop_id,
-		date_crop_key, 
-		date_id
-	FROM public.table_app_date 
-	INNER JOIN public.table_acts_plant ON acts_id = date_acts_key
-	INNER JOIN public.table_crop ON crop_id = date_crop_key;
-*/
-const createNewApp = asyncHandler(async (req, res) => {
-  const { username, dateInit, dateEnd, actsKey, cropKey, plantId  } = req.body;
+const createNewItem = asyncHandler(async (req, res) => {
+  const { username, itemName, desc, itemPrice, itemDose } = req.body;
 
-  
-
-  if (!actsKey || !cropKey || !plantId) {
-    return res.status(400).json({ message: "Llenar los campos requeridos." });
+  if (!username || !itemName || !itemDose) {
+    return res
+      .status(400)
+      .json({ message: "Ingresar nombre de los campos requeridos." });
   }
 
   // Check for duplicate username`
@@ -79,39 +65,38 @@ const createNewApp = asyncHandler(async (req, res) => {
       }
 
       pool
-        .query(
-          "SELECT plant_key, date_id	FROM public.table_app_date INNER JOIN public.table_acts_plant ON acts_id = date_acts_key INNER JOIN public.table_crop ON crop_id = date_crop_key WHERE date_crop_key = $1;",
-          [cropKey]
-        )
+        .query("SELECT item_name FROM public.table_item WHERE item_name = $1", [
+          itemName,
+        ])
         .then((results) => {
-          const crop = results.rows[0];
-          if (crop) {
-            if (crop.plant_key !== plantId) {
-              return res.status(409).json({ message: "Actividad corresponde a otro cultivo." });
-            }            
+          const duplItem = results.rows[0];
+          if (duplItem) {
+            return res.status(409).json({ message: "Item duplicada" });
           }
 
-          //const dateN = new Date();
-          
+          const dateN = new Date();
+
           const value = [
-            dateInit ? dateInit : null,
-            dateEnd ? dateEnd : null,
-            actsKey,
-            cropKey,
+            itemName,
+            desc ? desc : "",
+            itemPrice ? itemPrice : 0,
+            dateN,
+            userAdmin.user_id,
+            itemDose,
           ];
+          //username, itemName, desc, itemPrice, itemDose
           pool
             .query(
-              "INSERT INTO public.table_app_date(date_init, date_end, date_acts_key, date_crop_key) VALUES ($1, $2, $3, $4);",
+              "INSERT INTO public.table_item( item_name, item_desc, item_price, item_create_at, item_create_by, item_dose_key) VALUES ($1, $2, $3, $4, $5, $6);",
               value
             )
             .then((results2) => {
-              
               if (results2) {
                 //created
-                return res.status(201).json({ message: `Nuevo actividad agregada.` });
+                return res.status(201).json({ message: `Nuevo item creado.` });
               } else {
                 return res.status(400).json({
-                  message: "Datos de la actividad inválido recibido",
+                  message: "Datos del item inválido recibido",
                 });
               }
             })
@@ -147,52 +132,56 @@ const createNewApp = asyncHandler(async (req, res) => {
 });
 
 // @desc Update
-// @route PATCH /crop
+// @route PATCH /item
 // @access Private
-const updateApp = asyncHandler(async (req, res) => {
-  const { id, dateInit, dateEnd, actsKey, cropKey, plantId } = req.body;
+const updateItem = asyncHandler(async (req, res) => {
+  const { id, itemName, desc, itemPrice, active, itemDose } = req.body;
 
   // Confirm data
-  if (!id) {
+  if (!id || typeof active !== "boolean") {
     return res.status(400).json({ message: "Los campos son requeridos." });
   }
 
   pool
     .query(
-      "SELECT date_init, date_end, date_acts_key, date_crop_key, plant_key	FROM public.table_app_date INNER JOIN public.table_acts_plant ON acts_id = date_acts_key INNER JOIN public.table_crop ON crop_id = date_crop_key WHERE date_id = $1;",
+      "SELECT item_id, item_name, item_desc, item_price, item_status, item_dose_key FROM public.table_item WHERE item_id = $1",
       [id]
     )
     .then((result) => {
       // If no users
-      const app = result.rows[0];
-      if (!app?.length) {
-        return res.status(400).json({ message: "No se encontró la actividad en el cultivo." });
-      }
-      if (app) {
-        if (app.plant_key !== plantId) {
-          return res.status(409).json({ message: "Actividad corresponde a otro cultivo." });
-        }            
+      const item = result.rows[0].item_name;
+      if (!item?.length) {
+        return res.status(400).json({ message: "No se encontró el item." });
       }
 
+      pool
+        .query(
+          "SELECT item_name FROM public.table_item  WHERE item_name = $1",
+          [itemName]
+        )
+        .then(async (resultName) => {
+          // If no users
+          const duplicate = resultName.rows[0];
 
           const valueInto = [
-            dateInit ? dateInit : result.rows[0].date_init,
-            dateEnd ? dateEnd : result.rows[0].date_end,
-            actsKey ? actsKey : result.rows[0].date_acts_key,
-            cropKey ? cropKey : result.rows[0].date_crop_key,
+            duplicate ? result.rows[0].item_name : itemName,
+            desc ? desc : result.rows[0].item_desc,
+            itemPrice ? itemPrice : result.rows[0].item_price,
+            active,
+            itemDose ? itemDose : result.rows[0].item_dose_key,
           ];
 
           pool
             .query(
-              `UPDATE public.table_app_date SET date_init=$1, date_end=$2, date_acts_key=$3, date_crop_key=$4	WHERE date_id=${id};`,
+              `UPDATE public.table_item SET item_name=$1, item_desc=$2, item_price=$3, item_status=$4, item_dose_key=$5 WHERE item_id=${id};`,
               valueInto
             )
             .then((valueUpdate) => {
-              
-
               if (valueUpdate) {
                 return res.json({
-                  message: `Actividad actualizada.`,
+                  message: `Item actualizada. ${
+                    duplicate ? " item duplicada" : ""
+                  }`,
                 });
               }
             })
@@ -205,40 +194,6 @@ const updateApp = asyncHandler(async (req, res) => {
                 throw err;
               });
             });
-        
-    })
-    .catch((err) => {
-      setImmediate(async () => {
-        await logEvents(
-          `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
-          "postgresql.log"
-        );
-        throw err;
-      });
-    });
-});
-
-// @desc Delete
-// @route DELETE /crop
-// @access Private
-const deleteApp = asyncHandler(async (req, res) => {
-  const { id } = req.body;
-
-  // Confirm data
-  if (!id) {
-    return res.status(400).json({ message: "ID requerido" });
-  }
-
-  pool
-    .query(`SELECT date_id FROM public.table_app_date WHERE date_id = ${id}`)
-    .then((exist) => {
-      if (!exist.rows[0]) {
-        return res.status(400).json({ message: "Actividad no encontrada en el cultivo" });
-      }
-      pool
-        .query(`DELETE FROM public.table_app_date WHERE date_id = ${id}`)
-        .then(() => {
-          return res.json({ message: "Actividad eliminado del cultivo." });
         })
         .catch((err) => {
           setImmediate(async () => {
@@ -261,9 +216,52 @@ const deleteApp = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports ={
-  getAllApps,
-  createNewApp,
-  updateApp,
-  deleteApp,
+// @desc Delete
+// @route DELETE /item
+// @access Private
+const deleteItem = asyncHandler(async (req, res) => {
+  const { id } = req.body;
+
+  // Confirm data
+  if (!id) {
+    return res.status(400).json({ message: "ID del item requerida" });
+  }
+
+  pool
+    .query(`SELECT item_id FROM public.table_item WHERE item_id = ${id}`)
+    .then((exist) => {
+      if (!exist.rows[0]) {
+        return res.status(400).json({ message: "Item no encontrado" });
+      }
+      pool
+        .query(`DELETE FROM public.table_item WHERE item_id = ${id}`)
+        .then(() => {
+          return res.json({ message: "Item eliminado." });
+        })
+        .catch((err) => {
+          setImmediate(async () => {
+            await logEvents(
+              `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
+              "postgresql.log"
+            );
+            throw err;
+          });
+        });
+    })
+    .catch((err) => {
+      setImmediate(async () => {
+        await logEvents(
+          `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
+          "postgresql.log"
+        );
+        throw err;
+      });
+    });
+});
+
+module.exports = {
+  getAllItems,
+  createNewItem,
+  updateItem,
+  deleteItem,
 };
