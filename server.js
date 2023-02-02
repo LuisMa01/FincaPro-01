@@ -190,6 +190,7 @@ app.use("/form", require("./routes/formRoute"));
 app.use("/crop", require("./routes/cropRoute"));
 app.use("/app", require("./routes/appRoute"));
 app.use("/item", require("./routes/itemRoute"));
+app.use("/cost", require("./routes/costRoute"));
 
 app.all("*", (req, res) => {
   res.status(404);
