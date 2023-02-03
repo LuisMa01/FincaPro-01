@@ -9,7 +9,7 @@ const asyncHandler = require("express-async-handler");
 const getAllCrops = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT crop_id, crop_name, crop_plant, crop_harvest, crop_status, crop_final_prod, crop_user_key, crop_camp_key FROM public.table_crop ORDER BY crop_id ASC;"
+      "SELECT crop_id, crop_name, crop_plant, crop_harvest, crop_status, crop_final_prod, crop_user_key, crop_camp_key, crop_plant_key FROM public.table_crop ORDER BY crop_id ASC;"
     )
     .then((results) => {
       //res.send(results.rows)
@@ -36,11 +36,11 @@ const getAllCrops = asyncHandler(async (req, res) => {
 // @route POST /crop
 // @access Private
 const createNewCrop = asyncHandler(async (req, res) => {
-  const { username, cropName, datePlant, dateHarvest, finalProd, cropCampKey } = req.body;
+  const { username, cropName, datePlant, dateHarvest, finalProd, cropCampKey, cropPlantKey } = req.body;
 
   
 
-  if (!username || !cropCampKey || !cropName) {
+  if (!username || !cropCampKey || !cropName || !cropPlantKey) {
     return res.status(400).json({ message: "Llenar los campos requeridos." });
   }
 
@@ -84,11 +84,12 @@ const createNewCrop = asyncHandler(async (req, res) => {
             dateHarvest ? dateHarvest : null,
             finalProd ? finalProd : "",
             cropCampKey,
+            cropPlantKey,
             userAdmin.user_id,
           ];
           pool
             .query(
-              "INSERT INTO public.table_crop( crop_name, crop_plant, crop_harvest, crop_final_prod, crop_camp_key, crop_user_key) VALUES ($1, $2, $3, $4, $5, $6);",
+              "INSERT INTO public.table_crop( crop_name, crop_plant, crop_harvest, crop_final_prod, crop_camp_key, crop_plant_key, crop_user_key) VALUES ($1, $2, $3, $4, $5, $6);",
               value
             )
             .then((results2) => {
@@ -137,7 +138,7 @@ const createNewCrop = asyncHandler(async (req, res) => {
 // @route PATCH /crop
 // @access Private
 const updateCrop = asyncHandler(async (req, res) => {
-  const { id, cropName, datePlant, dateHarvest, finalProd, cropCampKey, active } = req.body;
+  const { id, cropName, datePlant, dateHarvest, finalProd, cropCampKey, cropPlantKey, active } = req.body;
 
   // Confirm data
   if (!id || typeof active !== "boolean") {
@@ -146,7 +147,7 @@ const updateCrop = asyncHandler(async (req, res) => {
 
   pool
     .query(
-      "SELECT crop_id, crop_name, crop_plant, crop_harvest, crop_status, crop_final_prod, crop_user_key, crop_camp_key FROM public.table_crop  WHERE crop_id = $1",
+      "SELECT crop_id, crop_name, crop_plant, crop_harvest, crop_status, crop_final_prod, crop_user_key, crop_plant_key, crop_camp_key FROM public.table_crop  WHERE crop_id = $1",
       [id]
     )
     .then((result) => {
@@ -171,12 +172,13 @@ const updateCrop = asyncHandler(async (req, res) => {
             dateHarvest ? dateHarvest : result.rows[0].crop_harvest,
             finalProd ? finalProd : result.rows[0].crop_final_prod,
             cropCampKey ? cropCampKey : result.rows[0].crop_camp_key,
+            cropPlantKey ? cropPlantKey : result.rows[0].crop_Plant_key,
             active,
           ];
 
           pool
             .query(
-              `UPDATE public.table_crop SET crop_name=$1, crop_plant=$2, crop_harvest=$3, crop_final_prod=$4, crop_camp_key=$5, crop_status=$6	WHERE crop_id= ${id};`,
+              `UPDATE public.table_crop SET crop_name=$1, crop_plant=$2, crop_harvest=$3, crop_final_prod=$4, crop_camp_key=$5, crop_plant_key=$6, crop_status=$7	WHERE crop_id= ${id};`,
               valueInto
             )
             .then((valueUpdate) => {

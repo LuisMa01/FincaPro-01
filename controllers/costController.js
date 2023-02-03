@@ -9,7 +9,6 @@ const bcrypt = require("bcrypt");
 /*
 SELECT cost_id, 
 		cost_item_key, 
-		item_id,
 		cost_user_key, 
 		cost_labor, 
 		cost_quantity, 
@@ -19,29 +18,26 @@ SELECT cost_id,
 		cost_date_key,
 		item_dose_key,
 		crop_camp_key,
-		date_acts_key,
-		date_crop_key,
-		act_key,
-		plant_key		
+		crop_plant_key,
+		date_act_key,
+		date_crop_key
+			
 	FROM public.table_cost
 	INNER JOIN public.table_item ON cost_item_key = item_id
 	INNER JOIN public.table_app_date on date_id = cost_date_key
-	INNER JOIN public.table_acts_plant ON acts_id = date_acts_key
 	INNER JOIN public.table_crop ON crop_id = date_crop_key;
 */
 const getAllCost = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT cost_id, cost_item_key, item_id, cost_user_key, cost_labor, cost_quantity, cost_item_price, cost_price, cost_date, cost_date_key, item_dose_key, crop_camp_key, date_acts_key, date_crop_key, act_key, plant_key FROM public.table_cost INNER JOIN public.table_item ON cost_item_key = item_id INNER JOIN public.table_app_date on date_id = cost_date_key INNER JOIN public.table_acts_plant ON acts_id = date_acts_key INNER JOIN public.table_crop ON crop_id = date_crop_key ORDER BY cost_id ASC"
+      "SELECT cost_id, cost_item_key, cost_user_key, cost_labor, cost_quantity, cost_item_price, cost_price, cost_date,  cost_date_key, item_dose_key, crop_camp_key, crop_plant_key, date_act_key, date_crop_key FROM public.table_cost INNER JOIN public.table_item ON cost_item_key = item_id INNER JOIN public.table_app_date on date_id = cost_date_key INNER JOIN public.table_crop ON crop_id = date_crop_key ORDER BY cost_id ASC;"
     )
     .then((results) => {
       //res.send(results.rows)
       const cost = results.rows;
       // If no users
       if (!cost?.length) {
-        return res
-          .status(400)
-          .json({ message: "No se encontro" });
+        return res.status(400).json({ message: "No se encontro" });
       }
 
       res.json(cost);
@@ -61,7 +57,8 @@ const getAllCost = asyncHandler(async (req, res) => {
 // @route POST /cost
 // @access Private
 const createNewCost = asyncHandler(async (req, res) => {
-  const { username, costItemKey, costLabor, costQuantity, costItemPrice, costDateKey } = req.body;
+  const { username, costItemKey, costLabor, costQuantity, costDateKey } =
+    req.body;
 
   //cost_item_key, cost_user_key, cost_labor, cost_quantity, cost_item_price, cost_price, cost_date, cost_date_key
 
@@ -92,35 +89,45 @@ const createNewCost = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          "SELECT act_name FROM public.table_activity WHERE act_name = $1",
-          [actName]
+          "SELECT item_id, item_price FROM public.table_item WHERE item_id = $1",
+          [costItemKey]
         )
         .then((results) => {
-          const duplAct = results.rows[0];
-          if (duplAct) {
-            return res.status(409).json({ message: "Actividad Duplicada" });
+          const item = results.rows[0];
+          if (!item) {
+            return res.status(409).json({ message: "Item no existe" });
+          }
+
+          //costItemKey, costLabor, costQuantity, costDateKey
+          let costPrice = 0;
+          if (item.item_price) {
+            costPrice = item.item_price * costLabor * costQuantity;
           }
 
           const dateN = new Date();
-          const value = [actName, desc ? desc : "", dateN, userAdmin.user_id];
+          const value = [
+            costItemKey,
+            userAdmin.user_id,
+            costLabor ? costLabor : 0,
+            costQuantity ? costQuantity : 0,
+            item.item_price,
+            costPrice,
+            dateN,
+            costDateKey,
+          ];
           pool
             .query(
-              "INSERT INTO public.table_activity( act_name, act_desc, act_create_at, act_create_by) VALUES ($1, $2, $3, $4);",
+              "INSERT INTO public.table_cost(cost_item_key, cost_user_key, cost_labor, cost_quantity, cost_item_price, cost_price, cost_date, cost_date_key) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);",
               value
             )
             .then((results2) => {
-              console.log("aqui");
               if (results2) {
                 //created
-                return res
-                  .status(201)
-                  .json({ message: `Nuevo actividad creada` });
+                return res.status(201).json({ message: `item insertado.` });
               } else {
-                return res
-                  .status(400)
-                  .json({
-                    message: "Datos de la actividad inválido recibidos",
-                  });
+                return res.status(400).json({
+                  message: "Datos del item inválido recibidos",
+                });
               }
             })
             .catch((err) => {
@@ -158,46 +165,60 @@ const createNewCost = asyncHandler(async (req, res) => {
 // @route PATCH /act
 // @access Private
 const updateCost = asyncHandler(async (req, res) => {
-  const { id, actName, desc, active } =
+  const { id, costItemKey, costLabor, costQuantity, costDateKey, costItemPrice } =
     req.body;
 
   // Confirm data
-  if (!id || !actName || typeof active !== "boolean") {
-    return res
-      .status(400)
-      .json({ message: "Los Campos id y actName son requeridos." });
+  if (!id) {
+    return res.status(400).json({ message: "Los Campos son requeridos." });
   }
 
   pool
     .query(
-      'SELECT act_id, act_name, act_desc, act_status FROM public.table_activity  WHERE act_id = $1',
+      "SELECT cost_id, cost_item_key, cost_item_price, cost_price, cost_date_key, item_dose_key FROM public.table_cost INNER JOIN public.table_item ON cost_item_key = item_id WHERE cost_id = $1",
       [id]
     )
     .then((result) => {
       // If no users
-      const act = result.rows[0].act_name;
-      if (!act?.length) {
-        return res.status(400).json({ message: "No se encontró la actividad" });
+      const cost = result.rows[0].cost_id;
+      if (!cost?.length) {
+        return res.status(400).json({ message: "No se encontró el item" });
       }
 
       pool
         .query(
-          'SELECT act_name FROM public.table_activity  WHERE act_name = $1',
-          [actName]
+          "SELECT item_id, item_price FROM public.table_item WHERE item_id = $1",
+          [costItemKey]
         )
         .then(async (resultName) => {
           // If no users
-          const duplicate = resultName.rows[0];
+          const item = resultName.rows[0];
+
+          let price = cost.cost_item_price
+
+          if (costItemKey !== cost.cost_item_key ) {
+            price = item.item_price
+          }
+          if (costItemPrice) {
+            price = costItemPrice
+          }
+
+          let costPrice = price * costLabor * costQuantity;
+
+          //costItemKey, costLabor, costQuantity, costDateKey, costPrice
 
           const valueInto = [
-            duplicate ? result.rows[0].act_name : actName,
-            desc  ? desc : result.rows[0].act_desc,
-            active,
+            costItemKey ? costItemKey : cost.cost_item_key,
+            costLabor ? costLabor : cost.cost_labor,
+            costQuantity ? costQuantity : cost.cost_quantity,
+            price,
+            costPrice,
+            costDateKey,
           ];
 
           pool
             .query(
-              `UPDATE public.table_activity SET act_name=$1, act_desc=$2, act_status=$3	WHERE act_id= ${id};`,
+              `UPDATE public.table_cost SET cost_item_key=$1, cost_labor=$2, cost_quantity=$3, cost_item_price=$4, cost_price=$5, cost_date_key=$6 WHERE act_id= ${id};`,
               valueInto
             )
             .then((valueUpdate) => {
@@ -205,9 +226,7 @@ const updateCost = asyncHandler(async (req, res) => {
 
               if (valueUpdate) {
                 return res.json({
-                  message: `Actividad actualizada.${
-                    duplicate ? " Actividad duplicada" : ""
-                  }`,
+                  message: `Item actualizado.`,
                 });
               }
             })
@@ -253,17 +272,16 @@ const deleteCost = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "ID de la actividad requerida" });
   }
 
-  
   pool
-    .query(`SELECT act_id FROM public.table_activity WHERE act_id = ${id}`)
+    .query(`SELECT cost_id FROM public.table_cost WHERE cost_id = ${id}`)
     .then((exist) => {
       if (!exist.rows[0]) {
-        return res.status(400).json({ message: "Actividad no encontrada" });
+        return res.status(400).json({ message: "Items no encontrada" });
       }
       pool
-        .query(`DELETE FROM public.table_activity WHERE act_id = ${id}`)
+        .query(`DELETE FROM public.table_cost WHERE cost_id = ${id}`)
         .then(() => {
-          return res.json({ message: "Actividad eliminada" });
+          return res.json({ message: "Item eliminado." });
         })
         .catch((err) => {
           setImmediate(async () => {

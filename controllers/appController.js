@@ -9,7 +9,7 @@ const asyncHandler = require("express-async-handler");
 const getAllApps = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT date_id, date_init, date_end, date_acts_key, date_crop_key  FROM public.table_app_date ORDER BY date_id ASC "
+      "SELECT date_init, date_end, date_act_key, date_crop_key, date_id, crop_camp_key, crop_plant_key	FROM public.table_app_date INNER JOIN public.table_crop ON crop_id = date_crop_key ORDER BY date_id ASC;"
     )
     .then((results) => {
       //res.send(results.rows)
@@ -36,24 +36,16 @@ const getAllApps = asyncHandler(async (req, res) => {
 // @route POST /app
 // @access Private
 /*
-SELECT date_init,
-		date_end, 
-		acts_id,
-		date_acts_key,
-		plant_key, 
-		crop_id,
-		date_crop_key, 
-		date_id
-	FROM public.table_app_date 
-	INNER JOIN public.table_acts_plant ON acts_id = date_acts_key
+SELECT date_init, date_end, date_act_key, date_crop_key, date_id, crop_camp_key, crop_plant_key
+	FROM public.table_app_date
 	INNER JOIN public.table_crop ON crop_id = date_crop_key;
 */
 const createNewApp = asyncHandler(async (req, res) => {
-  const { username, dateInit, dateEnd, actsKey, cropKey, plantId  } = req.body;
+  const { username, dateInit, dateEnd, actKey, cropKey, plantId  } = req.body;
 
   
 
-  if (!actsKey || !cropKey || !plantId) {
+  if (!actKey || !cropKey || !plantId) {
     return res.status(400).json({ message: "Llenar los campos requeridos." });
   }
 
@@ -80,13 +72,13 @@ const createNewApp = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          "SELECT plant_key, date_id	FROM public.table_app_date INNER JOIN public.table_acts_plant ON acts_id = date_acts_key INNER JOIN public.table_crop ON crop_id = date_crop_key WHERE date_crop_key = $1;",
+          "SELECT date_init, date_end, date_act_key, date_crop_key, date_id, crop_camp_key, crop_plant_key FROM public.table_app_date INNER JOIN public.table_crop ON crop_id = date_crop_key WHERE date_crop_key = $1;",
           [cropKey]
         )
         .then((results) => {
           const crop = results.rows[0];
           if (crop) {
-            if (crop.plant_key !== plantId) {
+            if (crop.crop_plant_key !== plantId) {
               return res.status(409).json({ message: "Actividad corresponde a otro cultivo." });
             }            
           }
@@ -96,12 +88,12 @@ const createNewApp = asyncHandler(async (req, res) => {
           const value = [
             dateInit ? dateInit : null,
             dateEnd ? dateEnd : null,
-            actsKey,
+            actKey,
             cropKey,
           ];
           pool
             .query(
-              "INSERT INTO public.table_app_date(date_init, date_end, date_acts_key, date_crop_key) VALUES ($1, $2, $3, $4);",
+              "INSERT INTO public.table_app_date(date_init, date_end, date_act_key, date_crop_key) VALUES ($1, $2, $3, $4);",
               value
             )
             .then((results2) => {
@@ -150,7 +142,7 @@ const createNewApp = asyncHandler(async (req, res) => {
 // @route PATCH /crop
 // @access Private
 const updateApp = asyncHandler(async (req, res) => {
-  const { id, dateInit, dateEnd, actsKey, cropKey, plantId } = req.body;
+  const { id, dateInit, dateEnd, actKey, cropKey, plantId } = req.body;
 
   // Confirm data
   if (!id) {
@@ -159,7 +151,7 @@ const updateApp = asyncHandler(async (req, res) => {
 
   pool
     .query(
-      "SELECT date_init, date_end, date_acts_key, date_crop_key, plant_key	FROM public.table_app_date INNER JOIN public.table_acts_plant ON acts_id = date_acts_key INNER JOIN public.table_crop ON crop_id = date_crop_key WHERE date_id = $1;",
+      "SELECT date_init, date_end, date_act_key, date_crop_key, date_id, crop_camp_key, crop_plant_key FROM public.table_app_date INNER JOIN public.table_crop ON crop_id = date_crop_key WHERE date_id = $1;",
       [id]
     )
     .then((result) => {
@@ -178,13 +170,13 @@ const updateApp = asyncHandler(async (req, res) => {
           const valueInto = [
             dateInit ? dateInit : result.rows[0].date_init,
             dateEnd ? dateEnd : result.rows[0].date_end,
-            actsKey ? actsKey : result.rows[0].date_acts_key,
+            actKey ? actKey : result.rows[0].date_act_key,
             cropKey ? cropKey : result.rows[0].date_crop_key,
           ];
 
           pool
             .query(
-              `UPDATE public.table_app_date SET date_init=$1, date_end=$2, date_acts_key=$3, date_crop_key=$4	WHERE date_id=${id};`,
+              `UPDATE public.table_app_date SET date_init=$1, date_end=$2, date_act_key=$3, date_crop_key=$4	WHERE date_id=${id};`,
               valueInto
             )
             .then((valueUpdate) => {
