@@ -3,7 +3,7 @@ const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
-// @desc Get all act
+// @desc Get all
 // @route GET /cost
 // @access Private
 /*
@@ -53,7 +53,7 @@ const getAllCost = asyncHandler(async (req, res) => {
     });
 });
 
-// @desc Create new act
+// @desc Create new
 // @route POST /cost
 // @access Private
 const createNewCost = asyncHandler(async (req, res) => {
@@ -161,8 +161,8 @@ const createNewCost = asyncHandler(async (req, res) => {
     });
 });
 
-// @desc Update a act
-// @route PATCH /act
+// @desc Update 
+// @route PATCH /cost
 // @access Private
 const updateCost = asyncHandler(async (req, res) => {
   const { id, costItemKey, costLabor, costQuantity, costDateKey, costItemPrice } =
@@ -261,8 +261,8 @@ const updateCost = asyncHandler(async (req, res) => {
     });
 });
 
-// @desc Delete a act
-// @route DELETE /act
+// @desc Delete
+// @route DELETE /cost
 // @access Private
 const deleteCost = asyncHandler(async (req, res) => {
   const { id } = req.body;
