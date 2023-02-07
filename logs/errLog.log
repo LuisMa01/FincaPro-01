@@ -35,3 +35,4 @@
 20230120	11:33:39	f2e95992-2373-4806-912b-db78469b01af	SyntaxError: Unexpected token u in JSON at position 3	POST	/act	undefined
 20230120	11:35:00	aec60f92-e0d3-4f11-8111-797bb76407ae	SyntaxError: Unexpected token ' in JSON at position 3	POST	/act	undefined
 20230120	11:35:10	8bf87b89-694d-472e-a0ae-89e9a209ca99	SyntaxError: Unexpected token u in JSON at position 3	POST	/act	undefined
+20230207	09:43:33	9ab4e38c-af5d-43c3-b724-08657b5a8210	ReferenceError: id_User is not defined	DELETE	/users	http://127.0.0.1:5173

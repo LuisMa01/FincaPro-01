@@ -138,6 +138,7 @@ const updateAct = asyncHandler(async (req, res) => {
   const { id, actName, desc, active } =
     req.body;
 
+  
   // Confirm data
   if (!id || !actName || typeof active !== "boolean") {
     return res

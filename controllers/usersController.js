@@ -38,7 +38,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @route POST /users
 // @access Private
 const createNewUser = asyncHandler(async (req, res) => {
-  const { username, password, roles } = req.body;
+  const { username, password, roles, names, surname, email, phone } = req.body;
 
   // Confirm data
   /*
@@ -46,6 +46,7 @@ const createNewUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
   */
+ console.log("creando nuevo usuario");
   if (!username || !password || !roles) {
     return res.status(400).json({ message: "Todos los campos son requeridos" });
   }
@@ -66,23 +67,20 @@ const createNewUser = asyncHandler(async (req, res) => {
       // Hash password
       const hashedPwd = await bcrypt.hash(password, 10); // salt rounds
 
-      const value = [username, hashedPwd, roles];
+      const value = [username, hashedPwd, roles, names ? names : '', surname ? surname : '', email ? email : '', phone ? phone : ""];
 
       // Create and store new user
 
       pool
         .query(
-          "INSERT INTO public.table_user (user_name, password, user_rol) VALUES ($1, $2, $3);",
+          "INSERT INTO public.table_user (user_name, password, user_rol, user_nombre, user_apellido, email, user_phone) VALUES ($1, $2, $3, $4, $5, $6, $7);",
           value
         )
         .then((results2) => {
           if (results2) {
             //created
             setImmediate(async () => {
-              await logEvents(
-                `${req.user}\tcreate\t${value}`,
-                "usersLog.log"
-              );
+              await logEvents(`${req.user}\tcreate\t${value}`, "usersLog.log");
             });
             return res.status(201).json({ message: `Nuevo usuario creado` });
           } else {
@@ -234,13 +232,15 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route DELETE /users
 // @access Private
 const deleteUser = asyncHandler(async (req, res) => {
-  const { id, id_User } = req.body;
+  const { id } = req.body;
+
+  console.log(`delete ${req.id}`);
 
   // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID de usuario requerido" });
   }
-  if (id == id_User) {
+  if (id == req.id) {
     return res
       .status(400)
       .json({ message: "Usuario debe ser eliminado por el administrador" });
@@ -251,7 +251,9 @@ const deleteUser = asyncHandler(async (req, res) => {
 
   // Does the user still have assi gned notes?
   pool
-    .query(`SELECT user_id, user_name FROM public.table_user WHERE user_id = ${id}`)
+    .query(
+      `SELECT user_id, user_name FROM public.table_user WHERE user_id = ${id}`
+    )
     .then((exist) => {
       // usuario
       if (!exist.rows[0].user_id) {
