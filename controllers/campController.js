@@ -36,10 +36,10 @@ const getAllCamps = asyncHandler(async (req, res) => {
 // @route POST /act
 // @access Private
 const createNewCamp = asyncHandler(async (req, res) => {
-  const { username, campName, area } = req.body;
+  const { campName, area } = req.body;
 
   //act_id, act_name, act_desc, create_act, act_create_by, act_status
-
+  const username = req.user
   if (!username || !campName) {
     return res.status(400).json({ message: "Ingresar nombre del campo." });
   }
