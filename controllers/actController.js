@@ -38,10 +38,10 @@ const getAllActs = asyncHandler(async (req, res) => {
 // @route POST /act
 // @access Private
 const createNewAct = asyncHandler(async (req, res) => {
-  const { username, actName, desc } = req.body;
+  const { actName, desc } = req.body;
 
   //act_id, act_name, act_desc, create_act, act_create_by, act_status
-
+ const username = req.user
   if (!username || !actName) {
     return res.status(400).json({ message: "Ingresar nombre de la actividad" });
   }

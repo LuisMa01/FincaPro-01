@@ -192,7 +192,7 @@ app.use("/crop", require("./routes/cropRoute"));
 app.use("/app", require("./routes/appRoute"));
 app.use("/item", require("./routes/itemRoute"));
 app.use("/cost", require("./routes/costRoute"));
-app.use("/com", require("./routes/comRoute"));
+app.use("/comt", require("./routes/comRoute"));
 
 app.all("*", (req, res) => {
   res.status(404);
