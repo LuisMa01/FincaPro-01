@@ -36,10 +36,10 @@ const getAllPlants = asyncHandler(async (req, res) => {
 // @route POST /act
 // @access Private
 const createNewPlant = asyncHandler(async (req, res) => {
-  const { username, plantName, desc, variety } = req.body;
+  const { plantName, desc, variety } = req.body;
 
-  //act_id, act_name, act_desc, create_act, act_create_by, act_status
-
+  
+  const username = req.user
   if (!username || !plantName) {
     return res.status(400).json({ message: "Ingresar nombre de la planta" });
   }
@@ -173,7 +173,7 @@ const updatePlant = asyncHandler(async (req, res) => {
 
           pool
             .query(
-              `UPDATE public.table_plant SET plant_name=$1, plant_desc=$2, plant_status=$3, plant_variety=$4	WHERE act_id= ${id};`,
+              `UPDATE public.table_plant SET plant_name=$1, plant_desc=$2, plant_status=$3, plant_variety=$4	WHERE plant_id= ${id};`,
               valueInto
             )
             .then((valueUpdate) => {
