@@ -16,7 +16,7 @@ const getAllCrops = asyncHandler(async (req, res) => {
       const crop = results.rows;
       // If no users
       if (!crop?.length) {
-        return res.status(400).json({ message: "No se encontraron campos" });
+        return res.status(400).json({ message: "No se encontraron cultivos" });
       }
 
       res.json(crop);
@@ -89,7 +89,7 @@ const createNewCrop = asyncHandler(async (req, res) => {
           ];
           pool
             .query(
-              "INSERT INTO public.table_crop( crop_name, crop_plant, crop_harvest, crop_final_prod, crop_camp_key, crop_plant_key, crop_user_key) VALUES ($1, $2, $3, $4, $5, $6);",
+              "INSERT INTO public.table_crop( crop_name, crop_plant, crop_harvest, crop_final_prod, crop_camp_key, crop_plant_key, crop_user_key) VALUES ($1, $2, $3, $4, $5, $6, $7);",
               value
             )
             .then((results2) => {

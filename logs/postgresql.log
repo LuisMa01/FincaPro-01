@@ -823,3 +823,13 @@
     at readableAddChunk (node:internal/streams/readable:297:9)
     at Readable.push (node:internal/streams/readable:234:10)
     at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20230214	17:22:54	af7f55c1-9b57-4ab0-af11-96c2a1e925c3	42601	 transformInsertRow	analyze.c	error: INSERT tiene más columnas de destino que expresiones
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
