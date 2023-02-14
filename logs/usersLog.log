@@ -21,3 +21,9 @@
 20230207	13:15:55	b7f909cb-7308-4f42-ac3a-c42209e241dd	admin	Delete	minier
 20230207	13:16:46	6b1b86e2-f337-439d-a421-8b54137d5f4d	admin	create	lminier,$2b$10$q.u.lVBdmiHJ.MEEWzwe8uHqJvuXIBCXKbyVOMp3fCwJNsZMC8mu.,3,Leonardo,Minier,ejemplo@correo.com,1809000000
 20230208	06:56:38	290936f7-e23b-45e7-8719-454158a4a14c	admin	Delete	lminier
+20230209	14:00:35	af0328e6-ff8c-42c2-aa7c-836a780e7644	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,false,,
+20230209	14:00:36	6a4e64cc-f3b3-44fc-90bc-f5674da7680d	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,true,,
+20230211	11:03:02	d3a4912b-07c9-4089-8cb9-45d9e2ae51ea	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,false,,
+20230211	11:03:03	9d9f8efa-ebf0-4cbe-ba47-fb2668be27b2	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,true,,
+20230211	11:25:44	3caf286b-2608-439f-a2bd-276e0d95f938	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,false,,
+20230211	11:25:44	8229312d-a32d-4255-82fa-0554c5cbd419	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,true,,

@@ -36,10 +36,10 @@ const getAllCrops = asyncHandler(async (req, res) => {
 // @route POST /crop
 // @access Private
 const createNewCrop = asyncHandler(async (req, res) => {
-  const { username, cropName, datePlant, dateHarvest, finalProd, cropCampKey, cropPlantKey } = req.body;
+  const { cropName, datePlant, dateHarvest, finalProd, cropCampKey, cropPlantKey } = req.body;
 
   
-
+  const username = req.user
   if (!username || !cropCampKey || !cropName || !cropPlantKey) {
     return res.status(400).json({ message: "Llenar los campos requeridos." });
   }
