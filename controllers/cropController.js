@@ -36,7 +36,7 @@ const getAllCrops = asyncHandler(async (req, res) => {
 // @route POST /crop
 // @access Private
 const createNewCrop = asyncHandler(async (req, res) => {
-  const { cropName, datePlant, dateHarvest, finalProd, cropCampKey, cropPlantKey } = req.body;
+  const { repUser, cropName, datePlant, dateHarvest, finalProd, cropCampKey, cropPlantKey } = req.body;
 
   
   const username = req.user
@@ -85,7 +85,7 @@ const createNewCrop = asyncHandler(async (req, res) => {
             finalProd ? finalProd : "",
             cropCampKey,
             cropPlantKey,
-            userAdmin.user_id,
+            repUser ? repUser : null,
           ];
           pool
             .query(
@@ -138,7 +138,7 @@ const createNewCrop = asyncHandler(async (req, res) => {
 // @route PATCH /crop
 // @access Private
 const updateCrop = asyncHandler(async (req, res) => {
-  const { id, cropName, datePlant, dateHarvest, finalProd, cropCampKey, cropPlantKey, active } = req.body;
+  const { id, repUser, cropName, datePlant, dateHarvest, finalProd, cropCampKey, cropPlantKey, active } = req.body;
 
   // Confirm data
   if (!id || typeof active !== "boolean") {
@@ -174,11 +174,12 @@ const updateCrop = asyncHandler(async (req, res) => {
             cropCampKey ? cropCampKey : result.rows[0].crop_camp_key,
             cropPlantKey ? cropPlantKey : result.rows[0].crop_Plant_key,
             active,
+            repUser ? repUser : result.rows[0].crop_user_key
           ];
 
           pool
             .query(
-              `UPDATE public.table_crop SET crop_name=$1, crop_plant=$2, crop_harvest=$3, crop_final_prod=$4, crop_camp_key=$5, crop_plant_key=$6, crop_status=$7	WHERE crop_id= ${id};`,
+              `UPDATE public.table_crop SET crop_name=$1, crop_plant=$2, crop_harvest=$3, crop_final_prod=$4, crop_camp_key=$5, crop_plant_key=$6, crop_status=$7, crop_user_key=$8	WHERE crop_id= ${id};`,
               valueInto
             )
             .then((valueUpdate) => {
