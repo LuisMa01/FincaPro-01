@@ -866,3 +866,32 @@
 20230215	12:37:51	fe30710a-818b-4963-b64c-5d2f193b761c	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'user_name')
     at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\authController.js:21:22
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+20230216	14:24:51	f44d13d6-a65c-42a6-8f78-9acf5266aaaf	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'user_name')
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\authController.js:21:22
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+20230216	14:26:54	c09979f5-d499-471d-8d2b-854bc93ef1b2	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'user_name')
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\authController.js:21:22
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+20230216	14:27:02	e2f5f64c-627d-41a8-963b-9ba87020d6fe	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'user_name')
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\authController.js:21:22
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+20230216	14:31:01	75911a46-6ac5-4835-841b-ef36feac8a3d	23503	 ri_ReportViolation	ri_triggers.c	error: update o delete en «table_user» viola la llave foránea «crop_user_fk» en la tabla «table_crop»
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20230220	14:33:10	a05663ca-a0ee-41de-9bab-a0c8031131d9	42601	 scanner_yyerror	scan.l	error: error de sintaxis en o cerca de «=%»
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)

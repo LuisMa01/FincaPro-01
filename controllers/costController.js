@@ -30,7 +30,7 @@ SELECT cost_id,
 const getAllCost = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT cost_id, cost_item_key, cost_user_key, cost_labor, cost_quantity, cost_item_price, cost_price, cost_date,  cost_date_key, item_dose_key, crop_camp_key, crop_plant_key, date_act_key, date_crop_key FROM public.table_cost INNER JOIN public.table_item ON cost_item_key = item_id INNER JOIN public.table_app_date on date_id = cost_date_key INNER JOIN public.table_crop ON crop_id = date_crop_key ORDER BY cost_id ASC;"
+      "SELECT cost_id, cost_item_key, cost_user_key, cost_quantity, cost_item_price, cost_price, cost_date,  cost_date_key, item_dose_key, crop_camp_key, crop_plant_key, date_act_key, date_crop_key FROM public.table_cost INNER JOIN public.table_item ON cost_item_key = item_id INNER JOIN public.table_app_date on date_id = cost_date_key INNER JOIN public.table_crop ON crop_id = date_crop_key ORDER BY cost_id ASC;"
     )
     .then((results) => {
       //res.send(results.rows)
@@ -57,7 +57,7 @@ const getAllCost = asyncHandler(async (req, res) => {
 // @route POST /cost
 // @access Private
 const createNewCost = asyncHandler(async (req, res) => {
-  const { username, costItemKey, costLabor, costQuantity, costDateKey } =
+  const { username, costItemKey, costQuantity, costDateKey } =
     req.body;
 
   //cost_item_key, cost_user_key, cost_labor, cost_quantity, cost_item_price, cost_price, cost_date, cost_date_key
@@ -101,14 +101,13 @@ const createNewCost = asyncHandler(async (req, res) => {
           //costItemKey, costLabor, costQuantity, costDateKey
           let costPrice = 0;
           if (item.item_price) {
-            costPrice = item.item_price * costLabor * costQuantity;
+            costPrice = item.item_price * costQuantity;
           }
 
           const dateN = new Date();
           const value = [
             costItemKey,
             userAdmin.user_id,
-            costLabor ? costLabor : 0,
             costQuantity ? costQuantity : 0,
             item.item_price,
             costPrice,
@@ -117,7 +116,7 @@ const createNewCost = asyncHandler(async (req, res) => {
           ];
           pool
             .query(
-              "INSERT INTO public.table_cost(cost_item_key, cost_user_key, cost_labor, cost_quantity, cost_item_price, cost_price, cost_date, cost_date_key) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);",
+              "INSERT INTO public.table_cost(cost_item_key, cost_user_key, cost_quantity, cost_item_price, cost_price, cost_date, cost_date_key) VALUES ($1, $2, $3, $4, $5, $6, $7);",
               value
             )
             .then((results2) => {
@@ -165,7 +164,7 @@ const createNewCost = asyncHandler(async (req, res) => {
 // @route PATCH /cost
 // @access Private
 const updateCost = asyncHandler(async (req, res) => {
-  const { id, costItemKey, costLabor, costQuantity, costDateKey, costItemPrice } =
+  const { id, costItemKey, costQuantity, costDateKey, costItemPrice } =
     req.body;
 
   // Confirm data
@@ -203,13 +202,12 @@ const updateCost = asyncHandler(async (req, res) => {
             price = costItemPrice
           }
 
-          let costPrice = price * costLabor * costQuantity;
+          let costPrice = price * costQuantity;
 
           //costItemKey, costLabor, costQuantity, costDateKey, costPrice
 
           const valueInto = [
             costItemKey ? costItemKey : cost.cost_item_key,
-            costLabor ? costLabor : cost.cost_labor,
             costQuantity ? costQuantity : cost.cost_quantity,
             price,
             costPrice,
@@ -218,7 +216,7 @@ const updateCost = asyncHandler(async (req, res) => {
 
           pool
             .query(
-              `UPDATE public.table_cost SET cost_item_key=$1, cost_labor=$2, cost_quantity=$3, cost_item_price=$4, cost_price=$5, cost_date_key=$6 WHERE act_id= ${id};`,
+              `UPDATE public.table_cost SET cost_item_key=$1, cost_quantity=$2, cost_item_price=$3, cost_price=$4, cost_date_key=$5 WHERE act_id= ${id};`,
               valueInto
             )
             .then((valueUpdate) => {

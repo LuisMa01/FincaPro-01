@@ -35,8 +35,9 @@ const getAllItems = asyncHandler(async (req, res) => {
 // @route POST /item
 // @access Private
 const createNewItem = asyncHandler(async (req, res) => {
-  const { username, itemName, desc, itemPrice, itemDose } = req.body;
+  const { itemName, desc, itemPrice, itemDose } = req.body;
 
+  const username = req.user
   if (!username || !itemName || !itemDose) {
     return res
       .status(400)
