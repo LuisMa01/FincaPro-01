@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const costController = require('../controllers/costController')
-//const verifyJWT = require('../middleware/verifyJWT')
+const verifyJWT = require('../middleware/verifyJWT')
 
-//router.use(verifyJWT)
+router.use(verifyJWT)
 
 router.route('/')
     .get(costController.getAllCost)

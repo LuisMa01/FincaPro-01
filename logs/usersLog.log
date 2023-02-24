@@ -36,3 +36,5 @@
 20230218	10:00:53	4bd836f7-d435-482e-9e91-3d8d551a39df	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,false,micha@ejemplo.com,
 20230218	10:00:54	76cc41dc-6ed6-4eb2-80f1-b88c7f394688	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,true,micha@ejemplo.com,
 20230218	14:00:17	de88e928-06d7-4552-9d9e-7e82f3352801	admin	create	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,,
+20230223	22:14:29	d062da3f-4e9c-485f-bf69-869e7520e5f5	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,
+20230223	22:14:30	cc4af87e-76d7-4a69-9c9f-adf5b4e72dcc	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,
