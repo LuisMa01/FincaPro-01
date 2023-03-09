@@ -46,10 +46,10 @@ const getAllCom = asyncHandler(async (req, res) => {
 // @route POST /act
 // @access Private
 const createNewCom = asyncHandler(async (req, res) => {
-  const { username, desc, comtDateKey } = req.body;
+  const { desc, comtDateKey } = req.body;
 
   //comt_date, comt_desc, comt_user_key, comt_date_key,
-
+  const username = req.user
   if (!username || !desc || !comtDateKey) {
     return res.status(400).json({ message: "Llenar loc campos requeridos." });
   }
@@ -146,7 +146,7 @@ const updateCom = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          "SELECT date_id FROM public.table_app_name  WHERE date_id = $1",
+          "SELECT date_id FROM public.table_app_date  WHERE date_id = $1",
           [comtDateKey]
         )
         .then(async (resultName) => {

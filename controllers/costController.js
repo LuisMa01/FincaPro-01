@@ -57,9 +57,10 @@ const getAllCost = asyncHandler(async (req, res) => {
 // @route POST /cost
 // @access Private
 const createNewCost = asyncHandler(async (req, res) => {
-  const { username, costItemKey, costQuantity, costDateKey } =
+  const { costItemKey, costQuantity, costDateKey } =
     req.body;
 
+    const username = req.user
   //cost_item_key, cost_user_key, cost_labor, cost_quantity, cost_item_price, cost_price, cost_date, cost_date_key
 
   if (!username || !costItemKey || !costDateKey) {

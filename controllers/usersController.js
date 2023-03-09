@@ -278,7 +278,8 @@ const deleteUser = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "Usuario no puede ser eliminado" });
+            //throw err;
           });
         });
     })
