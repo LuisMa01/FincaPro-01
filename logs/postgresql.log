@@ -935,3 +935,17 @@
     at readableAddChunk (node:internal/streams/readable:297:9)
     at Readable.push (node:internal/streams/readable:234:10)
     at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20230310	08:52:18	380f6320-6a4b-40ea-9b07-19f7c6634107	undefined	 undefined	undefined	Error: Connection terminated due to connection timeout
+    at Connection.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg\lib\client.js:132:73)
+    at Object.onceWrapper (node:events:627:28)
+    at Connection.emit (node:events:513:28)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg\lib\connection.js:57:12)
+    at Socket.emit (node:events:513:28)
+    at TCP.<anonymous> (node:net:320:12)
+20230310	08:52:18	26bf0472-57d0-4ba9-b7c0-aa89574e9d64	undefined	 undefined	undefined	Error: Connection terminated due to connection timeout
+    at Connection.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg\lib\client.js:132:73)
+    at Object.onceWrapper (node:events:627:28)
+    at Connection.emit (node:events:513:28)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg\lib\connection.js:57:12)
+    at Socket.emit (node:events:513:28)
+    at TCP.<anonymous> (node:net:320:12)
