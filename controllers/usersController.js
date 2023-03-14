@@ -46,7 +46,7 @@ const createNewUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
   */
- console.log("creando nuevo usuario");
+  console.log("creando nuevo usuario");
   if (!username || !password || !roles) {
     return res.status(400).json({ message: "Todos los campos son requeridos" });
   }
@@ -67,7 +67,15 @@ const createNewUser = asyncHandler(async (req, res) => {
       // Hash password
       const hashedPwd = await bcrypt.hash(password, 10); // salt rounds
 
-      const value = [username, hashedPwd, roles, names ? names : '', surname ? surname : '', email ? email : '', phone ? phone : ""];
+      const value = [
+        username,
+        hashedPwd,
+        roles,
+        names ? names : "",
+        surname ? surname : "",
+        email ? email : "",
+        phone ? phone : "",
+      ];
 
       // Create and store new user
 
@@ -119,6 +127,7 @@ const updateUser = asyncHandler(async (req, res) => {
     username,
     roles,
     status,
+    passwordAnt,
     password,
     names,
     surname,
@@ -158,10 +167,15 @@ const updateUser = asyncHandler(async (req, res) => {
         .then(async (resultName) => {
           // If no users
           const duplicate = resultName.rows[0];
+          let hashP;
 
           if (password) {
-            // Hash password
-            hashP = await bcrypt.hash(password, 10); // salt rounds
+            const match = await bcrypt.compare(passwordAnt, user.password);
+
+            if (match) {
+              // Hash password
+              hashP = await bcrypt.hash(password, 10); // salt rounds
+            }
           }
 
           const valueInto = [
@@ -278,7 +292,9 @@ const deleteUser = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "Usuario no puede ser eliminado" });
+            return res
+              .status(400)
+              .json({ message: "Usuario no puede ser eliminado" });
             //throw err;
           });
         });
