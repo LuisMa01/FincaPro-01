@@ -1017,3 +1017,19 @@
     at readableAddChunk (node:internal/streams/readable:297:9)
     at Readable.push (node:internal/streams/readable:234:10)
     at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20230315	21:39:03	77034b22-e7dd-4b2a-9544-bd1fc5fccc2e	undefined	 undefined	undefined	Error: data and hash arguments required
+    at Object.compare (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\bcrypt\bcrypt.js:208:17)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\bcrypt\promises.js:29:12
+    at new Promise (<anonymous>)
+    at module.exports.promise (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\bcrypt\promises.js:20:12)
+    at Object.compare (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\bcrypt\bcrypt.js:204:25)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:176:40
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+20230315	21:48:55	3a71dd82-7a1f-40a1-9fe7-dd9aaf032eab	undefined	 undefined	undefined	Error: data and hash arguments required
+    at Object.compare (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\bcrypt\bcrypt.js:208:17)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\bcrypt\promises.js:29:12
+    at new Promise (<anonymous>)
+    at module.exports.promise (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\bcrypt\promises.js:20:12)
+    at Object.compare (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\bcrypt\bcrypt.js:204:25)
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:176:40
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)

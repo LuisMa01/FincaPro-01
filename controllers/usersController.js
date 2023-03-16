@@ -134,6 +134,8 @@ const updateUser = asyncHandler(async (req, res) => {
     email,
     phone,
   } = req.body;
+console.log(password);
+console.log(passwordAnt);
 
   // Confirm data
   if (!id || !username || !roles || typeof status !== "boolean") {
@@ -170,10 +172,13 @@ const updateUser = asyncHandler(async (req, res) => {
           let hashP;
 
           if (password) {
-            const match = await bcrypt.compare(passwordAnt, user.password);
+            console.log("user.password");
+            const match = await bcrypt.compare(passwordAnt, result.rows[0].password);
+            console.log("bbbbbbbbbbbbb");
 
             if (match) {
               // Hash password
+              console.log("ffffff");
               hashP = await bcrypt.hash(password, 10); // salt rounds
             }
           }
