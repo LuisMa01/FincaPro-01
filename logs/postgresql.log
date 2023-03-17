@@ -1033,3 +1033,23 @@
     at Object.compare (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\bcrypt\bcrypt.js:204:25)
     at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\usersController.js:176:40
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+20230317	14:39:40	4f2537fa-58a0-48c8-8d42-5ff7ef7e93b0	23503	 ri_ReportViolation	ri_triggers.c	error: update o delete en «table_item» viola la llave foránea «cost_item_fk» en la tabla «table_cost»
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20230317	14:54:23	eae5662a-f11d-4f17-95fd-decdac2606e3	23502	 ExecConstraints	execmain.c	error: el valor nulo en la columna «item_name» de la relación «table_item» viola la restricción de no nulo
+    at Parser.parseErrorMessage (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:126:29)
+    at Parser.parse (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\parser.js:39:38)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
