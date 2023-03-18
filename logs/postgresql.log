@@ -1053,3 +1053,9 @@
     at readableAddChunk (node:internal/streams/readable:297:9)
     at Readable.push (node:internal/streams/readable:234:10)
     at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+20230317	22:02:48	001ba8a8-71c2-4574-97b2-ae8099f087aa	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'user_name')
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\authController.js:21:22
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+20230317	22:04:01	5c837880-49ae-41b7-8158-c52251fa03c3	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'user_name')
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\authController.js:21:22
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
