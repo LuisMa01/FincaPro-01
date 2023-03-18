@@ -36,10 +36,10 @@ const getAllDoses = asyncHandler(async (req, res) => {
 // @route POST /dose
 // @access Private
 const createNewDose = asyncHandler(async (req, res) => {
-  const { username, doseName, desc, doseUnit } = req.body;
+  const { doseName, desc, doseUnit } = req.body;
 
   //act_id, act_name, act_desc, create_act, act_create_by, act_status
-
+  const username = req.user
   if (!username || !doseName) {
     return res.status(400).json({ message: "Ingresar nombre de los campos requeridos." });
   }

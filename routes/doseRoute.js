@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const doseController = require('../controllers/doseController')
-//const verifyJWT = require('../middleware/verifyJWT')
+const verifyJWT = require('../middleware/verifyJWT')
 
-//router.use(verifyJWT)
+router.use(verifyJWT)
 
 router.route('/')
     .get(doseController.getAllDoses)

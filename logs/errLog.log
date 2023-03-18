@@ -36,3 +36,15 @@
 20230120	11:35:00	aec60f92-e0d3-4f11-8111-797bb76407ae	SyntaxError: Unexpected token ' in JSON at position 3	POST	/act	undefined
 20230120	11:35:10	8bf87b89-694d-472e-a0ae-89e9a209ca99	SyntaxError: Unexpected token u in JSON at position 3	POST	/act	undefined
 20230207	09:43:33	9ab4e38c-af5d-43c3-b724-08657b5a8210	ReferenceError: id_User is not defined	DELETE	/users	http://127.0.0.1:5173
+20230304	10:19:49	47449d75-0999-4fd2-bde7-c75d94ea5850	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
+20230304	10:20:47	77f0a0a0-c67f-4cc9-86f7-72290eb6889a	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
+20230304	10:23:03	5ba3adf9-559d-463c-8953-929c2227c542	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
+20230304	10:30:11	880a7ad6-7d7b-406a-ab41-c94b6416d343	TypeError: itemPrice.toFixed is not a function	POST	/item	http://127.0.0.1:5173
+20230304	10:42:36	d007465d-c315-43a1-adcc-4e69fa08160e	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
+20230304	10:43:20	306c01ac-c16e-4821-8cf6-8796f796c00d	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
+20230304	10:44:20	47f6fa9c-b7c9-431e-acbc-bbdd92a8b2cf	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
+20230304	10:45:46	ab1d5550-cf72-4d19-987f-8e849fad2527	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
+20230304	10:46:57	4eb6b8bd-e32a-43d4-b77b-3eafc511a9d8	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
+20230304	10:47:30	0737a515-82b8-4ba6-9171-e1dfa1d86f00	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
+20230304	10:48:11	fec0d654-6e88-403c-a359-d9c0803edb3c	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
+20230304	10:54:55	61660eba-ce14-4ecb-8f9d-2f8f943ded59	SyntaxError: Cannot convert 50.99 to a BigInt	POST	/item	http://127.0.0.1:5173

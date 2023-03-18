@@ -20,3 +20,37 @@
 20230207	12:40:14	eef8d3cb-4ef9-4e9a-a2d0-5cf608b74b43	admin	create	minier,$2b$10$6MzLc.eAhpcEb3us1lk..uZoj9q2NA6pm2gRLxtaFVyzH3n8OvsCu,1,,,,
 20230207	13:15:55	b7f909cb-7308-4f42-ac3a-c42209e241dd	admin	Delete	minier
 20230207	13:16:46	6b1b86e2-f337-439d-a421-8b54137d5f4d	admin	create	lminier,$2b$10$q.u.lVBdmiHJ.MEEWzwe8uHqJvuXIBCXKbyVOMp3fCwJNsZMC8mu.,3,Leonardo,Minier,ejemplo@correo.com,1809000000
+20230208	06:56:38	290936f7-e23b-45e7-8719-454158a4a14c	admin	Delete	lminier
+20230209	14:00:35	af0328e6-ff8c-42c2-aa7c-836a780e7644	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,false,,
+20230209	14:00:36	6a4e64cc-f3b3-44fc-90bc-f5674da7680d	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,true,,
+20230211	11:03:02	d3a4912b-07c9-4089-8cb9-45d9e2ae51ea	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,false,,
+20230211	11:03:03	9d9f8efa-ebf0-4cbe-ba47-fb2668be27b2	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,true,,
+20230211	11:25:44	3caf286b-2608-439f-a2bd-276e0d95f938	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,false,,
+20230211	11:25:44	8229312d-a32d-4255-82fa-0554c5cbd419	admin	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,true,,
+20230216	10:53:37	da24cf2f-62ed-47b6-926b-98ea1fcaf4f4	admin	create	ldone,$2b$10$/0.YZ3qjIbdCR/4E0LOUleOnb.YEWDFYUhhxQ4Gfk3Xcl9UPU.4zy,1,Luis,Done,,
+20230216	14:30:47	8adcad8c-1539-4a3c-be96-f5da728ae8e0	ldone	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,false,,
+20230216	14:30:48	cfdeb877-de9a-4e2f-9240-717149447d1b	ldone	Update	andress	andress,$2b$10$z9zB6gAsBTJQnP4pqqnVGeTXha0n3j3yPTOOcoQPPayG/TUHryg1W,3,,,true,,
+20230218	10:00:42	4663e3be-2859-43bd-a212-0ed3f1e1e191	admin	create	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,micha@ejemplo.com,
+20230218	10:00:48	ede10990-6ab4-4eae-a287-2d0054170466	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,false,micha@ejemplo.com,
+20230218	10:00:49	7903162b-2042-416a-aea7-be5c0b822f21	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,true,micha@ejemplo.com,
+20230218	10:00:53	4bd836f7-d435-482e-9e91-3d8d551a39df	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,false,micha@ejemplo.com,
+20230218	10:00:54	76cc41dc-6ed6-4eb2-80f1-b88c7f394688	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,true,micha@ejemplo.com,
+20230218	14:00:17	de88e928-06d7-4552-9d9e-7e82f3352801	admin	create	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,,
+20230223	22:14:29	d062da3f-4e9c-485f-bf69-869e7520e5f5	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,
+20230223	22:14:30	cc4af87e-76d7-4a69-9c9f-adf5b4e72dcc	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,
+20230311	17:13:35	f3f4e156-3f65-4f8c-9dfa-416b19da8f48	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,
+20230311	17:13:36	90fa2dca-f755-4737-a9ac-162a8bdfd645	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,
+20230313	18:13:01	eba215db-17a6-4f3d-b296-fc27e7a98682	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,
+20230313	18:13:03	e8c3535d-47fe-4f91-b55f-280af53864ad	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,
+20230313	18:15:01	ba15ddd7-580a-4364-b5e3-9c5c6ec61a68	admin	create	rleonardo,$2b$10$RilWlsuuZpbpXdRarVet1ewGddbF4IIeqlItTak6D6fpqdaf3jZFK,3,Reyes,Leonardo,,
+20230313	18:15:04	e56cd9a9-536d-4a96-90e8-35ec95fbe2df	admin	Update	rleonardo	rleonardo,$2b$10$RilWlsuuZpbpXdRarVet1ewGddbF4IIeqlItTak6D6fpqdaf3jZFK,3,Reyes,Leonardo,false,,
+20230313	18:15:05	65a43121-ff5a-4931-a317-6009a6e02ec7	admin	Update	rleonardo	rleonardo,$2b$10$RilWlsuuZpbpXdRarVet1ewGddbF4IIeqlItTak6D6fpqdaf3jZFK,3,Reyes,Leonardo,true,,
+20230313	18:15:07	269f6e5f-2c63-4604-8fa8-fabf566a6a96	admin	Delete	rleonardo
+20230313	18:16:44	681cb4ea-7b07-4a68-90e1-5cb435bee5d9	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,
+20230313	18:16:45	63fe6e54-076f-441a-ad22-127957993d7c	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,
+20230313	20:35:27	6d0bf69b-2a7b-4683-ae7c-bd44a9bf8faf	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,
+20230313	21:06:32	09dcb3b6-4ed2-46bb-b48c-98975f5ba033	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
+20230315	20:35:59	9efac3a9-9695-4fc8-b6b9-8b695ee3f5dc	admin	Update	admin	admin,$2b$10$36WQSAFpKiqYgM7b/n8OW.msacvqqlLrrtMP6.vIRDPO109wMdc1.,1,Administrador,,true,,
+20230315	21:50:08	31144c73-6a0f-4063-965b-ed8b4711d642	admin	Update	admin	admin,$2b$10$LKAIGVvPGwgih2xgKtkR7.L3PWKza/gsVKN1LNrXuecGXX5t8iva.,1,Administrador,,true,,
+20230315	22:27:37	192b05a7-2e2c-48a2-8eae-80068d4e53c8	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,809-754-7444
+20230315	22:27:39	44919dbb-95aa-48d4-b43c-fc761cf47dbe	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444

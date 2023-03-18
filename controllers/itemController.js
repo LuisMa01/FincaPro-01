@@ -35,7 +35,13 @@ const getAllItems = asyncHandler(async (req, res) => {
 // @route POST /item
 // @access Private
 const createNewItem = asyncHandler(async (req, res) => {
-  const { username, itemName, desc, itemPrice, itemDose } = req.body;
+  const { itemName, desc, itemPrice, itemDose } = req.body;
+  let itemPrecio 
+  
+  const username = req.user
+  itemPrecio = parseFloat(itemPrice).toFixed(2)
+
+  
 
   if (!username || !itemName || !itemDose) {
     return res
@@ -79,7 +85,7 @@ const createNewItem = asyncHandler(async (req, res) => {
           const value = [
             itemName,
             desc ? desc : "",
-            itemPrice ? itemPrice : 0,
+            itemPrecio ? itemPrecio : 0,
             dateN,
             userAdmin.user_id,
             itemDose,
@@ -136,7 +142,9 @@ const createNewItem = asyncHandler(async (req, res) => {
 // @access Private
 const updateItem = asyncHandler(async (req, res) => {
   const { id, itemName, desc, itemPrice, active, itemDose } = req.body;
+  console.log("aqui");
 
+  let itemPrecio = parseFloat(itemPrice).toFixed(2)
   // Confirm data
   if (!id || typeof active !== "boolean") {
     return res.status(400).json({ message: "Los campos son requeridos." });
@@ -166,7 +174,7 @@ const updateItem = asyncHandler(async (req, res) => {
           const valueInto = [
             duplicate ? result.rows[0].item_name : itemName,
             desc ? desc : result.rows[0].item_desc,
-            itemPrice ? itemPrice : result.rows[0].item_price,
+            itemPrecio ? itemPrecio : result.rows[0].item_price,
             active,
             itemDose ? itemDose : result.rows[0].item_dose_key,
           ];

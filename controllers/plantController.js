@@ -9,7 +9,7 @@ const asyncHandler = require("express-async-handler");
 const getAllPlants = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT plant_id, plant_name, plant_desc, plant_status, plant_create_at, plant_variety, plant_create_by FROM public.table_plant ORDER BY plant_id ASC"
+      "SELECT plant_id, plant_name, plant_desc, plant_status, plant_create_at, plant_variety, plant_create_by, plant_frame FROM public.table_plant ORDER BY plant_id ASC"
     )
     .then((results) => {
       //res.send(results.rows)
@@ -36,10 +36,10 @@ const getAllPlants = asyncHandler(async (req, res) => {
 // @route POST /act
 // @access Private
 const createNewPlant = asyncHandler(async (req, res) => {
-  const { username, plantName, desc, variety } = req.body;
+  const { plantName, desc, variety, plantFrame } = req.body;
 
-  //act_id, act_name, act_desc, create_act, act_create_by, act_status
-
+  
+  const username = req.user
   if (!username || !plantName) {
     return res.status(400).json({ message: "Ingresar nombre de la planta" });
   }
@@ -83,11 +83,12 @@ const createNewPlant = asyncHandler(async (req, res) => {
             desc ? desc : "",
             dateN,
             variety ? variety : "",
+            plantFrame ? plantFrame : "",
             userAdmin.user_id,
           ];
           pool
             .query(
-              "INSERT INTO public.table_plant( plant_name, plant_desc, plant_create_at, plant_variety, plant_create_by) VALUES ($1, $2, $3, $4, $5);",
+              "INSERT INTO public.table_plant( plant_name, plant_desc, plant_create_at, plant_variety, plant_frame, plant_create_by) VALUES ($1, $2, $3, $4, $5, $6);",
               value
             )
             .then((results2) => {
@@ -136,7 +137,7 @@ const createNewPlant = asyncHandler(async (req, res) => {
 // @route PATCH /act
 // @access Private
 const updatePlant = asyncHandler(async (req, res) => {
-  const { id, plantName, desc, variety, active } = req.body;
+  const { id, plantName, desc, variety, active, plantFrame } = req.body;
 
   // Confirm data
   if (!id || !plantName || typeof active !== "boolean") {
@@ -145,7 +146,7 @@ const updatePlant = asyncHandler(async (req, res) => {
 
   pool
     .query(
-      "SELECT plant_id, plant_name, plant_desc, plant_variety, plant_status FROM public.table_plant  WHERE plant_id = $1",
+      "SELECT plant_id, plant_name, plant_desc, plant_variety, plant_status, plant_frame FROM public.table_plant  WHERE plant_id = $1",
       [id]
     )
     .then((result) => {
@@ -169,11 +170,12 @@ const updatePlant = asyncHandler(async (req, res) => {
             desc ? desc : result.rows[0].plant_desc,
             active,
             variety ? variety : result.rows[0].plant_variety,
+            plantFrame ? plantFrame : result.rows[0].plant_frame,
           ];
 
           pool
             .query(
-              `UPDATE public.table_plant SET plant_name=$1, plant_desc=$2, plant_status=$3, plant_variety=$4	WHERE act_id= ${id};`,
+              `UPDATE public.table_plant SET plant_name=$1, plant_desc=$2, plant_status=$3, plant_variety=$4, plant_frame=$5	WHERE plant_id= ${id};`,
               valueInto
             )
             .then((valueUpdate) => {
