@@ -1059,3 +1059,6 @@
 20230317	22:04:01	5c837880-49ae-41b7-8158-c52251fa03c3	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'user_name')
     at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\authController.js:21:22
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+20230319	17:53:58	116528cd-9d24-430e-aee3-0016485ec3cd	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'user_name')
+    at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\authController.js:21:22
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
