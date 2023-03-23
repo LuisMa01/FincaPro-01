@@ -40,7 +40,7 @@ const createNewCrop = asyncHandler(async (req, res) => {
 
   
   const username = req.user
-  if (!username || !cropCampKey || !cropName || !cropPlantKey) {
+  if (!username || !cropName || !cropPlantKey) {
     return res.status(400).json({ message: "Llenar los campos requeridos." });
   }
 
@@ -83,7 +83,7 @@ const createNewCrop = asyncHandler(async (req, res) => {
             datePlant ? datePlant : null,
             dateHarvest ? dateHarvest : null,
             finalProd ? finalProd : "",
-            cropCampKey,
+            cropCampKey ? cropCampKey : null,
             cropPlantKey,
             repUser ? repUser : null,
             cropArea ? cropArea : null,

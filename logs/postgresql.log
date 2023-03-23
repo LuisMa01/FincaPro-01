@@ -1062,3 +1062,17 @@
 20230319	17:53:58	116528cd-9d24-430e-aee3-0016485ec3cd	undefined	 undefined	undefined	TypeError: Cannot read properties of undefined (reading 'user_name')
     at C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\controllers\authController.js:21:22
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+20230323	07:37:30	4a4d9e37-c1bd-4437-a4cc-94304572ae21	undefined	 undefined	undefined	Error: Connection terminated due to connection timeout
+    at Connection.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg\lib\client.js:132:73)
+    at Object.onceWrapper (node:events:627:28)
+    at Connection.emit (node:events:513:28)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg\lib\connection.js:57:12)
+    at Socket.emit (node:events:513:28)
+    at TCP.<anonymous> (node:net:320:12)
+20230323	07:37:30	aeb0afb0-4da7-4ca4-84fb-dc421a10cb15	undefined	 undefined	undefined	Error: Connection terminated due to connection timeout
+    at Connection.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg\lib\client.js:132:73)
+    at Object.onceWrapper (node:events:627:28)
+    at Connection.emit (node:events:513:28)
+    at Socket.<anonymous> (C:\Users\DELL\Desktop\PROYECTO FINAL\FincaPro-1\node_modules\pg\lib\connection.js:57:12)
+    at Socket.emit (node:events:513:28)
+    at TCP.<anonymous> (node:net:320:12)
