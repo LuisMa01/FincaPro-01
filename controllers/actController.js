@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 const getAllActs = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT act_id, act_name, act_desc, act_create_at, act_create_by, act_status FROM public.table_activity ORDER BY act_id ASC"
+      "SELECT act_id, act_name, act_desc, act_create_at, act_status FROM public.table_activity ORDER BY act_id ASC"
     )
     .then((results) => {
       //res.send(results.rows)
@@ -29,6 +29,7 @@ const getAllActs = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
+        return res.status(400).json({ message: "no fue posible" })
         //throw err;
       });
     });
@@ -40,7 +41,7 @@ const getAllActs = asyncHandler(async (req, res) => {
 const createNewAct = asyncHandler(async (req, res) => {
   const { actName, desc } = req.body;
 
-  //act_id, act_name, act_desc, create_act, act_create_by, act_status
+  //act_id, act_name, act_desc, create_act, act_status
  const username = req.user
   if (!username || !actName) {
     return res.status(400).json({ message: "Ingresar nombre de la actividad" });
@@ -79,10 +80,10 @@ const createNewAct = asyncHandler(async (req, res) => {
           }
 
           const dateN = new Date();
-          const value = [actName, desc ? desc : "", dateN, userAdmin.user_id];
+          const value = [actName, desc ? desc : "", dateN];
           pool
             .query(
-              "INSERT INTO public.table_activity( act_name, act_desc, act_create_at, act_create_by) VALUES ($1, $2, $3, $4);",
+              "INSERT INTO public.table_activity( act_name, act_desc, act_create_at) VALUES ($1, $2, $3);",
               value
             )
             .then((results2) => {
@@ -106,7 +107,8 @@ const createNewAct = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -116,6 +118,7 @@ const createNewAct = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
+            return res.status(400).json({ message: "no fue posible" })
             //throw err;
           });
         });
@@ -126,7 +129,8 @@ const createNewAct = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -195,7 +199,8 @@ const updateAct = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -205,7 +210,8 @@ const updateAct = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -215,7 +221,8 @@ const updateAct = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -249,7 +256,8 @@ const deleteAct = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -259,7 +267,8 @@ const deleteAct = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });

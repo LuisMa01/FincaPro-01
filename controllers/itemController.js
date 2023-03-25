@@ -8,7 +8,7 @@ const asyncHandler = require("express-async-handler");
 const getAllItems = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT item_id, item_name, item_desc, item_price, item_create_at, item_create_by, item_status, item_dose_key FROM public.table_item ORDER BY item_id ASC "
+      "SELECT item_id, item_name, item_desc, item_price, item_create_at, item_status, item_dose_key FROM public.table_item ORDER BY item_id ASC "
     )
     .then((results) => {
       //res.send(results.rows)
@@ -26,6 +26,7 @@ const getAllItems = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
+        return res.status(400).json({ message: "no fue posible" })
         //throw err;
       });
     });
@@ -87,13 +88,12 @@ const createNewItem = asyncHandler(async (req, res) => {
             desc ? desc : "",
             itemPrecio ? itemPrecio : 0,
             dateN,
-            userAdmin.user_id,
             itemDose,
           ];
           //username, itemName, desc, itemPrice, itemDose
           pool
             .query(
-              "INSERT INTO public.table_item( item_name, item_desc, item_price, item_create_at, item_create_by, item_dose_key) VALUES ($1, $2, $3, $4, $5, $6);",
+              "INSERT INTO public.table_item( item_name, item_desc, item_price, item_create_at, item_dose_key) VALUES ($1, $2, $3, $4, $5);",
               value
             )
             .then((results2) => {
@@ -112,7 +112,8 @@ const createNewItem = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -122,6 +123,7 @@ const createNewItem = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
+            return res.status(400).json({ message: "no fue posible" })
             //throw err;
           });
         });
@@ -132,7 +134,8 @@ const createNewItem = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+       //throw err;
       });
     });
 });
@@ -199,7 +202,8 @@ const updateItem = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -209,7 +213,8 @@ const updateItem = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -219,7 +224,8 @@ const updateItem = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -252,7 +258,8 @@ const deleteItem = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -262,7 +269,8 @@ const deleteItem = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });

@@ -27,6 +27,7 @@ const getAllCrops = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
+        return res.status(400).json({ message: "no fue posible" })
         //throw err;
       });
     });
@@ -110,7 +111,8 @@ const createNewCrop = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -120,6 +122,7 @@ const createNewCrop = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
+            return res.status(400).json({ message: "no fue posible" })
             //throw err;
           });
         });
@@ -130,7 +133,8 @@ const createNewCrop = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -201,7 +205,8 @@ const updateCrop = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -211,7 +216,8 @@ const updateCrop = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -221,7 +227,8 @@ const updateCrop = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -254,7 +261,8 @@ const deleteCrop = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -264,7 +272,8 @@ const deleteCrop = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });

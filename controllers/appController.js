@@ -27,6 +27,7 @@ const getAllApps = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
+        return res.status(400).json({ message: "no fue posible" })
         //throw err;
       });
     });
@@ -114,7 +115,8 @@ const createNewApp = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -124,6 +126,7 @@ const createNewApp = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
+            return res.status(400).json({ message: "no fue posible" })
             //throw err;
           });
         });
@@ -134,7 +137,8 @@ const createNewApp = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -201,7 +205,8 @@ const updateApp = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         
@@ -212,7 +217,8 @@ const updateApp = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -245,7 +251,8 @@ const deleteApp = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -255,7 +262,8 @@ const deleteApp = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });

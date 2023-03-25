@@ -74,3 +74,7 @@
 20230324	19:48:58	f365cb70-5ef3-4df8-82de-17321e0bdba1	admin	Update	ldone	ldone,$2b$10$/0.YZ3qjIbdCR/4E0LOUleOnb.YEWDFYUhhxQ4Gfk3Xcl9UPU.4zy,1,Luis,Done,true,,
 20230324	19:48:59	8d3cf214-3eb9-45b0-a678-e3edff84d150	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,true,micha@ejemplo.com,
 20230324	19:49:01	46dde9f3-7d4e-4ae4-95f4-56c5e6c634c6	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
+20230325	19:08:29	25e9e354-ee2f-41a8-b9f7-797b10fc9784	admin	create	minotauro,$2b$10$vGssU4LamV2QhTAWHTBEFOE2YiRk2w4o8TjHZb/h0INovn3niHwzO,3,,,,
+20230325	19:08:38	354f618c-bc52-458e-a618-6376f9dd963f	admin	Update	minotauro	minotauro,$2b$10$vGssU4LamV2QhTAWHTBEFOE2YiRk2w4o8TjHZb/h0INovn3niHwzO,3,,,false,,
+20230325	19:08:39	461b79ee-82c8-4488-a1f0-78894f4158a9	admin	Update	minotauro	minotauro,$2b$10$vGssU4LamV2QhTAWHTBEFOE2YiRk2w4o8TjHZb/h0INovn3niHwzO,3,,,true,,
+20230325	19:08:53	1a451fed-daa7-4060-96ad-d638311dd167	admin	Delete	minotauro
