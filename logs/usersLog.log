@@ -54,3 +54,23 @@
 20230315	21:50:08	31144c73-6a0f-4063-965b-ed8b4711d642	admin	Update	admin	admin,$2b$10$LKAIGVvPGwgih2xgKtkR7.L3PWKza/gsVKN1LNrXuecGXX5t8iva.,1,Administrador,,true,,
 20230315	22:27:37	192b05a7-2e2c-48a2-8eae-80068d4e53c8	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,809-754-7444
 20230315	22:27:39	44919dbb-95aa-48d4-b43c-fc761cf47dbe	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
+20230319	11:33:00	04afd966-4ef6-4527-9774-50828a00866a	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,809-754-7444
+20230319	11:33:01	cb63e43c-35a2-4461-a36e-79a3dd4aac6a	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
+20230319	13:51:35	e972826d-69fe-4637-9f2e-d6a24e0d3299	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,809-754-7444
+20230319	13:52:42	49f34de2-2f08-4b49-a077-a7df99bc7850	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
+20230319	13:52:43	b52868b7-7d73-4266-97e1-917233ebb152	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,809-754-7444
+20230319	13:53:47	a7a37979-648c-48ac-a315-97f8a7741329	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
+20230319	15:13:21	554d356f-8ce9-454e-8362-ff133d35cd85	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,809-754-7444
+20230319	15:13:29	807cfebe-4eda-4bce-8d47-3cc5d4e2b335	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
+20230319	15:13:31	80555d40-d4f2-43f0-a669-c69382648859	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,809-754-7444
+20230319	15:18:55	f3e02f3c-10d1-4d98-919e-ab26c588df68	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,false,micha@ejemplo.com,
+20230319	15:18:57	2099392d-9579-4a29-9fc9-d7a803633ce5	admin	Update	ldone	ldone,$2b$10$/0.YZ3qjIbdCR/4E0LOUleOnb.YEWDFYUhhxQ4Gfk3Xcl9UPU.4zy,1,Luis,Done,false,,
+20230319	15:26:30	b06b4345-71cd-428a-bf63-38363a6dbf2b	admin	Update	ldone	ldone,$2b$10$/0.YZ3qjIbdCR/4E0LOUleOnb.YEWDFYUhhxQ4Gfk3Xcl9UPU.4zy,1,Luis,Done,true,,
+20230319	15:26:31	b2ae6dd1-4f50-41ed-977c-deba65bfe69b	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,true,micha@ejemplo.com,
+20230319	15:41:59	983766c2-aee1-421f-83ab-29f48a69f4ad	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
+20230319	15:42:00	d4b14947-dfb7-4f91-9968-e9c0a701541e	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,809-754-7444
+20230319	15:42:01	f6223075-e826-432d-99a2-318b660fe6e3	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,false,micha@ejemplo.com,
+20230319	15:42:02	6b8e26d6-c4be-42c2-a200-d88ef3b00dc5	admin	Update	ldone	ldone,$2b$10$/0.YZ3qjIbdCR/4E0LOUleOnb.YEWDFYUhhxQ4Gfk3Xcl9UPU.4zy,1,Luis,Done,false,,
+20230324	19:48:58	f365cb70-5ef3-4df8-82de-17321e0bdba1	admin	Update	ldone	ldone,$2b$10$/0.YZ3qjIbdCR/4E0LOUleOnb.YEWDFYUhhxQ4Gfk3Xcl9UPU.4zy,1,Luis,Done,true,,
+20230324	19:48:59	8d3cf214-3eb9-45b0-a678-e3edff84d150	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,true,micha@ejemplo.com,
+20230324	19:49:01	46dde9f3-7d4e-4ae4-95f4-56c5e6c634c6	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
