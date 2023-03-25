@@ -65,7 +65,8 @@ const login = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -121,7 +122,8 @@ const refresh = (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })

@@ -11,7 +11,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
   console.log(` importante ${req.user} ${req.roles}`);
   pool
     .query(
-      "SELECT user_id, user_name, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_create_by, user_rol FROM public.table_user ORDER BY user_id"
+      "SELECT user_id, user_name, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_rol FROM public.table_user ORDER BY user_id"
     )
     .then((results) => {
       //res.send(results.rows)
@@ -29,6 +29,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
+        return res.status(400).json({ message: "no fue posible" })
         //throw err;
       });
     });
@@ -103,7 +104,8 @@ const createNewUser = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -113,7 +115,8 @@ const createNewUser = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -134,8 +137,7 @@ const updateUser = asyncHandler(async (req, res) => {
     email,
     phone,
   } = req.body;
-console.log(password);
-console.log(passwordAnt);
+
 
   // Confirm data
   if (!id || !username || !roles || typeof status !== "boolean") {
@@ -152,7 +154,7 @@ console.log(passwordAnt);
 
   pool
     .query(
-      "SELECT user_id, user_name, password, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_create_by, user_rol FROM public.table_user WHERE user_id = $1",
+      "SELECT user_id, user_name, password, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_rol FROM public.table_user WHERE user_id = $1",
       [id]
     )
     .then((result) => {
@@ -172,13 +174,13 @@ console.log(passwordAnt);
           let hashP;
 
           if (password) {
-            console.log("user.password");
+            
             const match = await bcrypt.compare(passwordAnt, result.rows[0].password);
-            console.log("bbbbbbbbbbbbb");
+            
 
             if (match) {
               // Hash password
-              console.log("ffffff");
+              
               hashP = await bcrypt.hash(password, 10); // salt rounds
             }
           }
@@ -222,7 +224,8 @@ console.log(passwordAnt);
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -232,7 +235,8 @@ console.log(passwordAnt);
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -242,7 +246,8 @@ console.log(passwordAnt);
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -310,7 +315,8 @@ const deleteUser = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });

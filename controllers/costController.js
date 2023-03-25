@@ -6,27 +6,7 @@ const bcrypt = require("bcrypt");
 // @desc Get all
 // @route GET /cost
 // @access Private
-/*
-SELECT cost_id, 
-		cost_item_key, 
-		cost_user_key, 
-		cost_labor, 
-		cost_quantity, 
-		cost_item_price, 
-		cost_price, 
-		cost_date, 
-		cost_date_key,
-		item_dose_key,
-		crop_camp_key,
-		crop_plant_key,
-		date_act_key,
-		date_crop_key
-			
-	FROM public.table_cost
-	INNER JOIN public.table_item ON cost_item_key = item_id
-	INNER JOIN public.table_app_date on date_id = cost_date_key
-	INNER JOIN public.table_crop ON crop_id = date_crop_key;
-*/
+
 const getAllCost = asyncHandler(async (req, res) => {
   pool
     .query(
@@ -48,6 +28,7 @@ const getAllCost = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
+        return res.status(400).json({ message: "no fue posible" })
         //throw err;
       });
     });
@@ -136,7 +117,8 @@ const createNewCost = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -146,6 +128,7 @@ const createNewCost = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
+            return res.status(400).json({ message: "no fue posible" })
             //throw err;
           });
         });
@@ -156,7 +139,8 @@ const createNewCost = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -235,7 +219,8 @@ const updateCost = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -245,7 +230,8 @@ const updateCost = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -255,7 +241,8 @@ const updateCost = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -288,7 +275,8 @@ const deleteCost = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -298,7 +286,8 @@ const deleteCost = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });

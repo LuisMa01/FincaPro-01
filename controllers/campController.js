@@ -9,7 +9,7 @@ const asyncHandler = require("express-async-handler");
 const getAllCamps = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT camp_id, camp_name, camp_area, camp_status, camp_create_at, camp_create_by	FROM public.table_camp ORDER BY camp_id ASC;"
+      "SELECT camp_id, camp_name, camp_area, camp_status, camp_create_at	FROM public.table_camp ORDER BY camp_id ASC;"
     )
     .then((results) => {
       //res.send(results.rows)
@@ -27,6 +27,7 @@ const getAllCamps = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
+        return res.status(400).json({ message: "no fue posible" })
         //throw err;
       });
     });
@@ -38,7 +39,7 @@ const getAllCamps = asyncHandler(async (req, res) => {
 const createNewCamp = asyncHandler(async (req, res) => {
   const { campName, area } = req.body;
 
-  //act_id, act_name, act_desc, create_act, act_create_by, act_status
+  //act_id, act_name, act_desc, create_act, act_status
   const username = req.user
   if (!username || !campName) {
     return res.status(400).json({ message: "Ingresar nombre del campo." });
@@ -82,11 +83,10 @@ const createNewCamp = asyncHandler(async (req, res) => {
             campName,
             area ? area : 0,
             dateN,
-            userAdmin.user_id,
           ];
           pool
             .query(
-              "INSERT INTO public.table_camp( camp_name, camp_area, camp_create_at, camp_create_by) VALUES ($1, $2, $3, $4);",
+              "INSERT INTO public.table_camp( camp_name, camp_area, camp_create_at) VALUES ($1, $2, $3);",
               value
             )
             .then((results2) => {
@@ -106,7 +106,8 @@ const createNewCamp = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -116,6 +117,7 @@ const createNewCamp = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
+            return res.status(400).json({ message: "no fue posible" })
             //throw err;
           });
         });
@@ -126,7 +128,8 @@ const createNewCamp = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -191,7 +194,8 @@ const updateCamp = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -201,7 +205,8 @@ const updateCamp = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -211,7 +216,8 @@ const updateCamp = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -244,7 +250,8 @@ const deleteCamp = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -254,7 +261,8 @@ const deleteCamp = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });

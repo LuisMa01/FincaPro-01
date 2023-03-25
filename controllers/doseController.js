@@ -9,7 +9,7 @@ const asyncHandler = require("express-async-handler");
 const getAllDoses = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT dose_id, dose_name, dose_status, dose_create_at, dose_create_by, dose_unit, dose_desc FROM public.table_dose ORDER BY dose_id ASC;"
+      "SELECT dose_id, dose_name, dose_status, dose_create_at, dose_unit, dose_desc FROM public.table_dose ORDER BY dose_id ASC;"
     )
     .then((results) => {
       //res.send(results.rows)
@@ -27,6 +27,7 @@ const getAllDoses = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
+        return res.status(400).json({ message: "no fue posible" })
         //throw err;
       });
     });
@@ -38,7 +39,7 @@ const getAllDoses = asyncHandler(async (req, res) => {
 const createNewDose = asyncHandler(async (req, res) => {
   const { doseName, desc, doseUnit } = req.body;
 
-  //act_id, act_name, act_desc, create_act, act_create_by, act_status
+  //act_id, act_name, act_desc, create_act, act_status
   const username = req.user
   if (!username || !doseName) {
     return res.status(400).json({ message: "Ingresar nombre de los campos requeridos." });
@@ -83,11 +84,10 @@ const createNewDose = asyncHandler(async (req, res) => {
             desc ? desc : "",
             dateN,
             doseUnit ? doseUnit : "",
-            userAdmin.user_id,
           ];
           pool
             .query(
-              "INSERT INTO public.table_dose( dose_name, dose_desc, dose_create_at, dose_unit, dose_create_by) VALUES ($1, $2, $3, $4, $5);",
+              "INSERT INTO public.table_dose( dose_name, dose_desc, dose_create_at, dose_unit) VALUES ($1, $2, $3, $4);",
               value
             )
             .then((results2) => {
@@ -107,7 +107,8 @@ const createNewDose = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -117,6 +118,7 @@ const createNewDose = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
+            return res.status(400).json({ message: "no fue posible" })
             //throw err;
           });
         });
@@ -127,7 +129,8 @@ const createNewDose = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+       // throw err;
       });
     });
 });
@@ -193,7 +196,8 @@ const updateDose = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -203,7 +207,8 @@ const updateDose = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -213,7 +218,8 @@ const updateDose = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -246,7 +252,8 @@ const deleteDose = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            // throw err;
           });
         });
     })
@@ -256,7 +263,8 @@ const deleteDose = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });

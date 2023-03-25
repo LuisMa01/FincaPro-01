@@ -9,7 +9,7 @@ const asyncHandler = require("express-async-handler");
 const getAllPlants = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT plant_id, plant_name, plant_desc, plant_status, plant_create_at, plant_variety, plant_create_by, plant_frame FROM public.table_plant ORDER BY plant_id ASC"
+      "SELECT plant_id, plant_name, plant_desc, plant_status, plant_create_at, plant_variety, plant_frame FROM public.table_plant ORDER BY plant_id ASC"
     )
     .then((results) => {
       //res.send(results.rows)
@@ -84,11 +84,10 @@ const createNewPlant = asyncHandler(async (req, res) => {
             dateN,
             variety ? variety : "",
             plantFrame ? plantFrame : "",
-            userAdmin.user_id,
           ];
           pool
             .query(
-              "INSERT INTO public.table_plant( plant_name, plant_desc, plant_create_at, plant_variety, plant_frame, plant_create_by) VALUES ($1, $2, $3, $4, $5, $6);",
+              "INSERT INTO public.table_plant( plant_name, plant_desc, plant_create_at, plant_variety, plant_frame) VALUES ($1, $2, $3, $4, $5);",
               value
             )
             .then((results2) => {
@@ -195,7 +194,8 @@ const updatePlant = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                throw err;
+                return res.status(400).json({ message: "no fue posible" })
+                //throw err;
               });
             });
         })
@@ -205,7 +205,8 @@ const updatePlant = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -215,7 +216,8 @@ const updatePlant = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
@@ -248,7 +250,8 @@ const deletePlant = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            throw err;
+            return res.status(400).json({ message: "no fue posible" })
+            //throw err;
           });
         });
     })
@@ -258,7 +261,8 @@ const deletePlant = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        throw err;
+        return res.status(400).json({ message: "no fue posible" })
+        //throw err;
       });
     });
 });
