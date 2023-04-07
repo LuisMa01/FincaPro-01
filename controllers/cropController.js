@@ -174,7 +174,7 @@ const updateCrop = asyncHandler(async (req, res) => {
           const valueInto = [
             duplicate ? result.rows[0].crop_name : cropName,
             datePlant ? datePlant : result.rows[0].crop_plant,
-            dateHarvest ? dateHarvest : result.rows[0].crop_harvest,
+            dateHarvest ? dateHarvest : null,
             finalProd ? finalProd : result.rows[0].crop_final_prod,
             cropCampKey ? cropCampKey : result.rows[0].crop_camp_key,
             cropPlantKey ? cropPlantKey : result.rows[0].crop_Plant_key,
