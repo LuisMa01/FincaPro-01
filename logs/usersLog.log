@@ -79,3 +79,7 @@
 20230325	19:08:39	461b79ee-82c8-4488-a1f0-78894f4158a9	admin	Update	minotauro	minotauro,$2b$10$vGssU4LamV2QhTAWHTBEFOE2YiRk2w4o8TjHZb/h0INovn3niHwzO,3,,,true,,
 20230325	19:08:53	1a451fed-daa7-4060-96ad-d638311dd167	admin	Delete	minotauro
 20230407	13:55:10	6b6b3d28-456c-4ffb-8b1f-5be7c82cad40	admin	Update	admin	admin,$2b$10$SjFyQAQ756f1cLTkFCSB4egHvZYAgLOHNhKxXRhrU/CBDIqpg.Nj.,1,Administrador,,true,,
+20230408	11:59:57	11fd3b8b-84da-476b-ad4a-48f6e6bd6778	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,false,,809-754-7444
+20230408	11:59:59	3fac51dc-31af-4562-b1c3-dfc649f8b490	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,false,micha@ejemplo.com,
+20230408	12:02:41	0878b6ed-5a12-419d-b5c7-72566c121d54	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
+20230408	12:02:42	2ed88513-3d54-4784-9489-fa5230f2a908	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,true,micha@ejemplo.com,

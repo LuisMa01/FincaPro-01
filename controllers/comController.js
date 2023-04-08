@@ -9,15 +9,20 @@ const bcrypt = require("bcrypt");
 /*
 SELECT comt_id, comt_date, comt_desc, comt_user_key, comt_date_key, date_act_key, date_crop_key
 	FROM public.table_comment
-	INNER JOIN public.table_app_date ON date_id = comt_date_key
+	LEFT JOIN public.table_app_date ON date_id = comt_date_key
 	ORDER BY comt_id ASC;
 
-  SELECT comt_id, comt_date, comt_desc, comt_user_key, comt_date_key, date_act_key, date_crop_key	FROM public.table_comment INNER JOIN public.table_app_date ON date_id = comt_date_key	ORDER BY comt_id ASC;
+  SELECT comt_id, comt_date, comt_desc, comt_user_key, comt_date_key, date_act_key, date_crop_key	FROM public.table_comment LEFT JOIN public.table_app_date ON date_id = comt_date_key	ORDER BY comt_id ASC;
 */
 const getAllCom = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT comt_id, comt_date, comt_desc, comt_user_key, comt_date_key, date_act_key, date_crop_key, act_name, crop_harvest, crop_status	FROM public.table_comment INNER JOIN public.table_app_date ON date_id = comt_date_key INNER JOIN public.table_crop ON crop_id = date_crop_key INNER JOIN public.table_activity ON act_id = date_act_key	ORDER BY comt_id ASC;"
+      `SELECT comt_id, comt_date, comt_desc, comt_user_key, comt_date_key, date_act_key, date_crop_key, act_name, crop_harvest, crop_status	
+      FROM public.table_comment 
+      LEFT JOIN public.table_app_date ON date_id = comt_date_key 
+      LEFT JOIN public.table_crop ON crop_id = date_crop_key 
+      LEFT JOIN public.table_activity ON act_id = date_act_key	
+      ORDER BY comt_id ASC;`
     )
     .then((results) => {
       //res.send(results.rows)
