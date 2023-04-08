@@ -9,7 +9,12 @@ const asyncHandler = require("express-async-handler");
 const getAllCrops = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT crop_id, crop_name, crop_plant, crop_harvest, crop_status, crop_final_prod, crop_user_key, crop_camp_key, plant_name, plant_frame, plant_variety, user_name, camp_name, crop_plant_key, crop_area FROM public.table_crop INNER JOIN public.table_plant ON plant_id = crop_plant_key INNER JOIN public.table_user ON user_id = crop_user_key INNER JOIN public.table_camp ON camp_id = crop_camp_key ORDER BY crop_id ASC;"
+      `SELECT crop_id, crop_name, crop_plant, crop_harvest, crop_status, crop_final_prod, crop_user_key, crop_camp_key, plant_name, plant_frame, plant_variety, user_name, camp_name, crop_plant_key, crop_area 
+      FROM public.table_crop 
+      LEFT JOIN public.table_plant ON plant_id = crop_plant_key 
+      LEFT JOIN public.table_user ON user_id = crop_user_key 
+      LEFT JOIN public.table_camp ON camp_id = crop_camp_key 
+      ORDER BY crop_id ASC;`
     )
     .then((results) => {
       //res.send(results.rows)

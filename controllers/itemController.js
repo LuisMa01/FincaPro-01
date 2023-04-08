@@ -8,7 +8,10 @@ const asyncHandler = require("express-async-handler");
 const getAllItems = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT item_id, item_name, item_desc, item_price, item_create_at, item_status, item_dose_key, dose_name, dose_unit FROM public.table_item INNER JOIN public.table_dose ON item_dose_key = dose_id ORDER BY item_id ASC "
+      `SELECT item_id, item_name, item_desc, item_price, item_create_at, item_status, item_dose_key, dose_name, dose_unit 
+      FROM public.table_item 
+      LEFT JOIN public.table_dose ON item_dose_key = dose_id 
+      ORDER BY item_id ASC` 
     )
     .then((results) => {
       //res.send(results.rows)

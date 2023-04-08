@@ -9,7 +9,13 @@ const asyncHandler = require("express-async-handler");
 const getAllApps = asyncHandler(async (req, res) => {
   pool
     .query(
-      "SELECT date_init, date_end, date_act_key, date_crop_key, date_id, date_user_key, crop_camp_key, crop_plant_key, crop_name, crop_harvest, crop_status, user_name, user_nombre, act_name, camp_name	FROM public.table_app_date INNER JOIN public.table_crop ON crop_id = date_crop_key INNER JOIN public.table_activity ON act_id = date_act_key INNER JOIN public.table_camp ON camp_id = crop_camp_key INNER JOIN public.table_user ON user_id = date_user_key ORDER BY date_id ASC;"
+      `SELECT date_init, date_end, date_act_key, date_crop_key, date_id, date_user_key, crop_camp_key, crop_plant_key, crop_name, crop_harvest, crop_status, user_name, user_nombre, act_name, camp_name	
+      FROM public.table_app_date 
+      LEFT JOIN public.table_crop ON crop_id = date_crop_key 
+      LEFT JOIN public.table_activity ON act_id = date_act_key 
+      LEFT JOIN public.table_camp ON camp_id = crop_camp_key 
+      LEFT JOIN public.table_user ON user_id = date_user_key 
+      ORDER BY date_id;`
     )
     .then((results) => {
       //res.send(results.rows)
@@ -18,6 +24,8 @@ const getAllApps = asyncHandler(async (req, res) => {
       if (!appDate?.length) {
         return res.status(400).json({ message: "No se encontraron campos" });
       }
+
+      
 
       res.json(appDate);
     })
@@ -39,7 +47,7 @@ const getAllApps = asyncHandler(async (req, res) => {
 /*
 SELECT date_init, date_end, date_act_key, date_crop_key, date_id, crop_camp_key, crop_plant_key
 	FROM public.table_app_date
-	INNER JOIN public.table_crop ON crop_id = date_crop_key;
+	LEFT JOIN public.table_crop ON crop_id = date_crop_key;
 */
 const createNewApp = asyncHandler(async (req, res) => {
   const { userRep, dateInit, dateEnd, actKey, cropKey, plantId  } = req.body;
@@ -73,7 +81,7 @@ const createNewApp = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          "SELECT date_init, date_end, date_act_key, date_crop_key, date_id, crop_camp_key, crop_plant_key FROM public.table_app_date INNER JOIN public.table_crop ON crop_id = date_crop_key WHERE date_crop_key = $1;",
+          "SELECT date_init, date_end, date_act_key, date_crop_key, date_id, crop_camp_key, crop_plant_key FROM public.table_app_date LEFT JOIN public.table_crop ON crop_id = date_crop_key WHERE date_crop_key = $1;",
           [cropKey]
         )
         .then((results) => {
@@ -156,7 +164,7 @@ const updateApp = asyncHandler(async (req, res) => {
   
   pool
     .query(
-      "SELECT date_init, date_end, date_act_key, date_crop_key, date_id, date_user_key , crop_camp_key, crop_plant_key FROM public.table_app_date INNER JOIN public.table_crop ON crop_id = date_crop_key WHERE date_id = $1;",
+      "SELECT date_init, date_end, date_act_key, date_crop_key, date_id, date_user_key , crop_camp_key, crop_plant_key FROM public.table_app_date LEFT JOIN public.table_crop ON crop_id = date_crop_key WHERE date_id = $1;",
       [id]
     )
     .then((result) => {
