@@ -83,3 +83,13 @@
 20230408	11:59:59	3fac51dc-31af-4562-b1c3-dfc649f8b490	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,false,micha@ejemplo.com,
 20230408	12:02:41	0878b6ed-5a12-419d-b5c7-72566c121d54	admin	Update	Francisco	Francisco,$2b$10$SYnxJnELEQQ96AFvxeQxUuO1dnOkhWgrbOPhmO/bwwwu4bfvBWuxK,2,Francisco ,Pérez,true,,809-754-7444
 20230408	12:02:42	2ed88513-3d54-4784-9489-fa5230f2a908	admin	Update	ronaldMicha	ronaldMicha,$2b$10$OZjPh74mqwSY2xuCE3zoNuPJqQBXcayt4PfYlDfsmHveU6T2ROOza,2,Ronald,Michael,true,micha@ejemplo.com,
+20230412	11:15:39	5556de84-50ec-4bf3-a2a0-ed543b292ae6	admin	create	landres,$2b$10$Xs0aY4k4V2TKfq0fbUvSKOwyX61bPxJkePoMPLf7FjKVOsKlbi.ku,3,Julio,Andres,ldone@emil.com,809-574-5774
+20230412	11:41:21	1860511b-931b-49c3-9fe5-6302ed5298fa	admin	Update	admin	admin,$2b$10$SjFyQAQ756f1cLTkFCSB4egHvZYAgLOHNhKxXRhrU/CBDIqpg.Nj.,1,Administrador,,true,,809-574-5774
+20230412	14:56:41	65652278-be30-4b8c-935e-de2135f1a77b	admin	Update	landres	landres,$2b$10$Xs0aY4k4V2TKfq0fbUvSKOwyX61bPxJkePoMPLf7FjKVOsKlbi.ku,2,Julio,Andres,false,ldone@emil.com,809-574-5774
+20230412	14:56:43	47efe44b-f5a5-4114-8f41-cec805c2c1f6	admin	Update	landres	landres,$2b$10$Xs0aY4k4V2TKfq0fbUvSKOwyX61bPxJkePoMPLf7FjKVOsKlbi.ku,2,Julio,Andres,true,ldone@emil.com,809-574-5774
+20230412	14:56:56	83ae196f-f54a-4ba0-8ff9-93b10d509af0	admin	Update	landres	landres,$2b$10$Xs0aY4k4V2TKfq0fbUvSKOwyX61bPxJkePoMPLf7FjKVOsKlbi.ku,3,Julio,Andres,false,ldone@emil.com,809-574-5774
+20230412	14:56:57	2305a229-b4d8-4134-9b3b-06bccd4745e1	admin	Update	landres	landres,$2b$10$Xs0aY4k4V2TKfq0fbUvSKOwyX61bPxJkePoMPLf7FjKVOsKlbi.ku,3,Julio,Andres,true,ldone@emil.com,809-574-5774
+20230412	14:58:13	0696ec1f-0eb3-49a8-a1d5-a29a10e89c48	admin	Update	landres	landres,$2b$10$Xs0aY4k4V2TKfq0fbUvSKOwyX61bPxJkePoMPLf7FjKVOsKlbi.ku,3,Julio,Andres,false,ldone@emil.com,809-574-5774
+20230412	14:58:14	52e0a9ff-4d65-4880-884c-fa3da19c6ee6	admin	Update	landres	landres,$2b$10$Xs0aY4k4V2TKfq0fbUvSKOwyX61bPxJkePoMPLf7FjKVOsKlbi.ku,3,Julio,Andres,true,ldone@emil.com,809-574-5774
+20230412	14:58:27	1636b11b-d2e4-4202-8805-a311ec739ff1	admin	Update	landres	landres,$2b$10$Xs0aY4k4V2TKfq0fbUvSKOwyX61bPxJkePoMPLf7FjKVOsKlbi.ku,2,Julio,Andres,true,ldone@emil.com,809-574-5774
+20230415	17:39:22	ff222ba5-9acb-4cbd-a177-3b75c6828f45	admin	Update	ldone	ldone,$2b$10$/0.YZ3qjIbdCR/4E0LOUleOnb.YEWDFYUhhxQ4Gfk3Xcl9UPU.4zy,2,Luis,Done,true,,
