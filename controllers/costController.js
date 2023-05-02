@@ -10,13 +10,37 @@ const bcrypt = require("bcrypt");
 const getAllCost = asyncHandler(async (req, res) => {
   pool
     .query(
-      `SELECT cost_id, cost_item_key, cost_user_key, cost_quantity, cost_item_price, cost_price, cost_date,  cost_date_key, item_dose_key, item_name, crop_camp_key, crop_plant_key,crop_harvest, crop_status, date_act_key, date_crop_key, dose_name, dose_unit, act_name 
+      `SELECT 
+      cost_id, 
+      cost_item_key, 
+      cost_user_key, 
+      cost_quantity, 
+      cost_item_price, 
+      cost_price, 
+      cost_date,  
+      cost_date_key, 
+      item_dose_key, 
+      item_name, 
+      crop_camp_key, 
+      crop_plant_key,
+      crop_harvest, 
+      crop_status, 
+      date_act_key, 
+      date_crop_key, 
+      dose_name, 
+      dose_unit, 
+      act_name,
+      crop_name,
+      camp_name,
+      plant_name
       FROM public.table_cost 
       LEFT JOIN public.table_item ON cost_item_key = item_id 
       LEFT JOIN public.table_app_date on date_id = cost_date_key 
       LEFT JOIN public.table_crop ON crop_id = date_crop_key 
-      LEFT JOIN public.table_dose on dose_id = item_dose_key 
-      LEFT JOIN public.table_activity on act_id = date_act_key 
+      LEFT JOIN public.table_dose ON dose_id = item_dose_key 
+      LEFT JOIN public.table_activity ON act_id = date_act_key 
+      LEFT JOIN public.table_camp ON camp_id = crop_camp_key 
+      LEFT JOIN public.table_plant ON plant_id = crop_plant_key 
       ORDER BY cost_id ASC;`
     )
     .then((results) => {

@@ -21,7 +21,8 @@
     "express-rate-limit": "^6.6.0",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-latest/xlsx-latest.tgz"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
