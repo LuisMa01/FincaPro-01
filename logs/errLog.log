@@ -48,3 +48,8 @@
 20230304	10:47:30	0737a515-82b8-4ba6-9171-e1dfa1d86f00	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
 20230304	10:48:11	fec0d654-6e88-403c-a359-d9c0803edb3c	TypeError: Assignment to constant variable.	POST	/item	http://127.0.0.1:5173
 20230304	10:54:55	61660eba-ce14-4ecb-8f9d-2f8f943ded59	SyntaxError: Cannot convert 50.99 to a BigInt	POST	/item	http://127.0.0.1:5173
+20230419	13:10:12	1bcfb73c-3a33-4b76-842a-6f71afce3c83	Too Many Requests: Alcanzo el limite de intento para esta IP, Intente de nuevo despues de un minuto	POST	/	http://localhost:5173
+20230420	09:17:51	979f636e-e4f1-4b50-83d3-9051deae8eee	Error: Not allowed by CORS	OPTIONS	/auth	https://andre-vloebergh.onrender.com
+20230420	09:18:10	51d4266e-d47c-4e07-b953-22286133532d	Error: Not allowed by CORS	OPTIONS	/auth	https://andre-vloebergh.onrender.com
+20230426	07:42:28	bd716eea-89bc-4ac7-b7cb-a1fd00ec5231	Error: Not allowed by CORS	GET	/	undefined
+20230426	07:42:29	0d902d10-4eb6-4a44-83e2-4a28863562b3	Error: Not allowed by CORS	GET	/favicon.ico	undefined
