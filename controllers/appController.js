@@ -9,12 +9,31 @@ const asyncHandler = require("express-async-handler");
 const getAllApps = asyncHandler(async (req, res) => {
   pool
     .query(
-      `SELECT date_init, date_end, date_act_key, date_crop_key, date_id, date_user_key, crop_camp_key, crop_plant_key, crop_user_key, crop_name, crop_harvest, crop_status, user_name, user_nombre, act_name, camp_name	
+      `SELECT 
+      date_init, 
+      date_end, 
+      date_act_key, 
+      date_crop_key, 
+      date_id, 
+      date_user_key, 
+      crop_camp_key, 
+      crop_plant_key, 
+      crop_user_key, 
+      crop_name, 
+      crop_harvest, 
+      crop_plant,
+      crop_status, 
+      user_name, 
+      user_nombre, 
+      act_name, 
+      camp_name,
+      plant_name	
       FROM public.table_app_date 
       LEFT JOIN public.table_crop ON crop_id = date_crop_key 
       LEFT JOIN public.table_activity ON act_id = date_act_key 
       LEFT JOIN public.table_camp ON camp_id = crop_camp_key 
       LEFT JOIN public.table_user ON user_id = date_user_key 
+      LEFT JOIN public.table_plant ON crop_plant_key = plant_id 
       ORDER BY date_id;`
     )
     .then((results) => {
