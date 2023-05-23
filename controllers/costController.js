@@ -13,7 +13,6 @@ const getAllCost = asyncHandler(async (req, res) => {
       `SELECT 
       cost_id, 
       cost_item_key, 
-      cost_user_key, 
       cost_quantity, 
       cost_item_price, 
       cost_price, 
@@ -94,12 +93,17 @@ const createNewCost = asyncHandler(async (req, res) => {
       if (!userAdmin.user_status) {
         return res.status(403).json({ message: "Usuario inactivo" });
       }
-      if (userAdmin.user_rol !== 1) {
-        return res
-          .status(403)
-          .json({ message: "El usuario no está autorizado" });
-      }
 
+      
+      if (userAdmin.user_rol !== 1) {
+        if (userAdmin.user_rol !== 2) {
+          return res
+          .status(403)
+          .json({ message: "El usuario no está autorizado" });  
+        }
+        
+      }
+      
       pool
         .query(
           "SELECT item_id, item_price FROM public.table_item WHERE item_id = $1",
@@ -120,7 +124,6 @@ const createNewCost = asyncHandler(async (req, res) => {
           const dateN = new Date();
           const value = [
             costItemKey,
-            userAdmin.user_id,
             costQuantity ? costQuantity : 0,
             item.item_price,
             costPrice,
@@ -129,7 +132,7 @@ const createNewCost = asyncHandler(async (req, res) => {
           ];
           pool
             .query(
-              "INSERT INTO public.table_cost(cost_item_key, cost_user_key, cost_quantity, cost_item_price, cost_price, cost_date, cost_date_key) VALUES ($1, $2, $3, $4, $5, $6, $7);",
+              "INSERT INTO public.table_cost(cost_item_key, cost_quantity, cost_item_price, cost_price, cost_date, cost_date_key) VALUES ($1, $2, $3, $4, $5, $6);",
               value
             )
             .then((results2) => {
