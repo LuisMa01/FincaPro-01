@@ -87,7 +87,7 @@ const createNewAct = asyncHandler(async (req, res) => {
               value
             )
             .then((results2) => {
-              console.log("aqui");
+              
               if (results2) {
                 //created
                 return res

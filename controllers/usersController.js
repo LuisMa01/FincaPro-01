@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 // @access Private
 const getAllUsers = asyncHandler(async (req, res) => {
   // Get all users from MongoDB
-  console.log(` importante ${req.user} ${req.roles}`);
+  
   pool
     .query(
       "SELECT user_id, user_name, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_rol FROM public.table_user ORDER BY user_id"
@@ -29,7 +29,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
+        return res.status(400).json({ message: "no fue posible" });
         //throw err;
       });
     });
@@ -41,13 +41,8 @@ const getAllUsers = asyncHandler(async (req, res) => {
 const createNewUser = asyncHandler(async (req, res) => {
   const { username, password, roles, names, surname, email, phone } = req.body;
 
-  // Confirm data
-  /*
-  if (!username || !password || !Array.isArray(roles) || !roles.length) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-  */
-  console.log("creando nuevo usuario");
+  
+  
   if (!username || !password || !roles) {
     return res.status(400).json({ message: "Todos los campos son requeridos" });
   }
@@ -104,7 +99,7 @@ const createNewUser = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
+            return res.status(400).json({ message: "no fue posible" });
             //throw err;
           });
         });
@@ -115,7 +110,7 @@ const createNewUser = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
+        return res.status(400).json({ message: "no fue posible" });
         //throw err;
       });
     });
@@ -137,8 +132,8 @@ const updateUser = asyncHandler(async (req, res) => {
     email,
     phone,
   } = req.body;
-
-
+  
+  const useradmin = req.user;
   // Confirm data
   if (!id || !username || !roles || typeof status !== "boolean") {
     return res
@@ -172,15 +167,42 @@ const updateUser = asyncHandler(async (req, res) => {
           // If no users
           const duplicate = resultName.rows[0];
           let hashP;
-
+          let matchSuper = false
           if (password) {
-            
-            const match = await bcrypt.compare(passwordAnt, result.rows[0].password);
-            
+            const match = await bcrypt.compare(
+              passwordAnt,
+              result.rows[0].password
+            );
 
-            if (match) {
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            pool
+              .query(
+                "SELECT user_id, user_name, password, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_rol FROM public.table_user WHERE user_name = $1",
+                [useradmin]
+              )
+              .then(async (resultSuperUser) => {
+                if (resultSuperUser.rows[0].user_id == 1) {
+                  matchSuper = await bcrypt.compare(
+                    passwordAnt,
+                    resultSuperUser.rows[0].password
+                  );
+                }
+              })
+              .catch((err) => {
+                setImmediate(async () => {
+                  await logEvents(
+                    `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
+                    "postgresql.log"
+                  );
+                  return res.status(400).json({ message: "no fue posible" });
+                  //throw err;
+                });
+              });
+
+            if (match || matchSuper) {
               // Hash password
-              
+
               hashP = await bcrypt.hash(password, 10); // salt rounds
             }
           }
@@ -224,7 +246,7 @@ const updateUser = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
+                return res.status(400).json({ message: "no fue posible" });
                 //throw err;
               });
             });
@@ -235,7 +257,7 @@ const updateUser = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
+            return res.status(400).json({ message: "no fue posible" });
             //throw err;
           });
         });
@@ -246,7 +268,7 @@ const updateUser = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
+        return res.status(400).json({ message: "no fue posible" });
         //throw err;
       });
     });
@@ -258,7 +280,7 @@ const updateUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
-  console.log(`delete ${req.id}`);
+  
 
   // Confirm data
   if (!id) {
@@ -315,7 +337,7 @@ const deleteUser = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
+        return res.status(400).json({ message: "no fue posible" });
         //throw err;
       });
     });

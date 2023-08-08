@@ -148,8 +148,7 @@ const createNewItem = asyncHandler(async (req, res) => {
 // @access Private
 const updateItem = asyncHandler(async (req, res) => {
   const { id, itemName, desc, itemPrice, active, itemDose } = req.body;
-  console.log("aqui");
-
+ 
   let itemPrecio = parseFloat(itemPrice).toFixed(2)
   // Confirm data
   if (!id || typeof active !== "boolean") {
