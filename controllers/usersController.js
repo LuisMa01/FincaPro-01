@@ -133,6 +133,7 @@ const updateUser = asyncHandler(async (req, res) => {
     phone,
   } = req.body;
   
+  
   const useradmin = req.user;
   // Confirm data
   if (!id || !username || !roles || typeof status !== "boolean") {
@@ -175,8 +176,8 @@ const updateUser = asyncHandler(async (req, res) => {
             );
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            pool
+                  
+            await pool
               .query(
                 "SELECT user_id, user_name, password, user_nombre, user_apellido, user_status, email, user_phone, user_create_at, user_rol FROM public.table_user WHERE user_name = $1",
                 [useradmin]
@@ -195,6 +196,7 @@ const updateUser = asyncHandler(async (req, res) => {
                     `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                     "postgresql.log"
                   );
+                  
                   return res.status(400).json({ message: "no fue posible" });
                   //throw err;
                 });
@@ -217,7 +219,7 @@ const updateUser = asyncHandler(async (req, res) => {
             email ? email : result.rows[0].email,
             phone ? phone : result.rows[0].user_phone,
           ];
-
+          
           pool
             .query(
               `UPDATE public.table_user	SET user_name=$1, password=$2, user_rol=$3, user_nombre=$4, user_apellido=$5, user_status=$6, email=$7, user_phone=$8	WHERE user_id= ${id}`,
@@ -246,8 +248,9 @@ const updateUser = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
+                
                 return res.status(400).json({ message: "no fue posible" });
-                //throw err;
+                
               });
             });
         })
