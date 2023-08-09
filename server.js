@@ -1,11 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-
 const path = require("path");
-
 const cookieParser = require("cookie-parser");
 const app = express();
+
+
 const { logger, logEvents } = require("./middleware/logger");
 const errorHandler = require("./middleware/errorHandler");
 
@@ -17,13 +17,10 @@ app.use(cookieParser());
 
 const corsOptions = require("./config/corsOptions");
 app.use(logger);
-
 app.use(cors(corsOptions));
 
-
-
+//rutas de la API que proporciona accesso a los diferentes recursos de la base de dato.
 app.use("/", express.static(path.join(__dirname, "public")));
-
 app.use("/", require("./routes/root"));
 app.use("/auth", require("./routes/authRoutes"));
 app.use("/users", require("./routes/userRoutes"));
@@ -49,5 +46,4 @@ app.all("*", (req, res) => {
 });
 
 app.use(errorHandler);
-
 app.listen(process.env.PORT || 5000);

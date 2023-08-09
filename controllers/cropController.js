@@ -2,10 +2,8 @@ const { logEvents } = require("../middleware/logger");
 const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
 
-
-// @desc Get all
-// @route GET /crop
-// @access Private
+// Seccion de CULTIVOS
+//peticion GET
 const getAllCrops = asyncHandler(async (req, res) => {
   pool
     .query(
@@ -17,9 +15,8 @@ const getAllCrops = asyncHandler(async (req, res) => {
       ORDER BY crop_id ASC;`
     )
     .then((results) => {
-      //res.send(results.rows)
       const crop = results.rows;
-      // If no users
+
       if (!crop?.length) {
         return res.status(400).json({ message: "No se encontraron cultivos" });
       }
@@ -32,25 +29,29 @@ const getAllCrops = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Create new
-// @route POST /crop
-// @access Private
+// Peticion POST
 const createNewCrop = asyncHandler(async (req, res) => {
-  const { repUser, cropName, datePlant, dateHarvest, finalProd, cropCampKey, cropPlantKey, cropArea } = req.body;
+  const {
+    repUser,
+    cropName,
+    datePlant,
+    dateHarvest,
+    finalProd,
+    cropCampKey,
+    cropPlantKey,
+    cropArea,
+  } = req.body;
 
-  
-  const username = req.user
+  const username = req.user;
   if (!username || !cropName || !cropPlantKey) {
     return res.status(400).json({ message: "Llenar los campos requeridos." });
   }
 
-  // Check for duplicate username`
   await pool
     .query(
       "SELECT user_id, user_status, user_rol  FROM public.table_user WHERE user_name = $1",
@@ -72,18 +73,15 @@ const createNewCrop = asyncHandler(async (req, res) => {
       }
 
       pool
-        .query(
-          "SELECT crop_name FROM public.table_crop WHERE crop_name = $1",
-          [cropName]
-        )
+        .query("SELECT crop_name FROM public.table_crop WHERE crop_name = $1", [
+          cropName,
+        ])
         .then((results) => {
           const duplCrop = results.rows[0];
           if (duplCrop) {
             return res.status(409).json({ message: "Crops duplicada" });
           }
 
-          //const dateN = new Date();
-          
           const value = [
             cropName,
             datePlant ? datePlant : null,
@@ -100,10 +98,10 @@ const createNewCrop = asyncHandler(async (req, res) => {
               value
             )
             .then((results2) => {
-              
               if (results2) {
-                //created
-                return res.status(201).json({ message: `Nuevo cultivo creado.` });
+                return res
+                  .status(201)
+                  .json({ message: `Nuevo cultivo creado.` });
               } else {
                 return res.status(400).json({
                   message: "Datos del cultivo inválido recibido",
@@ -116,8 +114,7 @@ const createNewCrop = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -127,8 +124,7 @@ const createNewCrop = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -138,19 +134,26 @@ const createNewCrop = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Update
-// @route PATCH /crop
-// @access Private
+// Peticion PATCH
 const updateCrop = asyncHandler(async (req, res) => {
-  const { id, repUser, cropName, datePlant, dateHarvest, finalProd, cropCampKey, cropPlantKey, active, cropArea } = req.body;
+  const {
+    id,
+    repUser,
+    cropName,
+    datePlant,
+    dateHarvest,
+    finalProd,
+    cropCampKey,
+    cropPlantKey,
+    active,
+    cropArea,
+  } = req.body;
 
-  // Confirm data
   if (!id || typeof active !== "boolean") {
     return res.status(400).json({ message: "Los campos son requeridos." });
   }
@@ -161,7 +164,6 @@ const updateCrop = asyncHandler(async (req, res) => {
       [id]
     )
     .then((result) => {
-      // If no users
       const crop = result.rows[0].crop_name;
       if (!crop?.length) {
         return res.status(400).json({ message: "No se encontró el cultivo." });
@@ -173,7 +175,6 @@ const updateCrop = asyncHandler(async (req, res) => {
           [cropName]
         )
         .then(async (resultName) => {
-          // If no users
           const duplicate = resultName.rows[0];
 
           const valueInto = [
@@ -194,8 +195,6 @@ const updateCrop = asyncHandler(async (req, res) => {
               valueInto
             )
             .then((valueUpdate) => {
-              
-
               if (valueUpdate) {
                 return res.json({
                   message: `Cultivo actualizado. ${
@@ -210,8 +209,7 @@ const updateCrop = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -221,8 +219,7 @@ const updateCrop = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -232,19 +229,15 @@ const updateCrop = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Delete
-// @route DELETE /crop
-// @access Private
+// Peticion DELETE
 const deleteCrop = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
-  // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID del cultivo requerido" });
   }
@@ -266,8 +259,7 @@ const deleteCrop = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -277,8 +269,7 @@ const deleteCrop = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });

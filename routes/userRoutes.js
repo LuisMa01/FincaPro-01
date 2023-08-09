@@ -3,7 +3,7 @@ const router = express.Router()
 const usersController = require('../controllers/usersController')
 const verifyJWT = require('../middleware/verifyJWT')
 
-//uso del token JWT
+
 router.use(verifyJWT)
 
 router.route('/')

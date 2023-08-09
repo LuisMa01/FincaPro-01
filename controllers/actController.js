@@ -1,20 +1,17 @@
 const { logEvents } = require("../middleware/logger");
 const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcrypt");
 
-// @desc Get all act
-// @route GET /act
-// @access Private
+
+// Peticion GET para obtener todas las actividades
 const getAllActs = asyncHandler(async (req, res) => {
   pool
     .query(
       "SELECT act_id, act_name, act_desc, act_create_at, act_status FROM public.table_activity ORDER BY act_id ASC"
     )
     .then((results) => {
-      //res.send(results.rows)
       const act = results.rows;
-      // If no users
+
       if (!act?.length) {
         return res
           .status(400)
@@ -29,25 +26,20 @@ const getAllActs = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Create new act
-// @route POST /act
-// @access Private
+// Petición POST para crear nuevas actividades
 const createNewAct = asyncHandler(async (req, res) => {
   const { actName, desc } = req.body;
 
-  //act_id, act_name, act_desc, create_act, act_status
- const username = req.user
+  const username = req.user;
   if (!username || !actName) {
     return res.status(400).json({ message: "Ingresar nombre de la actividad" });
   }
 
-  // Check for duplicate username`
   await pool
     .query(
       "SELECT user_id, user_status, user_rol  FROM public.table_user WHERE user_name = $1",
@@ -87,18 +79,14 @@ const createNewAct = asyncHandler(async (req, res) => {
               value
             )
             .then((results2) => {
-              
               if (results2) {
-                //created
                 return res
                   .status(201)
                   .json({ message: `Nuevo actividad creada` });
               } else {
-                return res
-                  .status(400)
-                  .json({
-                    message: "Datos de la actividad inválido recibidos",
-                  });
+                return res.status(400).json({
+                  message: "Datos de la actividad inválido recibidos",
+                });
               }
             })
             .catch((err) => {
@@ -107,8 +95,7 @@ const createNewAct = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -118,8 +105,7 @@ const createNewAct = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -129,21 +115,15 @@ const createNewAct = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Update a act
-// @route PATCH /act
-// @access Private
+// Petición PATCH para editar las actividades
 const updateAct = asyncHandler(async (req, res) => {
-  const { id, actName, desc, active } =
-    req.body;
+  const { id, actName, desc, active } = req.body;
 
-  
-  // Confirm data
   if (!id || !actName || typeof active !== "boolean") {
     return res
       .status(400)
@@ -152,11 +132,10 @@ const updateAct = asyncHandler(async (req, res) => {
 
   pool
     .query(
-      'SELECT act_id, act_name, act_desc, act_status FROM public.table_activity  WHERE act_id = $1',
+      "SELECT act_id, act_name, act_desc, act_status FROM public.table_activity  WHERE act_id = $1",
       [id]
     )
     .then((result) => {
-      // If no users
       const act = result.rows[0].act_name;
       if (!act?.length) {
         return res.status(400).json({ message: "No se encontró la actividad" });
@@ -164,16 +143,15 @@ const updateAct = asyncHandler(async (req, res) => {
 
       pool
         .query(
-          'SELECT act_name FROM public.table_activity  WHERE act_name = $1',
+          "SELECT act_name FROM public.table_activity  WHERE act_name = $1",
           [actName]
         )
         .then(async (resultName) => {
-          // If no users
           const duplicate = resultName.rows[0];
 
           const valueInto = [
             duplicate ? result.rows[0].act_name : actName,
-            desc  ? desc : result.rows[0].act_desc,
+            desc ? desc : result.rows[0].act_desc,
             active,
           ];
 
@@ -183,8 +161,6 @@ const updateAct = asyncHandler(async (req, res) => {
               valueInto
             )
             .then((valueUpdate) => {
-              // usuario actualizado
-
               if (valueUpdate) {
                 return res.json({
                   message: `Actividad actualizada.${
@@ -199,8 +175,7 @@ const updateAct = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -210,8 +185,7 @@ const updateAct = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -221,24 +195,19 @@ const updateAct = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Delete a act
-// @route DELETE /act
-// @access Private
+// Petición DELETE para elimianr actividades
 const deleteAct = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
-  // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID de la actividad requerida" });
   }
 
-  
   pool
     .query(`SELECT act_id FROM public.table_activity WHERE act_id = ${id}`)
     .then((exist) => {
@@ -256,8 +225,7 @@ const deleteAct = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -267,8 +235,7 @@ const deleteAct = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });

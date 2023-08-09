@@ -2,19 +2,15 @@ const { logEvents } = require("../middleware/logger");
 const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
 
-
-// @desc Get all act
-// @route GET /act
-// @access Private
+// Peticion GET para obtener campos
 const getAllCamps = asyncHandler(async (req, res) => {
   pool
     .query(
       "SELECT camp_id, camp_name, camp_area, camp_status, camp_create_at	FROM public.table_camp ORDER BY camp_id ASC;"
     )
     .then((results) => {
-      //res.send(results.rows)
       const camp = results.rows;
-      // If no users
+
       if (!camp?.length) {
         return res.status(400).json({ message: "No se encontraron campos" });
       }
@@ -27,25 +23,20 @@ const getAllCamps = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Create new act
-// @route POST /act
-// @access Private
+// Peticion POST para crear nuevos campos
 const createNewCamp = asyncHandler(async (req, res) => {
   const { campName, area } = req.body;
 
-  //act_id, act_name, act_desc, create_act, act_status
-  const username = req.user
+  const username = req.user;
   if (!username || !campName) {
     return res.status(400).json({ message: "Ingresar nombre del campo." });
   }
 
-  // Check for duplicate username`
   await pool
     .query(
       "SELECT user_id, user_status, user_rol  FROM public.table_user WHERE user_name = $1",
@@ -67,10 +58,9 @@ const createNewCamp = asyncHandler(async (req, res) => {
       }
 
       pool
-        .query(
-          "SELECT camp_name FROM public.table_camp WHERE camp_name = $1",
-          [campName]
-        )
+        .query("SELECT camp_name FROM public.table_camp WHERE camp_name = $1", [
+          campName,
+        ])
         .then((results) => {
           const duplCamp = results.rows[0];
           if (duplCamp) {
@@ -78,21 +68,15 @@ const createNewCamp = asyncHandler(async (req, res) => {
           }
 
           const dateN = new Date();
-          
-          const value = [
-            campName,
-            area ? area : 0,
-            dateN,
-          ];
+
+          const value = [campName, area ? area : 0, dateN];
           pool
             .query(
               "INSERT INTO public.table_camp( camp_name, camp_area, camp_create_at) VALUES ($1, $2, $3);",
               value
             )
             .then((results2) => {
-              
               if (results2) {
-                //created
                 return res.status(201).json({ message: `Nuevo campo creado.` });
               } else {
                 return res.status(400).json({
@@ -106,8 +90,7 @@ const createNewCamp = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -117,8 +100,7 @@ const createNewCamp = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -128,19 +110,15 @@ const createNewCamp = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Update a camp
-// @route PATCH /camp
-// @access Private
+// Peticion PATCH para editar campos
 const updateCamp = asyncHandler(async (req, res) => {
   const { id, campName, area, active } = req.body;
 
-  // Confirm data
   if (!id || !campName || typeof active !== "boolean") {
     return res.status(400).json({ message: "Los campos son requeridos." });
   }
@@ -151,7 +129,6 @@ const updateCamp = asyncHandler(async (req, res) => {
       [id]
     )
     .then((result) => {
-      // If no users
       const camp = result.rows[0].camp_name;
       if (!camp?.length) {
         return res.status(400).json({ message: "No se encontró el campo." });
@@ -163,7 +140,6 @@ const updateCamp = asyncHandler(async (req, res) => {
           [campName]
         )
         .then(async (resultName) => {
-          // If no users
           const duplicate = resultName.rows[0];
 
           const valueInto = [
@@ -178,8 +154,6 @@ const updateCamp = asyncHandler(async (req, res) => {
               valueInto
             )
             .then((valueUpdate) => {
-              
-
               if (valueUpdate) {
                 return res.json({
                   message: `Campo actualizado. ${
@@ -194,8 +168,7 @@ const updateCamp = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -205,8 +178,7 @@ const updateCamp = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -216,19 +188,15 @@ const updateCamp = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Delete a act
-// @route DELETE /act
-// @access Private
+// Peticion DELETE para eliminar campos
 const deleteCamp = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
-  // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID del campo requerido" });
   }
@@ -250,8 +218,7 @@ const deleteCamp = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -261,8 +228,7 @@ const deleteCamp = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
