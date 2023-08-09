@@ -2,19 +2,16 @@ const { logEvents } = require("../middleware/logger");
 const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
 
-
-// @desc Get all act
-// @route GET /act
-// @access Private
+// Seccion de PLANTAS
+//peticion GET
 const getAllPlants = asyncHandler(async (req, res) => {
   pool
     .query(
       "SELECT plant_id, plant_name, plant_desc, plant_status, plant_create_at, plant_variety, plant_frame FROM public.table_plant ORDER BY plant_id ASC"
     )
     .then((results) => {
-      //res.send(results.rows)
       const plant = results.rows;
-      // If no users
+
       if (!plant?.length) {
         return res.status(400).json({ message: "No se encontraron planta" });
       }
@@ -27,24 +24,19 @@ const getAllPlants = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        //throw err;
       });
     });
 });
 
-// @desc Create new act
-// @route POST /act
-// @access Private
+// Peticion POST
 const createNewPlant = asyncHandler(async (req, res) => {
   const { plantName, desc, variety, plantFrame } = req.body;
 
-  
-  const username = req.user
+  const username = req.user;
   if (!username || !plantName) {
     return res.status(400).json({ message: "Ingresar nombre de la planta" });
   }
 
-  // Check for duplicate username`
   await pool
     .query(
       "SELECT user_id, user_status, user_rol  FROM public.table_user WHERE user_name = $1",
@@ -77,7 +69,7 @@ const createNewPlant = asyncHandler(async (req, res) => {
           }
 
           const dateN = new Date();
-          
+
           const value = [
             plantName,
             desc ? desc : "",
@@ -91,9 +83,7 @@ const createNewPlant = asyncHandler(async (req, res) => {
               value
             )
             .then((results2) => {
-              
               if (results2) {
-                //created
                 return res.status(201).json({ message: `Nuevo planta creada` });
               } else {
                 return res.status(400).json({
@@ -117,7 +107,6 @@ const createNewPlant = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            //throw err;
           });
         });
     })
@@ -132,13 +121,10 @@ const createNewPlant = asyncHandler(async (req, res) => {
     });
 });
 
-// @desc Update a act
-// @route PATCH /act
-// @access Private
+// Peticion PATCH
 const updatePlant = asyncHandler(async (req, res) => {
   const { id, plantName, desc, variety, active, plantFrame } = req.body;
 
-  // Confirm data
   if (!id || !plantName || typeof active !== "boolean") {
     return res.status(400).json({ message: "Los Campos son requeridos." });
   }
@@ -149,7 +135,6 @@ const updatePlant = asyncHandler(async (req, res) => {
       [id]
     )
     .then((result) => {
-      // If no users
       const plant = result.rows[0].plant_name;
       if (!plant?.length) {
         return res.status(400).json({ message: "No se encontró la planta" });
@@ -161,7 +146,6 @@ const updatePlant = asyncHandler(async (req, res) => {
           [plantName]
         )
         .then(async (resultName) => {
-          // If no users
           const duplicate = resultName.rows[0];
 
           const valueInto = [
@@ -178,8 +162,6 @@ const updatePlant = asyncHandler(async (req, res) => {
               valueInto
             )
             .then((valueUpdate) => {
-              // usuario actualizado
-
               if (valueUpdate) {
                 return res.json({
                   message: `Planta actualizada. ${
@@ -194,8 +176,7 @@ const updatePlant = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -205,8 +186,7 @@ const updatePlant = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -216,19 +196,15 @@ const updatePlant = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Delete a act
-// @route DELETE /act
-// @access Private
+// Peticion DELETE
 const deletePlant = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
-  // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID de la planta requerida" });
   }
@@ -250,8 +226,7 @@ const deletePlant = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -261,8 +236,7 @@ const deletePlant = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });

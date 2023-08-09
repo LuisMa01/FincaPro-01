@@ -3,17 +3,8 @@ const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
-// @desc Get all act
-// @route GET /act
-// @access Private
-/*
-SELECT comt_id, comt_date, comt_desc, comt_user_key, comt_date_key, date_act_key, date_crop_key
-	FROM public.table_comment
-	LEFT JOIN public.table_app_date ON date_id = comt_date_key
-	ORDER BY comt_id ASC;
-
-  SELECT comt_id, comt_date, comt_desc, comt_user_key, comt_date_key, date_act_key, date_crop_key	FROM public.table_comment LEFT JOIN public.table_app_date ON date_id = comt_date_key	ORDER BY comt_id ASC;
-*/
+// Seccion de COMENTARIOS
+// Peticion GET
 const getAllCom = asyncHandler(async (req, res) => {
   pool
     .query(
@@ -25,9 +16,8 @@ const getAllCom = asyncHandler(async (req, res) => {
       ORDER BY comt_id ASC;`
     )
     .then((results) => {
-      //res.send(results.rows)
       const commt = results.rows;
-      // If no users
+
       if (!commt?.length) {
         return res
           .status(400)
@@ -42,25 +32,20 @@ const getAllCom = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Create new act
-// @route POST /act
-// @access Private
+// Peticion POST
 const createNewCom = asyncHandler(async (req, res) => {
   const { desc, comtDateKey } = req.body;
 
-  //comt_date, comt_desc, comt_user_key, comt_date_key,
-  const username = req.user
+  const username = req.user;
   if (!username || !desc || !comtDateKey) {
     return res.status(400).json({ message: "Llenar loc campos requeridos." });
   }
 
-  // Check for duplicate username`
   await pool
     .query(
       "SELECT user_id, user_status, user_rol  FROM public.table_user WHERE user_name = $1",
@@ -82,22 +67,17 @@ const createNewCom = asyncHandler(async (req, res) => {
       }
 
       const dateN = new Date();
-      const value = [
-        dateN, 
-        desc ? desc : "", 
-        userAdmin.user_id, 
-        comtDateKey
-      ];
+      const value = [dateN, desc ? desc : "", userAdmin.user_id, comtDateKey];
       pool
         .query(
           "INSERT INTO public.table_comment(comt_date, comt_desc, comt_user_key, comt_date_key) VALUES ($1, $2, $3, $4);",
           value
         )
         .then((results2) => {
-          
           if (results2) {
-            //created
-            return res.status(201).json({ message: `Nuevo comentario creado.` });
+            return res
+              .status(201)
+              .json({ message: `Nuevo comentario creado.` });
           } else {
             return res.status(400).json({
               message: "Datos del comentario inválidos recibidos",
@@ -110,8 +90,7 @@ const createNewCom = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -121,23 +100,17 @@ const createNewCom = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Update a act
-// @route PATCH /act
-// @access Private
+// Peticion PATCH
 const updateCom = asyncHandler(async (req, res) => {
   const { id, desc, comtDateKey } = req.body;
 
-  // Confirm data
   if (!id || !desc || !comtDateKey) {
-    return res
-      .status(400)
-      .json({ message: "Los campos son requeridos." });
+    return res.status(400).json({ message: "Los campos son requeridos." });
   }
 
   pool
@@ -146,10 +119,11 @@ const updateCom = asyncHandler(async (req, res) => {
       [id]
     )
     .then((result) => {
-      // If no users
       const comt = result.rows[0].comt_desc;
       if (!comt?.length) {
-        return res.status(400).json({ message: "No se encontró el comentario." });
+        return res
+          .status(400)
+          .json({ message: "No se encontró el comentario." });
       }
 
       pool
@@ -158,13 +132,9 @@ const updateCom = asyncHandler(async (req, res) => {
           [comtDateKey]
         )
         .then(async (resultName) => {
-          // If no users
           const appDate = resultName.rows[0].date_id;
 
-          const valueInto = [
-            desc ? desc : result.rows[0].comt_desc,
-            appDate,
-          ];
+          const valueInto = [desc ? desc : result.rows[0].comt_desc, appDate];
 
           pool
             .query(
@@ -172,8 +142,6 @@ const updateCom = asyncHandler(async (req, res) => {
               valueInto
             )
             .then((valueUpdate) => {
-              // usuario actualizado
-
               if (valueUpdate) {
                 return res.json({
                   message: `Comentario actualizado.`,
@@ -186,8 +154,7 @@ const updateCom = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -197,8 +164,7 @@ const updateCom = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -208,19 +174,15 @@ const updateCom = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Delete a act
-// @route DELETE /act
-// @access Private
+// Peticion DELETE
 const deleteCom = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
-  // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID de la actividad requerida" });
   }
@@ -242,8 +204,7 @@ const deleteCom = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -253,8 +214,7 @@ const deleteCom = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });

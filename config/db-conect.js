@@ -1,7 +1,8 @@
 
 require("dotenv").config();
-
 const { Pool } = require("pg");
+
+//conexión a la base de datos PostgreSQL
 
 const isProduction = process.env.NODE_ENV === "production";
 

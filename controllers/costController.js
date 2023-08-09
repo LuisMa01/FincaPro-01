@@ -3,10 +3,8 @@ const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
-// @desc Get all
-// @route GET /cost
-// @access Private
-
+// Seccion de COSTOS
+//peticion GET
 const getAllCost = asyncHandler(async (req, res) => {
   pool
     .query(
@@ -43,9 +41,8 @@ const getAllCost = asyncHandler(async (req, res) => {
       ORDER BY cost_id ASC;`
     )
     .then((results) => {
-      //res.send(results.rows)
       const cost = results.rows;
-      // If no users
+
       if (!cost?.length) {
         return res.status(400).json({ message: "No se encontro" });
       }
@@ -58,27 +55,21 @@ const getAllCost = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Create new
-// @route POST /cost
-// @access Private
+// Peticion POST
 const createNewCost = asyncHandler(async (req, res) => {
-  const { costItemKey, costQuantity, costDateKey } =
-    req.body;
+  const { costItemKey, costQuantity, costDateKey } = req.body;
 
-    const username = req.user
-  //cost_item_key, cost_user_key, cost_labor, cost_quantity, cost_item_price, cost_price, cost_date, cost_date_key
+  const username = req.user;
 
   if (!username || !costItemKey || !costDateKey) {
     return res.status(400).json({ message: "Llenar los campos requeridos" });
   }
 
-  // Check for duplicate username`
   await pool
     .query(
       "SELECT user_id, user_status, user_rol  FROM public.table_user WHERE user_name = $1",
@@ -94,16 +85,14 @@ const createNewCost = asyncHandler(async (req, res) => {
         return res.status(403).json({ message: "Usuario inactivo" });
       }
 
-      
       if (userAdmin.user_rol !== 1) {
         if (userAdmin.user_rol !== 2) {
           return res
-          .status(403)
-          .json({ message: "El usuario no está autorizado" });  
+            .status(403)
+            .json({ message: "El usuario no está autorizado" });
         }
-        
       }
-      
+
       pool
         .query(
           "SELECT item_id, item_price FROM public.table_item WHERE item_id = $1",
@@ -115,7 +104,6 @@ const createNewCost = asyncHandler(async (req, res) => {
             return res.status(409).json({ message: "Item no existe" });
           }
 
-          //costItemKey, costLabor, costQuantity, costDateKey
           let costPrice = 0;
           if (item.item_price) {
             costPrice = item.item_price * costQuantity;
@@ -137,7 +125,6 @@ const createNewCost = asyncHandler(async (req, res) => {
             )
             .then((results2) => {
               if (results2) {
-                //created
                 return res.status(201).json({ message: `item insertado.` });
               } else {
                 return res.status(400).json({
@@ -151,8 +138,7 @@ const createNewCost = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -162,8 +148,7 @@ const createNewCost = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -173,20 +158,16 @@ const createNewCost = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Update 
-// @route PATCH /cost
-// @access Private
+// Peticion PATCH
 const updateCost = asyncHandler(async (req, res) => {
   const { id, costItemKey, costQuantity, costDateKey, costItemPrice } =
     req.body;
 
-  // Confirm data
   if (!id) {
     return res.status(400).json({ message: "Los Campos son requeridos." });
   }
@@ -197,7 +178,6 @@ const updateCost = asyncHandler(async (req, res) => {
       [id]
     )
     .then((result) => {
-      // If no users
       const cost = result.rows[0].cost_id;
       if (!cost?.length) {
         return res.status(400).json({ message: "No se encontró el item" });
@@ -209,21 +189,18 @@ const updateCost = asyncHandler(async (req, res) => {
           [costItemKey]
         )
         .then(async (resultName) => {
-          // If no users
           const item = resultName.rows[0];
 
-          let price = cost.cost_item_price
+          let price = cost.cost_item_price;
 
-          if (costItemKey !== cost.cost_item_key ) {
-            price = item.item_price
+          if (costItemKey !== cost.cost_item_key) {
+            price = item.item_price;
           }
           if (costItemPrice) {
-            price = costItemPrice
+            price = costItemPrice;
           }
 
           let costPrice = price * costQuantity;
-
-          //costItemKey, costLabor, costQuantity, costDateKey, costPrice
 
           const valueInto = [
             costItemKey ? costItemKey : cost.cost_item_key,
@@ -239,8 +216,6 @@ const updateCost = asyncHandler(async (req, res) => {
               valueInto
             )
             .then((valueUpdate) => {
-              // usuario actualizado
-
               if (valueUpdate) {
                 return res.json({
                   message: `Item actualizado.`,
@@ -253,8 +228,7 @@ const updateCost = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -264,8 +238,7 @@ const updateCost = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -275,19 +248,15 @@ const updateCost = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Delete
-// @route DELETE /cost
-// @access Private
+// Peticion DELETE
 const deleteCost = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
-  // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID de la actividad requerida" });
   }
@@ -309,8 +278,7 @@ const deleteCost = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -320,8 +288,7 @@ const deleteCost = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });

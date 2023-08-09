@@ -2,21 +2,19 @@ const { logEvents } = require("../middleware/logger");
 const { pool } = require("../config/db-conect");
 const asyncHandler = require("express-async-handler");
 
-// @desc Get all
-// @route GET /item
-// @access Private
+// Seccion de ARTICULOS
+//peticion GET
 const getAllItems = asyncHandler(async (req, res) => {
   pool
     .query(
       `SELECT item_id, item_name, item_desc, item_price, item_create_at, item_status, item_dose_key, dose_name, dose_unit 
       FROM public.table_item 
       LEFT JOIN public.table_dose ON item_dose_key = dose_id 
-      ORDER BY item_id ASC` 
+      ORDER BY item_id ASC`
     )
     .then((results) => {
-      //res.send(results.rows)
       const item = results.rows;
-      // If no users
+
       if (!item?.length) {
         return res.status(400).json({ message: "No se encontraron Items" });
       }
@@ -29,23 +27,18 @@ const getAllItems = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Create new
-// @route POST /item
-// @access Private
+// Peticion POST
 const createNewItem = asyncHandler(async (req, res) => {
   const { itemName, desc, itemPrice, itemDose } = req.body;
-  let itemPrecio 
-  
-  const username = req.user
-  itemPrecio = parseFloat(itemPrice).toFixed(2)
+  let itemPrecio;
 
-  
+  const username = req.user;
+  itemPrecio = parseFloat(itemPrice).toFixed(2);
 
   if (!username || !itemName || !itemDose) {
     return res
@@ -53,7 +46,6 @@ const createNewItem = asyncHandler(async (req, res) => {
       .json({ message: "Ingresar nombre de los campos requeridos." });
   }
 
-  // Check for duplicate username`
   await pool
     .query(
       "SELECT user_id, user_status, user_rol  FROM public.table_user WHERE user_name = $1",
@@ -93,7 +85,7 @@ const createNewItem = asyncHandler(async (req, res) => {
             dateN,
             itemDose,
           ];
-          //username, itemName, desc, itemPrice, itemDose
+
           pool
             .query(
               "INSERT INTO public.table_item( item_name, item_desc, item_price, item_create_at, item_dose_key) VALUES ($1, $2, $3, $4, $5);",
@@ -101,7 +93,6 @@ const createNewItem = asyncHandler(async (req, res) => {
             )
             .then((results2) => {
               if (results2) {
-                //created
                 return res.status(201).json({ message: `Nuevo item creado.` });
               } else {
                 return res.status(400).json({
@@ -115,8 +106,7 @@ const createNewItem = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -126,8 +116,7 @@ const createNewItem = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -137,20 +126,17 @@ const createNewItem = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-       //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Update
-// @route PATCH /item
-// @access Private
+// Peticion PATCH
 const updateItem = asyncHandler(async (req, res) => {
   const { id, itemName, desc, itemPrice, active, itemDose } = req.body;
- 
-  let itemPrecio = parseFloat(itemPrice).toFixed(2)
-  // Confirm data
+
+  let itemPrecio = parseFloat(itemPrice).toFixed(2);
+
   if (!id || typeof active !== "boolean") {
     return res.status(400).json({ message: "Los campos son requeridos." });
   }
@@ -161,7 +147,6 @@ const updateItem = asyncHandler(async (req, res) => {
       [id]
     )
     .then((result) => {
-      // If no users
       const item = result.rows[0].item_name;
       if (!item?.length) {
         return res.status(400).json({ message: "No se encontró el item." });
@@ -173,7 +158,6 @@ const updateItem = asyncHandler(async (req, res) => {
           [itemName]
         )
         .then(async (resultName) => {
-          // If no users
           const duplicate = resultName.rows[0];
 
           const valueInto = [
@@ -204,8 +188,7 @@ const updateItem = asyncHandler(async (req, res) => {
                   `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
                   "postgresql.log"
                 );
-                return res.status(400).json({ message: "no fue posible" })
-                //throw err;
+                return res.status(400).json({ message: "no fue posible" });
               });
             });
         })
@@ -215,8 +198,7 @@ const updateItem = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -226,19 +208,15 @@ const updateItem = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });
 
-// @desc Delete
-// @route DELETE /item
-// @access Private
+// Peticion DELETE
 const deleteItem = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
-  // Confirm data
   if (!id) {
     return res.status(400).json({ message: "ID del item requerida" });
   }
@@ -260,8 +238,7 @@ const deleteItem = asyncHandler(async (req, res) => {
               `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
               "postgresql.log"
             );
-            return res.status(400).json({ message: "no fue posible" })
-            //throw err;
+            return res.status(400).json({ message: "no fue posible" });
           });
         });
     })
@@ -271,8 +248,7 @@ const deleteItem = asyncHandler(async (req, res) => {
           `${err.code}\t ${err.routine}\t${err.file}\t${err.stack}`,
           "postgresql.log"
         );
-        return res.status(400).json({ message: "no fue posible" })
-        //throw err;
+        return res.status(400).json({ message: "no fue posible" });
       });
     });
 });

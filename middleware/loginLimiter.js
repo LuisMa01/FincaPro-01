@@ -1,17 +1,24 @@
-const rateLimit = require('express-rate-limit')
-const { logEvents } = require('./logger')
+const rateLimit = require("express-rate-limit");
+const { logEvents } = require("./logger");
+
+// limita a 5 las veces que un usuario puede intentar hacer login.
 
 const loginLimiter = rateLimit({
-    windowMs: 60 * 1000, // 1 minute
-    max: 5, // Limit each IP to 5 login requests per `window` per minute
+  windowMs: 60 * 1000,
+  max: 5,
+  message: {
     message:
-        { message: 'Alcanzo el limite de intento para esta IP, Intente de nuevo despues de un minuto' },
-    handler: (req, res, next, options) => {
-        logEvents(`Too Many Requests: ${options.message.message}\t${req.method}\t${req.url}\t${req.headers.origin}`, 'errLog.log')
-        res.status(options.statusCode).send(options.message)
-    },
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-})
+      "Alcanzo el limite de intento para esta IP, Intente de nuevo despues de un minuto",
+  },
+  handler: (req, res, next, options) => {
+    logEvents(
+      `Demasiados intentos: ${options.message.message}\t${req.method}\t${req.url}\t${req.headers.origin}`,
+      "errLog.log"
+    );
+    res.status(options.statusCode).send(options.message);
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
-module.exports = loginLimiter
+module.exports = loginLimiter;
